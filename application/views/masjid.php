@@ -244,7 +244,7 @@
                         <h6 class="mb-3">Ketua : Muhammad Fajri</h6>
                     </div>
 
-                    <!-- date kegitan -->
+                    <!-- date kegiatan -->
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
