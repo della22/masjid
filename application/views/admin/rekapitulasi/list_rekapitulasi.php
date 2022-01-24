@@ -205,10 +205,6 @@
 <?php $this->load->view("admin/_partials/modal.php") ?>
 
 
-<!-- MODAL -->
-<?php $this->load->view("admin/_partials/modal.php") ?>
-
-
 
 <!-- jQuery -->
 <script src="<?php echo base_url('assets/jquery/dist/jquery.min.js') ?>"></script>
@@ -243,34 +239,11 @@
 
 </script>
 
-
-
-<script type="text/javascript">
-  $(document).ready(function(){
-
-    $('#nama_siswa').autocomplete({
-      source: "<?php echo site_url('admin/bayar_catering/get_autocomplete');?>",
-      select: function (event, ui) {
-        $('[name="nama_siswa"]').val(ui.item.label); 
-        $('[name="nis"]').val(ui.item.nomor);
-        $('[name="kelas"]').val(ui.item.kelas);
-        $('[name="biaya_catering"]').val(ui.item.biaya); 
-      }
-    });
-
-  });
-</script>
-
 <script>
   function deleteConfirm(url){
     $('#btn-delete').attr('href', url);
     $('#deleteModal').modal();
   }
-
-      // function bayarsppConfirm(url){
-      //   $('#btn-bayar').attr('href', url);
-      //   $('#bayarModal').modal();
-      // }
     </script>
 
 

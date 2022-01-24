@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <?php $this->load->view("admin/_partials/head.php") ?>
+        <link rel="stylesheet" href="<?= base_url() . 'js/mini-event-calendar.min.css' ?>">
   </head>
 
   <body class="nav-md">
@@ -80,83 +81,11 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                  <div class="calendarr">
-                    <div class="calendar__month">
-                      <div class="cal-month__previous"><</div>
-                      <div class="cal-month__current"></div>
-                      <div class="cal-month__next">></div>
-                    </div>
-                    <div class="calendar__head">
-                      <div class="cal-head__day"></div>
-                      <div class="cal-head__day"></div>
-                      <div class="cal-head__day"></div>
-                      <div class="cal-head__day"></div>
-                      <div class="cal-head__day"></div>
-                      <div class="cal-head__day"></div>
-                      <div class="cal-head__day"></div>
-                    </div>
-                    <div class="calendar__body">
-                      <div class="cal-body__week">
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                      </div>
-                      <div class="cal-body__week">
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                      </div>
-                      <div class="cal-body__week">
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                      </div>
-                      <div class="cal-body__week">
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                      </div>
-                      <div class="cal-body__week">
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                      </div>
-                      <div class="cal-body__week">
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                      </div>
-                    </div>
+                     <div class="calendar-container"></div>
                   </div>
-
                 </div>
-
-              </div>
             </div>
+
 
             <div class="col-md-6 col-sm-6 ">
               <div class="x_panel">
@@ -165,80 +94,8 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                  <div class="calendarr">
-                    <div class="calendar__month">
-                      <div class="cal-month__previous"><</div>
-                      <div class="cal-month__current"></div>
-                      <div class="cal-month__next">></div>
-                    </div>
-                    <div class="calendar__head">
-                      <div class="cal-head__day"></div>
-                      <div class="cal-head__day"></div>
-                      <div class="cal-head__day"></div>
-                      <div class="cal-head__day"></div>
-                      <div class="cal-head__day"></div>
-                      <div class="cal-head__day"></div>
-                      <div class="cal-head__day"></div>
-                    </div>
-                    <div class="calendar__body">
-                      <div class="cal-body__week">
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                      </div>
-                      <div class="cal-body__week">
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                      </div>
-                      <div class="cal-body__week">
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                      </div>
-                      <div class="cal-body__week">
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                      </div>
-                      <div class="cal-body__week">
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                      </div>
-                      <div class="cal-body__week">
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                        <div class="cal-body__day"></div>
-                      </div>
-                    </div>
+                    <div id="calendar-khatib" class="calendar-khatib"></div>
                   </div>
-                </div>
-
               </div>
             </div>
 
@@ -255,10 +112,6 @@
         <!-- /footer content -->
       </div>
     </div>
-
-    <!-- Kalender -->
-    <script src="<?php echo base_url('assets/js/calendar.js') ?>"></script>
-    <script src="<?php echo base_url('css/calendar.css') ?>"></script>
 
      <!-- jQuery -->
     <script src="<?php echo base_url('assets/jquery/dist/jquery.min.js') ?>"></script>
@@ -582,6 +435,34 @@ function init_echarts() {
         };
     </script>
 
+    <!-- Kalender -->
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="<?= base_url() . 'js/mini-event-calendar.min.js' ?>"></script>
+
+    <script>
+        $(function() {
+            $('.calendar-container').MEC({
+                calendar_link: "jqueryscript.net", // calendar link
+                // events: myEvents
+            });
+        });
+    </script>
+    <script>
+        var myEvents = [
+            {
+                title: "Jadwal imam/khatib",
+                date: new Date().getTime(),
+                link: "<?= base_url() ?>"
+            },
+            // more events here
+        ];
+
+        $('.calendar-khatib').MEC({
+            calendar_link: "<?= base_url() ?>", // calendar link
+            events: myEvents
+        });
+    </script>
 
     <!-- MODAL -->
     <?php $this->load->view("admin/_partials/modal.php") ?>

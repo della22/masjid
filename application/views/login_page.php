@@ -41,7 +41,7 @@
                 <input type="password" class="form-control" placeholder="Password" name="password" required />
               </div>
               <div class="col-md-6 col-sm-6 offset-md-3">
-                <a href="<?php echo site_url('admin/ustadz') ?>" type="submit" class="btn btn-success btn-lg">Login</a>
+                <a href="<?php echo site_url('admin/overview') ?>" type="submit" class="btn btn-success btn-lg">Login</a>
               </div>
 
               <div class="clearfix"></div>

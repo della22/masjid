@@ -62,7 +62,7 @@
 
           <!-- /menu footer buttons -->
           <div class="sidebar-footer hidden-small">
-            <a data-toggle="tooltip" data-placement="top" title="Logout" href="<?= site_url('login/logout') ?>" style="width: 100%;">
+            <a data-toggle="tooltip" data-placement="top" title="Logout" href="<?= site_url('masjid') ?>" style="width: 100%;">
               <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
             </a>
           </div>
