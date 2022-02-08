@@ -45,25 +45,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </tr>
                           </thead>
                           <tbody>
+                          <?php $j = 1; ?>
+                          <?php foreach ($ustadz->result_array() as $data_ustadz):
+                          ?>
                             <tr>
-                              <td align="center">1</td>
-                              <td width="150">1234567890</td>
-                              <td width="200">Della xxxxxxx</td>
-                              <td width="50">085601018452</td>
-                              <td width="350">Selindung Baru</td>
+                              <td align="center"><?php echo $j ?></td>
+                              <td width="150"><?=$data_ustadz['nik'];?></td>
+                              <td width="200"><?=$data_ustadz['nama_ustadz'];?></td>
+                              <td width="50"><?=$data_ustadz['telepon_ustadz'];?></td>
+                              <td width="350"><?=$data_ustadz['alamat_ustadz'];?></td>
                               <td width="150" align="center">
                                 <a href="#"  data-toggle="modal" data-target="#editModal" style="margin-right: 10px"><i class="fa fa-edit"></i> Edit</a>
                                 <a onclick="deleteConfirm('#')" href="#!" ><i class="fa fa-trash"></i> Hapus</a></td>
-                                <tr>
-                              <td align="center">2</td>
-                              <td width="150">091234</td>
-                              <td width="200">Adi xxxxxxx</td>
-                              <td width="50">081234532</td>
-                              <td width="350">Bandung Barat</td>
-                              <td width="150" align="center">
-                                <a href="#"  data-toggle="modal" data-target="#editModal" style="margin-right: 10px"><i class="fa fa-edit"></i> Edit</a>
-                                <a onclick="deleteConfirm('#')" href="#!" ><i class="fa fa-trash"></i> Hapus</a></td>  
                             </tr>
+                            <?php $j++; ?>
+                            <?php endforeach; ?>
                           </tbody>
                         </table>
                       </div>
@@ -159,7 +155,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
               <div class="modal-body">
                 <div class="col-md-12 col-sm-12">  
-                    <form action="#" method="post" enctype="multipart/form-data" >
+                    <form action="<?=base_url();?>/admin/ustadz/proses" method="post" enctype="multipart/form-data" >
                     
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="NIK">NIK</label>
