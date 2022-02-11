@@ -33,6 +33,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <div class="row">
                     <div class="col-sm-12">
                       <div class="card-box table-responsive">
+
+                        <?php echo form_error('nik', '<div class="alert alert-danger alert-dismissible fade show" role="alert">','<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button></div>'); ?>
+
+                        <?php echo form_error('telepon_ustadz', '<div class="alert alert-danger alert-dismissible fade show" role="alert">','<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button></div>'); ?>
+
+                        <?php if ($this->session->flashdata('success') == TRUE): ?>
+                          <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <?= $this->session->flashdata('success');?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                        <?php endif; ?>
                        <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                           <thead>
                             <tr>
@@ -55,8 +72,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <td width="50"><?=$data_ustadz['telepon_ustadz'];?></td>
                               <td width="350"><?=$data_ustadz['alamat_ustadz'];?></td>
                               <td width="150" align="center">
-                                <a href="#"  data-toggle="modal" data-target="#editModal" style="margin-right: 10px"><i class="fa fa-edit"></i> Edit</a>
-                                <a onclick="deleteConfirm('#')" href="#!" ><i class="fa fa-trash"></i> Hapus</a></td>
+                                <a href=""  onclick="editData(event, '<?=$data_ustadz['nik'];?>','<?=$data_ustadz['nama_ustadz'];?>','<?=$data_ustadz['telepon_ustadz'];?>','<?=$data_ustadz['alamat_ustadz'];?>')"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/ustadz/hapus/<?=$data_ustadz['nik'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
                             </tr>
                             <?php $j++; ?>
                             <?php endforeach; ?>
@@ -113,24 +130,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">
-                <form role="form" action="#" method="post">
+                <form role="form" action="<?=base_url();?>/admin/ustadz/edit" method="post">
+                  <div class="form-group col-md-12 col-sm-12">
+                    <label class="col-form-label col-md-3 col-sm-3 label-align">NIK : </label>
+                    <div class="col-md-8 col-sm-8 ">
+                      <input class="form-control" type="number" name="nik" id="nik_ustadz" placeholder="Nik" value=""/>
+                    </div>
+                  </div>
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Nama : </label>
                     <div class="col-md-8 col-sm-8 ">
-                      <input class="form-control" type="text" name="nama_ustadz" placeholder="Nama" value=""/>
+                      <input class="form-control" type="text" name="nama_ustadz" id="nama_ustadz" placeholder="Nama" value=""/>
                     </div>
                   </div>
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Telepon : </label>
                     <div class='col-md-8 col-sm-8'>
-                       <input class="form-control" type="text" name="telepon_ustadz" placeholder="Telepon" required/>    
+                       <input class="form-control" type="number" name="telepon_ustadz" id="telepon_ustadz" placeholder="Telepon" required/>    
                     </div>
                    
                   </div>
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Alamat : </label>
                     <div class="col-md-8 col-sm-8 ">
-                       <textarea class="form-control" name="alamat_ustadz" placeholder="Alamat" required></textarea>
+                       <textarea class="form-control" name="alamat_ustadz" id="alamat_ustadz" placeholder="Alamat" required></textarea>
                     </div>
                   </div>
                   <br>
@@ -160,28 +183,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="NIK">NIK</label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" name="nik" placeholder="NIK" required />
+                        <input class="form-control" type="text" name="nik" placeholder="NIK" value="<?= set_value('nik'); ?>" required />
                       </div>
                     </div>
 
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama_ustadz">Nama</label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" name="nama_ustadz" placeholder="Nama" required/>
+                        <input class="form-control" type="text" name="nama_ustadz" placeholder="Nama" value="<?= set_value('nama_ustadz'); ?>" required/>
                       </div>
                     </div>
 
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="telepon_ustadz">Telepon</label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" name="telepon_ustadz" placeholder="Telepon" required/>
+                        <input class="form-control" type="text" name="telepon_ustadz" placeholder="Telepon" value="<?= set_value('telepon_ustadz'); ?>" required/>
                       </div>
                     </div>
 
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="alamat_ustadz">Alamat</label>
                       <div class="col-md-8 col-sm-8 ">
-                        <textarea class="form-control" name="alamat_ustadz" placeholder="Alamat" required></textarea>
+                        <textarea class="form-control" name="alamat_ustadz" placeholder="Alamat" required><?= set_value('alamat_ustadz'); ?></textarea>
                       </div>
                     </div>
 
@@ -236,9 +259,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url('js/custom.min.js') ?>"></script>
 
     <script>
-      function deleteConfirm(url){
+      function deleteConfirm(e,url){
+        e.preventDefault();
         $('#btn-delete').attr('href', url);
         $('#deleteModal').modal();
+      }
+
+      function editData(e,nik,nama,telepon,alamat){
+        e.preventDefault();
+
+        $("#nik_ustadz").val(nik);
+        $("#nama_ustadz").val(nama);
+        $("#telepon_ustadz").val(telepon);
+        $("#alamat_ustadz").val(alamat);
+        $('#editModal').modal();
       }
     </script>
 

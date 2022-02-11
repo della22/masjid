@@ -24,7 +24,7 @@
 
                <!--  <li><a href="#"  data-toggle="modal" data-target="#uploadrekap"><center><button type="button" class="btn btn-info btn-md">Upload Data</button></center></a></li> -->
                 <li><a href="<?php echo site_url('admin/overview') ?>"><i class="fa fa-home"></i> Home <span class="fa fa-chevron"></span></a>
-                  </li>
+                </li>
 
                 <li><a href="<?php echo site_url('admin/ustadz') ?>"><i class="fa fa-child"></i> Data Ustadz <span class="fa fa-chevron"></span></a>
                 </li>
@@ -45,7 +45,7 @@
                   </ul>
                 </li>
 
-                <li><a href="<?php echo site_url('admin/inventaris') ?>"><i class="fa fa-cube"></i> Inventaris Masjid <span class="fa fa-chevron"></span></a>
+                <li><a href="<?php echo site_url('admin/sarpras') ?>"><i class="fa fa-cube"></i> Sarpras Masjid <span class="fa fa-chevron"></span></a>
                 </li>
 
                 <li><a href="<?php echo site_url('admin/pengurus') ?>"><i class="fa fa-users"></i> Pengurus Masjid <span class="fa fa-chevron"></span></a>

@@ -24,8 +24,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-md-12 col-sm-12 ">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Data Inventaris Masjid </h2>
-                   <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#tambahModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Inventaris</a></ul>
+                  <h2>Data Sarana dan Prasarana Masjid </h2>
+                   <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#tambahModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Sarpras</a></ul>
                    <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#exportModal" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export PDF</a></ul>
                   <div class="clearfix"></div>
                 </div>
@@ -46,25 +46,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </tr>
                           </thead>
                           <tbody>
+                          <?php $j = 1; ?>
+                          <?php foreach ($sarpras->result_array() as $data_sarpras):
+                          ?>
                             <tr>
-                              <td align="center">1</td>
-                              <td width="150">Mic</td>
-                              <td width="50">4</td>
-                              <td width="100">Baik</td>
-                              <td width="200">Keterangan</td>
+                            <td align="center"><?php echo $j ?></td>
+                              <td width="150"><?=$data_sarpras['item'];?></td>
+                              <td width="50"><?=$data_sarpras['jumlah_sarpras'];?></td>
+                              <td width="100"><?=$data_sarpras['kondisi'];?></td>
+                              <td width="200"><?=$data_sarpras['keterangan_sarpras'];?></td>
                               <td width="150" align="center">
-                                <a href="#"  data-toggle="modal" data-target="#editModal" style="margin-right: 10px"><i class="fa fa-edit"></i> Edit</a>
-                                <a onclick="deleteConfirm('#')" href="#!" ><i class="fa fa-trash"></i> Hapus</a></td>
-                                <tr>
-                              <td align="center">2</td>
-                              <td width="150">AC</td>
-                              <td width="50">4</td>
-                              <td width="100">Baik</td>
-                              <td width="200">Keterangan</td>
-                              <td width="150" align="center">
-                                <a href="#"  data-toggle="modal" data-target="#editModal" style="margin-right: 10px"><i class="fa fa-edit"></i> Edit</a>
-                                <a onclick="deleteConfirm('#')" href="#!" ><i class="fa fa-trash"></i> Hapus</a></td>  
+                                <a href=""  onclick="editData(event, '<?=$data_sarpras['id_sarpras'];?>', '<?=$data_sarpras['item'];?>','<?=$data_sarpras['jumlah_sarpras'];?>','<?=$data_sarpras['kondisi'];?>','<?=$data_sarpras['keterangan_sarpras'];?>')"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/sarpras/hapus/<?=$data_sarpras['id_sarpras'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
                             </tr>
+                          <?php endforeach;?>
                           </tbody>
                         </table>
                       </div>
@@ -114,39 +109,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- Modal content-->
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title"> Edit Inventaris Masjid</h4>
+                <h4 class="modal-title"> Edit Sarpras Masjid</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">
-                <form role="form" action="#" method="post">
+                <form role="form" action="<?=base_url();?>/admin/sarpras/edit" method="post">
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Nama Item : </label>
                     <div class="col-md-8 col-sm-8 ">
-                      <input class="form-control" type="text" name="nama_item" placeholder="Nama Item" value=""/>
+                      <input type="hidden" name="id_sarpras" id="id_sarpras" value=""/>
+                      <input class="form-control" type="text" name="nama_item" id="nama_item" placeholder="Nama Item" value=""/>
                     </div>
                   </div>
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Jumlah : </label>
                     <div class='col-md-8 col-sm-8'>
-                       <input class="form-control" type="number" name="jumlah_item" placeholder="Jumlah" required/> 
+                       <input class="form-control" type="number" name="jumlah_item" id="jumlah_item" placeholder="Jumlah" required/> 
                      </div> 
                     </div>
                     <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Kondisi : </label>
                     <div class='col-md-8 col-sm-8'>
-                       <select class="select2_single form-control form-control-sm" name="kondisi_item" tabindex="-1">
+                       <select class="select2_single form-control form-control-sm" name="kondisi_item" id="kondisi_item" tabindex="-1">
                             <?php 
-                            if($inventaris->kondisi == "Baik"){ 
+                            if($sarpras->kondisi == "Baik"){ 
                                   echo '<option value="Baik" selected="true">Baik</option>';
                                 }else{
                                   echo '<option value="Baik">Baik</option>';
                                 }
-                              if($inventaris->kondisi == "Buruk"){ 
+                              if($sarpras->kondisi == "Buruk"){ 
                                   echo '<option value="Buruk" selected="true">Buruk</option>';
                                 }else{
                                   echo '<option value="Buruk">Buruk</option>';
                                 }
-                              if($inventaris->kondisi == "Baik, buruk"){ 
+                              if($sarpras->kondisi == "Baik, buruk"){ 
                                   echo '<option value="Baik, buruk" selected="true">Baik, buruk</option>';
                                 }else{
                                   echo '<option value="Baik, buruk">Baik, buruk</option>';
@@ -159,7 +155,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Keterangan : </label>
                     <div class='col-md-8 col-sm-8'>
-                       <textarea class="form-control" name="keterangan_item" placeholder="Keterangan" required></textarea>
+                       <textarea class="form-control" name="keterangan_item" id="keterangan_item" placeholder="Keterangan" required></textarea>
                      </div>    
                     </div>
                     <div class="form-group col-md-12 col-sm-12">
@@ -170,17 +166,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   </div>
 
                   <br>
-
-                  </div>
+                  
                   <div class="modal-footer">  
                     <button type="submit" class="btn btn-success">Edit</button>
                   </div>
                 </form>
+                </div>
+              </div>
               </div>
             </div>
-          </div>
-        </div>
-
       
         <!-- Tambah Manual Modal -->
         <div class="modal fade" id="tambahModal" role="dialog">
@@ -188,12 +182,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- Modal content-->
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title"> Tambah Inventaris Masjid</h4>
+                <h4 class="modal-title"> Tambah Sarpras Masjid</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">
                 <div class="col-md-12 col-sm-12">  
-                    <form action="#" method="post" enctype="multipart/form-data" >
+                    <form action="<?=base_url();?>/admin/sarpras/proses" method="post" enctype="multipart/form-data" >
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama_item">Nama Item</label>
                       <div class="col-md-8 col-sm-8 ">
@@ -213,17 +207,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <div class="col-md-8 col-sm-8 ">
                         <select class="select2_single form-control form-control-sm" name="kondisi_item" tabindex="-1">
                             <?php 
-                            if($inventaris->kondisi == "Baik"){ 
+                            if($sarpras->kondisi == "Baik"){ 
                                   echo '<option value="Baik" selected="true">Baik</option>';
                                 }else{
                                   echo '<option value="Baik">Baik</option>';
                                 }
-                              if($inventaris->kondisi == "Buruk"){ 
+                              if($sarpras->kondisi == "Buruk"){ 
                                   echo '<option value="Buruk" selected="true">Buruk</option>';
                                 }else{
                                   echo '<option value="Buruk">Buruk</option>';
                                 }
-                              if($inventaris->kondisi == "Baik, buruk"){ 
+                              if($sarpras->kondisi == "Baik, buruk"){ 
                                   echo '<option value="Baik, buruk" selected="true">Baik, buruk</option>';
                                 }else{
                                   echo '<option value="Baik, buruk">Baik, buruk</option>';
@@ -240,6 +234,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                        <textarea class="form-control" name="keterangan_item" placeholder="Keterangan" required></textarea>
                       </div>
                     </div>
+                    
                     <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-3 col-sm-3 label-align"></label>
                     <div class="col-md-8 col-sm-8 ">
@@ -298,12 +293,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url('js/custom.min.js') ?>"></script>
 
     <script>
-      function deleteConfirm(url){
+      function deleteConfirm(e,url){
+        e.preventDefault();
         $('#btn-delete').attr('href', url);
         $('#deleteModal').modal();
       }
-    </script>
 
+      function editData(e,id,item,jumlah,kondisi,keterangan){
+        e.preventDefault();
+        $("#id_sarpras").val(id);
+        $("#nama_item").val(item);
+        $("#jumlah_item").val(jumlah);
+        $("#kondisi_item").val(kondisi);
+        $("#keterangan_item").val(keterangan);
+        $('#editModal').modal();
+      }
     </script>
 	
   </body>

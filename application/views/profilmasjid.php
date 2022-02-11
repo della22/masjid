@@ -285,7 +285,7 @@
                                 <p class="card-text">Jangan lupa <b>konfirmasi</b> melalui <b>whatsapp</b>
                                     dengan mengirim <b>bukti transfer</b> dan
                                     <b>untuk disalurkan kemana </b> ke nomor <b>08xx-xxxx-xxxx</b>
-                                    atau klik link berikut <a href="https://wa.me/6285601018452">konfirmasi</a>
+                                    atau klik link berikut <a href="">konfirmasi</a>
                                 </p>
                             </div>
                         </div>

@@ -41,6 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <th width="5%">No.</th>
                               <th>Tanggal</th>
                               <th>Nama Imam/Khotib</th>
+                              <th>Nama Muadzin</th>
                               <th>Aksi</th>
                             </tr>
                           </thead>
@@ -48,14 +49,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tr>
                               <td align="center">1</td>
                               <td width="150">22/01/2022</td>
-                              <td width="300">Ust. Abu Bakar</td>
+                              <td width="150">Ust. Abu Bakar</td>
+                              <td width="150">Ust. Abu Bakar</td>
                               <td width="100" align="center">
                                 <a href="#"  data-toggle="modal" data-target="#editModal" style="margin-right: 10px"><i class="fa fa-edit"></i> Edit</a>
                                 <a onclick="deleteConfirm('#')" href="#!" ><i class="fa fa-trash"></i> Hapus</a></td>
                                 <tr>
                               <td align="center">2</td>
                               <td width="150">29/01/2022</td>
-                              <td width="300">Ust. Abu Bakar</td>
+                              <td width="150">Ust. Abu Bakar</td>
+                              <td width="150">Ust. Abu Bakar</td>
                               <td width="100" align="center">
                                 <a href="#"  data-toggle="modal" data-target="#editModal" style="margin-right: 10px"><i class="fa fa-edit"></i> Edit</a>
                                 <a onclick="deleteConfirm('#')" href="#!" ><i class="fa fa-trash"></i> Hapus</a></td>  
@@ -133,6 +136,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                        <input class="form-control" type="text" name="nama_imakho" placeholder="Nama Imam/Khotib" required/>    
                     </div>
                   </div>
+                  <div class="form-group col-md-12 col-sm-12">
+                    <label class="col-form-label col-md-4 col-sm-4 label-align">Nama Muadzin : </label>
+                    <div class='col-md-7 col-sm-7'>
+                       <input class="form-control" type="text" name="nama_muadzin" placeholder="Nama Muadzin" required/>    
+                    </div>
+                  </div>
                   <br>
                   <div class="modal-footer">  
                     <button type="submit" class="btn btn-success">Edit</button>
@@ -205,6 +214,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <input class="form-control" type="text" name="nama_imakho" placeholder="Nama Imam/Khotib" required/>
                       </div>
                     </div>
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-4 col-sm-4 label-align" for="nama_imakho">Nama Muadzin</label>
+                      <div class="col-md-7 col-sm-7 ">
+                        <input class="form-control" type="text" name="nama_muadzin" placeholder="Nama Muadzin" required/>
+                      </div>
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                    <label class="col-form-label col-md-3 col-sm-3 label-align"></label>
+                    <div class="col-md-8 col-sm-8 ">
+                      <a style="font-size: 10px">*Khusus pada hari ied nama muadzin diisi " - "</a>
+                    </div>
+                  </div>
 
                     <br>
 

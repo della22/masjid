@@ -52,7 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <td width="300">Keterangan</td>
                               <td width="150" align="center">
                                 <a href="#"  data-toggle="modal" data-target="#editModal" style="margin-right: 10px"><i class="fa fa-edit"></i> Edit</a>
-                                <a href="#" style="margin-right: 9px" target="_blank"><i class="fa fa-print"></i> Print </a>
                                 <a onclick="deleteConfirm('#')" href="#!" ><i class="fa fa-trash"></i> Hapus</a></td>
                                 <tr>
                               <td align="center">2</td>
@@ -61,7 +60,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <td width="300">Keterangan</td>
                               <td width="150" align="center">
                                 <a href="#"  data-toggle="modal" data-target="#editModal" style="margin-right: 10px"><i class="fa fa-edit"></i> Edit</a>
-                                <a href="#" style="margin-right: 9px" target="_blank"><i class="fa fa-print"></i> Print </a>
                                 <a onclick="deleteConfirm('#')" href="#!" ><i class="fa fa-trash"></i> Hapus</a></td>  
                             </tr>
                           </tbody>
