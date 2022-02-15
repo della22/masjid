@@ -256,6 +256,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url('assets/pdfmake/build/vfs_fonts.js') ?>"></script>
 
     <!-- Custom Theme Scripts -->
+    <script src="<?php echo base_url('js/jquery-ui.js') ?>"></script>
     <script src="<?php echo base_url('js/custom.min.js') ?>"></script>
 
     <script>

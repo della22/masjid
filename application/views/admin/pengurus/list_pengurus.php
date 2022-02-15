@@ -45,25 +45,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </tr>
                           </thead>
                           <tbody>
+                          <?php $j = 1; ?>
+                          <?php foreach ($pengurus->result_array() as $data_pengurus):
+                          ?>
                             <tr>
-                              <td align="center">1</td>
-                              <td width="150">Della xxxxxxx</td>
-                              <td width="120">Ketua</td>
-                              <td width="70">085601018452</td>
-                              <td width="350">Selindung Baru</td>
+                              <td align="center"><?php echo $j ?></td>
+                              <td width="150"><?=$data_pengurus['nama_ustadz'];?></td>
+                              <td width="120"><?=$data_pengurus['jabatan_pengurus'];?></td>
+                              <td width="70"><?=$data_pengurus['telepon_ustadz'];?></td>
+                              <td width="350"><?=$data_pengurus['alamat_ustadz'];?></td>
                               <td width="150" align="center">
                                 <a href="#"  data-toggle="modal" data-target="#editModal" style="margin-right: 10px"><i class="fa fa-edit"></i> Edit</a>
                                 <a onclick="deleteConfirm('#')" href="#!" ><i class="fa fa-trash"></i> Hapus</a></td>
-                                <tr>
-                              <td align="center">2</td>
-                              <td width="150">Adi xxxxxxx</td>
-                              <td width="120">Sekretaris</td>
-                              <td width="70">081234532</td>
-                              <td width="350">Bandung Barat</td>
-                              <td width="150" align="center">
-                                <a href="#"  data-toggle="modal" data-target="#editModal" style="margin-right: 10px"><i class="fa fa-edit"></i> Edit</a>
-                                <a onclick="deleteConfirm('#')" href="#!" ><i class="fa fa-trash"></i> Hapus</a></td>  
-                            </tr>
+                              </tr>
+                            <?php endforeach;?>
                           </tbody>
                         </table>
                       </div>
@@ -73,7 +68,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
             </div>
               <!-- /DataTables -->
-
 
           </div>
           <br />
@@ -119,6 +113,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <div class="modal-body">
                 <form role="form" action="#" method="post">
                   <div class="form-group col-md-12 col-sm-12">
+                     <input type="hidden" name="id_pengurus" id="id_pengurus" value=""/>
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Nama : </label>
                     <div class="col-md-8 col-sm-8 ">
                       <input class="form-control" type="text" name="nama_pengurus" placeholder="Nama" value=""/>
@@ -165,13 +160,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
               <div class="modal-body">
                 <div class="col-md-12 col-sm-12">  
-                    <form action="#" method="post" enctype="multipart/form-data" >
+                    <form action="<?=base_url();?>/admin/pengurus/proses" method="post" enctype="multipart/form-data" >
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama_pengurus">Nama</label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" name="nama_pengurus" placeholder="Nama" required/>
+                        <input class="form-control" type="text" id="nama_pengurus_tambah" name="nama_pengurus_tambah" placeholder="Nama" value="" required/>
+                        <input type="hidden" id="nama_pengurus_nik" name="nik"required/>
                       </div>
                     </div>
+                    
 
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="jabatan_pengurus">Jabatan</label>
@@ -245,13 +242,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url('js/custom.min.js') ?>"></script>
 
     <script>
-      function deleteConfirm(url){
+      function deleteConfirm(e,url){
+        e.preventDefault();
         $('#btn-delete').attr('href', url);
         $('#deleteModal').modal();
       }
-    </script>
 
+      $(document).ready(function(){
+            $( "#nama_pengurus_tambah").autocomplete({
+              source: "<?php echo site_url('admin/pengurus/get_autocomplete/?');?>"
+            });
+        });
     </script>
+    <script src="<?php echo base_url('js/jquery-ui.js') ?>" type="text/javascript"></script>
 	
   </body>
 </html>

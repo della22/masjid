@@ -34,6 +34,7 @@
 
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url('css/custom.min.css') ?>" rel="stylesheet">
+    <link href="<?php echo base_url('css/jquery-ui.css') ?>" rel="stylesheet">
 
     <!-- bootstrap-datetimepicker -->
     <link href="<?php echo base_url('assets/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css') ?>" rel="stylesheet">
