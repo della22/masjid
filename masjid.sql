@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Jan 2022 pada 14.01
+-- Waktu pembuatan: 15 Feb 2022 pada 11.59
 -- Versi server: 10.4.22-MariaDB
 -- Versi PHP: 7.4.26
 
@@ -24,20 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `inventaris`
---
-
-CREATE TABLE `inventaris` (
-  `id_inventaris` int(255) NOT NULL,
-  `item` varchar(100) NOT NULL,
-  `jumlah_inventaris` int(11) NOT NULL,
-  `kondisi` varchar(100) NOT NULL,
-  `keterangan_inventaris` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `jadwal_imakho`
 --
 
@@ -45,7 +31,8 @@ CREATE TABLE `jadwal_imakho` (
   `id_jadimakho` int(255) NOT NULL,
   `nik_imakho` int(20) NOT NULL,
   `tanggal_jadimakho` date NOT NULL,
-  `nama_jadimakho` varchar(100) NOT NULL
+  `nama_jadimakho` varchar(100) NOT NULL,
+  `nama_muadzin` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -59,7 +46,8 @@ CREATE TABLE `jadwal_keg` (
   `nik_pengisi` int(20) NOT NULL,
   `nama_keg` varchar(100) NOT NULL,
   `tanggal_keg` date NOT NULL,
-  `waktu_keg` text NOT NULL,
+  `waktu_mulai` time NOT NULL,
+  `waktu_selesai` time NOT NULL,
   `tempat_keg` varchar(100) NOT NULL,
   `pengisi_keg` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -99,10 +87,28 @@ CREATE TABLE `pengeluaran` (
 CREATE TABLE `pengurus` (
   `id_pengurus` int(100) NOT NULL,
   `nik_pengurus` int(20) NOT NULL,
-  `nama_pengurus` varchar(100) NOT NULL,
-  `jabatan_pengurus` varchar(100) NOT NULL,
-  `telepon_pengurus` int(11) NOT NULL,
-  `alamat_pengurus` text NOT NULL
+  `jabatan_pengurus` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `pengurus`
+--
+
+INSERT INTO `pengurus` (`id_pengurus`, `nik_pengurus`, `jabatan_pengurus`) VALUES
+(2, 111111, 'sekretaris');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `sarpras`
+--
+
+CREATE TABLE `sarpras` (
+  `id_sarpras` int(255) NOT NULL,
+  `item` varchar(100) NOT NULL,
+  `jumlah_sarpras` int(11) NOT NULL,
+  `kondisi` text NOT NULL,
+  `keterangan_sarpras` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -123,25 +129,27 @@ CREATE TABLE `user_profile` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ustad`
+-- Struktur dari tabel `ustadz`
 --
 
-CREATE TABLE `ustad` (
+CREATE TABLE `ustadz` (
   `nik` int(20) NOT NULL,
-  `nama_ustad` varchar(100) NOT NULL,
-  `telepon_ustad` int(11) NOT NULL,
-  `alamat_ustad` text NOT NULL
+  `nama_ustadz` varchar(100) NOT NULL,
+  `telepon_ustadz` int(11) NOT NULL,
+  `alamat_ustadz` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `ustadz`
+--
+
+INSERT INTO `ustadz` (`nik`, `nama_ustadz`, `telepon_ustadz`, `alamat_ustadz`) VALUES
+(22, 'ustad', 23, 'll'),
+(111111, 'nama', 9, 'alamat');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indeks untuk tabel `inventaris`
---
-ALTER TABLE `inventaris`
-  ADD PRIMARY KEY (`id_inventaris`);
 
 --
 -- Indeks untuk tabel `jadwal_imakho`
@@ -177,6 +185,12 @@ ALTER TABLE `pengurus`
   ADD KEY `nik_pengurus` (`nik_pengurus`);
 
 --
+-- Indeks untuk tabel `sarpras`
+--
+ALTER TABLE `sarpras`
+  ADD PRIMARY KEY (`id_sarpras`);
+
+--
 -- Indeks untuk tabel `user_profile`
 --
 ALTER TABLE `user_profile`
@@ -184,10 +198,56 @@ ALTER TABLE `user_profile`
   ADD KEY `nik_user` (`nik_user`);
 
 --
--- Indeks untuk tabel `ustad`
+-- Indeks untuk tabel `ustadz`
 --
-ALTER TABLE `ustad`
+ALTER TABLE `ustadz`
   ADD PRIMARY KEY (`nik`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
+--
+
+--
+-- AUTO_INCREMENT untuk tabel `jadwal_imakho`
+--
+ALTER TABLE `jadwal_imakho`
+  MODIFY `id_jadimakho` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `jadwal_keg`
+--
+ALTER TABLE `jadwal_keg`
+  MODIFY `id_jadkeg` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `pemasukan`
+--
+ALTER TABLE `pemasukan`
+  MODIFY `id_pemasukan` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `pengeluaran`
+--
+ALTER TABLE `pengeluaran`
+  MODIFY `id_pengeluaran` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `pengurus`
+--
+ALTER TABLE `pengurus`
+  MODIFY `id_pengurus` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `sarpras`
+--
+ALTER TABLE `sarpras`
+  MODIFY `id_sarpras` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `user_profile`
+--
+ALTER TABLE `user_profile`
+  MODIFY `id_user` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -197,25 +257,25 @@ ALTER TABLE `ustad`
 -- Ketidakleluasaan untuk tabel `jadwal_imakho`
 --
 ALTER TABLE `jadwal_imakho`
-  ADD CONSTRAINT `jadwal_imakho_ibfk_1` FOREIGN KEY (`nik_imakho`) REFERENCES `ustad` (`nik`);
+  ADD CONSTRAINT `jadwal_imakho_ibfk_1` FOREIGN KEY (`nik_imakho`) REFERENCES `ustadz` (`nik`);
 
 --
 -- Ketidakleluasaan untuk tabel `jadwal_keg`
 --
 ALTER TABLE `jadwal_keg`
-  ADD CONSTRAINT `jadwal_keg_ibfk_1` FOREIGN KEY (`nik_pengisi`) REFERENCES `ustad` (`nik`);
+  ADD CONSTRAINT `jadwal_keg_ibfk_1` FOREIGN KEY (`nik_pengisi`) REFERENCES `ustadz` (`nik`);
 
 --
 -- Ketidakleluasaan untuk tabel `pengurus`
 --
 ALTER TABLE `pengurus`
-  ADD CONSTRAINT `pengurus_ibfk_1` FOREIGN KEY (`nik_pengurus`) REFERENCES `ustad` (`nik`);
+  ADD CONSTRAINT `pengurus_ibfk_1` FOREIGN KEY (`nik_pengurus`) REFERENCES `ustadz` (`nik`);
 
 --
 -- Ketidakleluasaan untuk tabel `user_profile`
 --
 ALTER TABLE `user_profile`
-  ADD CONSTRAINT `user_profile_ibfk_1` FOREIGN KEY (`nik_user`) REFERENCES `ustad` (`nik`);
+  ADD CONSTRAINT `user_profile_ibfk_1` FOREIGN KEY (`nik_user`) REFERENCES `ustadz` (`nik`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
