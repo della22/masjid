@@ -18,10 +18,26 @@ class Pengurus extends CI_Controller
 
    public function proses()
     {
-        $nik_pengurus = $this->input->post('nik_pengurus');
+        $nik_pengurus = $this->input->post('nik');
         $jabatan_pengurus = $this->input->post('jabatan_pengurus');
         $this->M_pengurus->input_pengurus($nik_pengurus, $jabatan_pengurus);
         $this->session->set_flashdata('success','Item berhasil ditambahkan');
+        redirect('admin/pengurus');
+    }
+
+    public function edit()
+    {
+        $id_pengurus = $this->input->post('id_pengurus');
+        $nik_pengurus = $this->input->post('nik');
+        $jabatan_pengurus = $this->input->post('jabatan_pengurus');
+        $this->M_pengurus->edit_pengurus($id_pengurus, $nik_pengurus, $jabatan_pengurus);
+        $this->session->set_flashdata('success','Item berhasil diedit');
+        redirect('admin/pengurus');
+    }
+
+    public function hapus($id = null){
+        $this->M_pengurus->hapus_pengurus($id);
+        $this->session->set_flashdata('success','Item berhasil dihapus');
         redirect('admin/pengurus');
     }
 
@@ -33,7 +49,9 @@ class Pengurus extends CI_Controller
                 $arr_result[] = array(
                     'label' => $row->nama_ustadz,
                     'nama' => $row->nama_ustadz,
-                    'nik_pengurus'   => $row->nik
+                    'nik_pengurus'   => $row->nik,
+                    'telepon_pengurus' => $row->telepon_ustadz,
+                    'alamat_pengurus' => $row->alamat_ustadz,
                 );
                 echo json_encode($arr_result);
             }

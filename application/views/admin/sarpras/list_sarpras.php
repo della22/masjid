@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="x_title">
                   <h2>Data Sarana dan Prasarana Masjid </h2>
                    <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#tambahModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Sarpras</a></ul>
-                   <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#exportModal" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export PDF</a></ul>
+                   <ul class="nav navbar-right panel_toolbox"><a href="<?=base_url();?>admin/sarpras/cetak" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export PDF</a></ul>
                   <div class="clearfix"></div>
                 </div>
 
@@ -34,6 +34,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <div class="row">
                     <div class="col-sm-12">
                       <div class="card-box table-responsive">
+                        <?php if ($this->session->flashdata('success') == TRUE): ?>
+                          <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <?= $this->session->flashdata('success');?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                        <?php endif; ?>
                        <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                           <thead>
                             <tr>

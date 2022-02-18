@@ -44,4 +44,25 @@ class Sarpras extends CI_Controller
         $this->session->set_flashdata('success','Item berhasil dihapus');
         redirect('admin/sarpras');
     }
+
+    public function cetak(){
+        // panggil library yang kita buat sebelumnya yang bernama pdfgenerator
+        $this->load->library('pdfgenerator');
+        
+        // title dari pdf
+        $data['title_pdf'] = 'Laporan Sarpras Masjid';
+        $data['sarpras'] = $this->M_sarpras->list_sarpras();
+
+        // filename dari pdf ketika didownload
+        $file_pdf = 'laporan sarpras masjid';
+        // setting paper
+        $paper = 'A4';
+        //orientasi paper potrait / landscape
+        $orientation = "portrait";
+        
+        $html = $this->load->view('admin/sarpras/laporan_sarpras_pdf',$data, true);     
+        
+        // run dompdf
+        $this->pdfgenerator->generate($html, $file_pdf,$paper,$orientation);
+    }
 }
