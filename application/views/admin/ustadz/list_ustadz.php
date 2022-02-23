@@ -50,6 +50,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </button>
                           </div>
                         <?php endif; ?>
+                        <?php if ($this->session->flashdata('error_import') == TRUE): ?>
+                          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?= $this->session->flashdata('error_import');?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                        <?php endif; ?>
                        <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                           <thead>
                             <tr>
@@ -166,9 +174,39 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
         </div>
 
+         <!-- Tambah Modal -->
+        <div class="modal fade" id="tambahModal" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title"> Tambah Data Ustadz </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <div class="col-md-12 col-sm-12">  
+                    <div class="col-md-6 col-sm-6" align="center">
+                      <a href="#"  data-toggle="modal" data-target="#tambahExcelModal" class="btn btn-success"><i class="fa fa-plus"></i> Upload Excel</a>
+                      
+                    </div>
+                    <div class="col-md-6 col-sm-6" align="center">
+                      <a href="#"  data-toggle="modal" data-target="#tambahManualModal" class="btn btn-info"><i class="fa fa-plus"></i> Tambah Manual</a>
+                    </div>
+                  </div>      
+              </div>
+              <div class="modal-footer">
+                <div class="col-md-12 col-sm-12">  
+                    <div class="col-md-12">
+                      
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
       
         <!-- Tambah Manual Modal -->
-        <div class="modal fade" id="tambahModal" role="dialog">
+        <div class="modal fade" id="tambahManualModal" role="dialog">
           <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -216,6 +254,50 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                   </form>
                   </div>  
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tambah via Upload Excel Modal -->
+        <div class="modal fade" id="tambahExcelModal" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title"> Upload Excel </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">          
+                  <form action="<?=base_url();?>admin/phpspreadsheet/import_ustadz" class="excel-upl" id="excel-upl" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+                    <div class="form-group col-md-12 col-sm-12">
+                      <div class="col-md-8 col-sm-8">
+                    
+                        <input type="file" class="custom-file-input" id="validatedCustomFile" name="upload_file">
+                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                      </div>
+                      <div class="col-md-4 col-sm-4">
+                    
+                        <button type="submit" name="import" class="float-right btn btn-primary">Import</button>
+                      </div>
+                      
+                    </div>
+                    
+                  </form>
+              </div>
+              <div class="modal-footer">
+                <div class="col-md-12 col-sm-12">  
+                    <div class="col-md-12">
+                      <div> <label>Contoh template excel untuk upload</label>
+                      </div>
+                      <div class="float-right">  
+                        <a href="#" class="btn btn-link btn-sm"><i class="fa fa-file-excel"></i> Sample .XLSX</a>
+                        <a href="#" class="btn btn-link btn-sm"><i class="fa fa-file-excel"></i> Sample .XLS</a>
+                        <a href="#" class="btn btn-link btn-sm" target="_blank" ><i class="fa fa-file-csv"></i> Sample .CSV</a>
+                      </div> 
+                    </div>
+                  </div>
+
               </div>
             </div>
           </div>

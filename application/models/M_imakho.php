@@ -4,11 +4,12 @@ class M_imakho extends CI_Model
 {
     function list_imakho()
     {
-        $this->db->select('*');
-        $this->db->from('ustadz');
-        $this->db->join('jadwal_imakho', 'jadwal_imakho.nik_imakho = ustadz.nik', 'jadwal_imakho.nik_muadzin = ustadz.nik');
-        $this->db->order_by('id_imakho', 'DESC');
-        return $this->db->get();
+
+        $this->db->select('a.id_imakho, a.tanggal_imakho, a.nik_imakho,a.nik_muadzin, b.nama_ustadz as nama_imakho, c.nama_ustadz as nama_muadzin');
+         $this->db->from('jadwal_imakho a');
+         $this->db->join('ustadz b', 'a.nik_imakho = b.nik','left');
+         $this->db->join('ustadz c', 'a.nik_muadzin = c.nik','left');
+         return $this->db->get();
     }
     
     public function input_imakho($nik_imakho = null,  $nik_muadzin = null, $tanggal_imakho = null)
@@ -44,5 +45,26 @@ class M_imakho extends CI_Model
         $this->db->order_by('nik', 'ASC');
         $this->db->limit(10);
         return $this->db->get('ustadz')->result();
+    }
+
+    public function filter($bulan = null, $tahun = null){
+
+        if ($bulan == 13) {
+            $this->db->select('a.id_imakho, a.tanggal_imakho, a.nik_imakho,a.nik_muadzin, b.nama_ustadz as nama_imakho, c.nama_ustadz as nama_muadzin');
+             $this->db->from('jadwal_imakho a');
+             $this->db->where('YEAR(a.tanggal_imakho)', $tahun);
+             $this->db->join('ustadz b', 'a.nik_imakho = b.nik','left');
+             $this->db->join('ustadz c', 'a.nik_muadzin = c.nik','left');
+             return $this->db->get();
+        }else{
+            $this->db->select('a.id_imakho, a.tanggal_imakho, a.nik_imakho,a.nik_muadzin, b.nama_ustadz as nama_imakho, c.nama_ustadz as nama_muadzin');
+             $this->db->from('jadwal_imakho a');
+             $this->db->where('MONTH(a.tanggal_imakho)', $bulan);
+             $this->db->where('YEAR(a.tanggal_imakho)', $tahun);
+             $this->db->join('ustadz b', 'a.nik_imakho = b.nik','left');
+             $this->db->join('ustadz c', 'a.nik_muadzin = c.nik','left');
+             return $this->db->get();
+        }
+        
     }
 }

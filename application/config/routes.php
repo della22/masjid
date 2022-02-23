@@ -55,3 +55,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 // customize route
 $route['masjid'] = 'Awal/masjid';
+//spreadsheet
+$route['spreadsheet'] = 'PhpspreadsheetController';
+$route['spreadsheet/import'] = 'PhpspreadsheetController/import';
+$route['spreadsheet/export'] = 'PhpspreadsheetController/export';

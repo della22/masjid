@@ -19,10 +19,11 @@ class User extends CI_Controller
     public function proses()
     {
         $nik_user = $this->input->post('nik_user');
+        $id_pengurus = $this->input->post('id_pengurus');
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         $role = $this->input->post('role');
-        $this->M_user->input_user($nik_user, $username, $password, $role);
+        $this->M_user->input_user($nik_user, $id_pengurus, $username, $password, $role);
         $this->session->set_flashdata('success','Item berhasil ditambahkan');
         redirect('admin/user');
     }
@@ -30,11 +31,12 @@ class User extends CI_Controller
     public function edit()
     {
         $id_user = $this->input->post('id_user');
+        $id_pengurus = $this->input->post('id_pengurus');
         $nik_user = $this->input->post('nik_user');
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         $role = $this->input->post('role');
-        $this->M_user->edit_user($id_user, $nik_user, $username, $password, $role);
+        $this->M_user->edit_user($id_user, $id_pengurus,$nik_user, $username, $password, $role);
         $this->session->set_flashdata('success','Item berhasil diedit');
         redirect('admin/user');
     }
@@ -51,9 +53,10 @@ class User extends CI_Controller
             if (count($result) > 0) {
             foreach ($result as $row)
                 $arr_result[] = array(
-                    'label' => $row->nama_ustadz,
-                    'nama' => $row->nama_ustadz,
+                    'label' => $row->nama_ustadz.' - '.$row->jabatan_pengurus,
+                    'nama_user' => $row->nama_ustadz,
                     'nik_user'   => $row->nik,
+                    'id_pengurus' => $row->id_pengurus
                 );
                 echo json_encode($arr_result);
             }

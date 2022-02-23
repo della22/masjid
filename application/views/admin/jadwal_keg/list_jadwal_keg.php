@@ -48,27 +48,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </tr>
                           </thead>
                           <tbody>
+                          <?php $j = 1; ?>
+                          ;<?php foreach ($jadwal_keg->result_array() as $data_keg):
+                          ?>
                             <tr>
-                              <td align="center">1</td>
-                              <td width="150">Pengajian Mingguan</td>
-                              <td width="50">22/01/2022</td>
-                              <td width="100">19.30 - 21.00 WIB</td>
-                              <td width="130">Masjid Nurul Iman</td>
-                              <td width="130">Ust. Abu Bakar</td>
+                              <td align="center"><?php echo $j ?></td>
+                              <td width="150"><?=$data_keg['nama_keg'];?></td>
+                              <td width="50"><?=$data_keg['tanggal_keg'];?></td>
+                              <td width="100"><?=$data_keg['waktu_keg'];?></td>
+                              <td width="130"><?=$data_keg['tempat_keg'];?></td>
+                              <td width="130"><?=$data_keg['nama_ustadz'];?></td>
                               <td width="120" align="center">
-                                <a href="#"  data-toggle="modal" data-target="#editModal" style="margin-right: 10px"><i class="fa fa-edit"></i> Edit</a>
-                                <a onclick="deleteConfirm('#')" href="#!" ><i class="fa fa-trash"></i> Hapus</a></td>
-                                <tr>
-                              <td align="center">2</td>
-                              <td width="150">Pengajian Mingguan</td>
-                              <td width="50">29/01/2022</td>
-                              <td width="100">19.30 - 21.00 WIB</td>
-                              <td width="130">Masjid Nurul Iman</td>
-                              <td width="130">Ust. Abu Bakar</td>
-                              <td width="120" align="center">
-                                <a href="#"  data-toggle="modal" data-target="#editModal" style="margin-right: 10px"><i class="fa fa-edit"></i> Edit</a>
-                                <a onclick="deleteConfirm('#')" href="#!" ><i class="fa fa-trash"></i> Hapus</a></td>  
+                                <a href=""  onclick="editData(event, '<?=$data_keg['id_jadkeg'];?>','<?=$data_keg['nama_keg'];?>','<?=$data_keg['tanggal_keg'];?>', '<?=$data_keg['waktu_keg'];?>','<?=$data_keg['tempat_keg'];?>','<?=$data_keg['nama_ustadz'];?>')"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/jadwal_keg/hapus/<?=$data_keg['id_jadkeg'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
                             </tr>
+                            <?php $j++; ?>
+                            <?php endforeach;?>
                           </tbody>
                         </table>
                       </div>
@@ -122,18 +117,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">
-                <form role="form" action="#" method="post">
+                <form role="form" action="<?=base_url();?>/admin/jadwal_keg/edit" method="post">
                   <div class="form-group col-md-12 col-sm-12">
+                    <input type="hidden" name="id_jadkeg" id="id_jadkeg" value=""/>
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Nama Kegiatan : </label>
                     <div class="col-md-8 col-sm-8 ">
-                      <input class="form-control" type="text" name="nama_keg" placeholder="Nama Kegiatan" value=""/>
+                      <input class="form-control" type="text" id="nama_keg_edit" name="nama_keg" placeholder="Nama Kegiatan" value=""/>
                     </div>
                   </div>
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Tanggal : </label>
                     <div class='col-md-8 col-sm-8'>
                       <div class='input-group date myDatepicker2' >
-                        <input type="text" class="form-control" placeholder="Tanggal " name="tanggal_keg" required/>
+                        <input type="text" class="form-control" placeholder="Tanggal " id="tanggal_keg_edit" name="tanggal_keg" required/>
                         <span class="input-group-addon" style="padding-top: 10px">
                         <span class="fa fa-calendar-o"></span>
                       </span>  
@@ -146,13 +142,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <div class='col-md-4 col-sm-4'>
                         <div class="form-group">
                           <label for="input_to">Dari</label>
-                          <input type="time" id="waktu_mulai" class="form-control">
+                          <input type="time" id="waktu_mulai_edit" class="form-control">
                         </div>
                       </div>
                       <div class='col-md-4 col-sm-4'>
                         <div class="form-group">
                           <label for="input_to">Sampai</label>
-                          <input type="time" id="waktu_selesai" class="form-control">  
+                          <input type="time" id="waktu_selesai_edit" class="form-control">  
                       </div>
                     </div>
                   </div>
@@ -160,13 +156,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Tempat : </label>
                     <div class='col-md-8 col-sm-8'>
-                       <input class="form-control" type="text" name="tempat_keg" placeholder="Tempat" required/>   
+                       <input class="form-control" type="text" id="tempat_keg_edit" name="tempat_keg" placeholder="Tempat" required/>   
                     </div>
                   </div>
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Nama Pengisi : </label>
                     <div class='col-md-8 col-sm-8'>
-                       <input class="form-control" type="text" name="pengisi_keg" placeholder="Pengisi Kegiatan" required/>    
+                       <input class="form-control" type="text" id="nama_pengisi_edit" name="nama_pengisi" placeholder="Pengisi Kegiatan" required/>    
+                       <input type="hidden" id="nik_pengisi_edit" name="nik_pengisi" required/>
                     </div>
                   </div>
                   <br>
@@ -191,7 +188,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
               <div class="modal-body">
                 <div class="col-md-12 col-sm-12">  
-                    <form action="#" method="post" enctype="multipart/form-data" >
+                    <form action="<?=base_url();?>/admin/jadwal_keg/proses" method="post" enctype="multipart/form-data" >
                     
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama_keg">Nama Kegiatan</label>
@@ -215,10 +212,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="waktu_keg">Waktu</label>
                       <div class='col-md-4 col-sm-4'>
-                        <input type="time" id="waktu_mulai" class="form-control">
+                        <input type="time" id="waktu_mulai" name="waktu_mulai" class="form-control">
                       </div>
                     <div class='col-md-4 col-sm-4'>
-                       <input type="time" id="waktu_selesai" class="form-control">  
+                       <input type="time" id="waktu_selesai" name="waktu_selesai" class="form-control">  
                     </div>
                     </div>
 
@@ -232,7 +229,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="pengisi_keg">Nama Pengisi</label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" name="pengisi_keg" placeholder="Nama Pengisi" required/>
+                        <input class="form-control" type="text" id="nama_pengisi_tambah" name="nama_pengisi" placeholder="Nama Pengisi" required/>
+                         <input type="hidden" id="nik_pengisi" name="nik_pengisi" required/>
                       </div>
                     </div>
 
@@ -264,16 +262,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <label class="col-form-label col-md-4 col-sm-4 label-align">Bulan : </label>
                 <div class="col-md-6 col-sm-6 ">
                   <select class="select2_single form-control" name="bulan" tabindex="-1">
-                    <option value="0">Semua Bulan</option>;
-                    <option value="01">Januari</option>;
-                    <option value="02">Februari</option>;
-                    <option value="03">Maret</option>;
-                    <option value="04">April</option>;
-                    <option value="05">Mei</option>;
-                    <option value="06">Juni</option>;
-                    <option value="07">Juli</option>;
-                    <option value="08">Agustus</option>;
-                    <option value="09">September</option>;
+                    <option value="13">Semua Bulan</option>;
+                    <option value="1">Januari</option>;
+                    <option value="2">Februari</option>;
+                    <option value="3">Maret</option>;
+                    <option value="4">April</option>;
+                    <option value="5">Mei</option>;
+                    <option value="6">Juni</option>;
+                    <option value="7">Juli</option>;
+                    <option value="8">Agustus</option>;
+                    <option value="9">September</option>;
                     <option value="10">Oktober</option>;
                     <option value="11">November</option>;
                     <option value="12">Desember</option>;   
@@ -307,8 +305,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- MODAL -->
     <?php $this->load->view("admin/_partials/modal.php") ?>
 
-
-    
     <!-- js -->
      <!-- jQuery -->
     <script src="<?php echo base_url('assets/jquery/dist/jquery.min.js') ?>"></script>
@@ -339,17 +335,47 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url('assets/pdfmake/build/vfs_fonts.js') ?>"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="<?php echo base_url('js/custom.min.js') ?>"></script>
+     <script src="<?php echo base_url().'js/jquery-ui.js'?>" type="text/javascript"></script>
 
-    <script>
-      function deleteConfirm(url){
+    <script type="text/javascript">
+      function deleteConfirm(e,url){
+        e.preventDefault();
         $('#btn-delete').attr('href', url);
         $('#deleteModal').modal();
       }
-    </script>
 
+      $(document).ready(function(){
+        $('#datatable2').dataTable();
+            $( "#nama_pengisi_tambah").autocomplete({
+              source: "<?= base_url('admin/jadwal_keg/get_autocomplete/');?>",
+              appendTo: "#tambahModal",
+              select: function (event,ui){
+                $( "#nik_pengisi").val(ui.item.nik);
+              }
+            });
+            $( "#nama_pengisi_edit").autocomplete({
+              source: "<?= base_url('admin/jadwal_keg/get_autocomplete/');?>",
+              appendTo: "#editModal",
+              select: function (event,ui){
+               $( "#nik_pengisi_edit").val(ui.item.nik);
+              }
+            });
+        });
+
+      function editData(e,id,nik_pengisi,tanggal_keg,waktu_mulai,waktu_selesai,tempat_keg,nama_pengisi){
+        e.preventDefault();
+        $("#id_jadkeg").val(id);
+        $("#nik_pengisi_edit").val(nik_pengisi);
+        $("#tanggal_keg_edit").val(tanggal_keg);
+        $("#waktu_mulai_edit").val(waktu_mulai);
+        $("#waktu_selesai_edit").val(waktu_selesai);
+        $("#tempat_keg_edit").val(tempat_keg);
+        $("#nama_pengisi_edit").val(nama_pengisi);
+        $('#editModal').modal();
+      }
     </script>
-	
+	 
+  <script src="<?php echo base_url('js/custom.min.js') ?>"></script>
   <!-- bootstrap-daterangepicker -->
     <script src="<?php echo base_url('assets/moment/min/moment.min.js') ?>"></script>
     <script src="<?php echo base_url('assets/bootstrap-daterangepicker/daterangepicker.js') ?>"></script>
@@ -364,14 +390,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
        
         
         $('.myDatepicker2').datetimepicker({
-            format: 'DD/MM/YYYY'
+            format: 'YYYY-MM-DD'
         });
 
         $('#myDatepicker3').datetimepicker({
             format: 'YYYY'
         });
     </script>
-
+    <script src="<?php echo base_url('js/custom.min.js') ?>"></script>
 
 
   </body>

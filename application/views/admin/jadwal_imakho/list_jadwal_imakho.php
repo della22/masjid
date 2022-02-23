@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <h2>Jadwal Imam dan Khotib </h2>
                   <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#filterModal" class="btn btn-info"><i class="fa fa-filter"></i> Filter</a></ul>
                    <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#tambahModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Jadwal</a></ul>
-                   <ul class="nav navbar-right panel_toolbox"><a href="<?=base_url();?>admin/jadwal_imakho/cetak" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export PDF</a></ul>
+                   <ul class="nav navbar-right panel_toolbox"><a href="<?=$link_download;?>" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export PDF</a></ul>
                   <div class="clearfix"></div>
                 </div>
 
@@ -55,15 +55,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           </thead>
                           <tbody>
                           <?php $j = 1; ?>
-                          <?php foreach ($jadwal_imakho->result_array() as $data_imakho):
+                          ;<?php foreach ($jadwal_imakho->result_array() as $data_imakho):
                           ?>
                             <tr>
                               <td align="center"><?php echo $j ?></td>
                               <td width="150"><?=$data_imakho['tanggal_imakho'];?></td>
-                              <td width="150"><?=$data_imakho['nama_ustadz'];?></td>
-                              <td width="150"><?=$data_imakho['nama_ustadz'];?></td>
+                              <td width="150"><?=$data_imakho['nama_imakho'];?></td>
+                              <td width="150"><?=($data_imakho['nama_muadzin'] == "") ? "-" : $data_imakho['nama_muadzin'];?></td>
                               <td width="100" align="center">
-                                <a href=""  onclick="editData(event, '<?=$data_imakho['id_imakho'];?>','<?=$data_imakho['tanggal_imakho'];?>','<?=$data_imakho['nik_imakho'];?>', '<?=$data_imakho['nama_ustadz'];?>','<?=$data_imakho['nik_muadzin'];?>','<?=$data_imakho['nama_ustadz'];?>')"><i class="fa fa-edit"></i> Edit</a>
+                                <a href=""  onclick="editData(event, '<?=$data_imakho['id_imakho'];?>','<?=$data_imakho['tanggal_imakho'];?>','<?=$data_imakho['nik_imakho'];?>', '<?=$data_imakho['nama_imakho'];?>','<?=$data_imakho['nik_muadzin'];?>','<?=($data_imakho['nama_muadzin'] == "") ? "-" : $data_imakho['nama_muadzin'];?>')"><i class="fa fa-edit"></i> Edit</a>
                                 <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/jadwal_imakho/hapus/<?=$data_imakho['id_imakho'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
                               </tr>
                             <?php $j++; ?>
@@ -160,40 +160,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
         </div>
 
-      
-         <!-- Tambah Modal -->
-        <div class="modal fade" id="tambahModal" role="dialog">
-          <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title"> Tambah Jadwal Imam/Khotib </h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-              </div>
-              <div class="modal-body">
-                <div class="col-md-12 col-sm-12">  
-                    <div class="col-md-6 col-sm-6" align="center">
-                      <a href="#"  data-toggle="modal" data-target="#tambahExcelModal" class="btn btn-success"><i class="fa fa-plus"></i> Upload Excel</a>
-                      
-                    </div>
-                    <div class="col-md-6 col-sm-6" align="center">
-                      <a href="#"  data-toggle="modal" data-target="#tambahManualModal" class="btn btn-info"><i class="fa fa-plus"></i> Tambah Manual</a>
-                    </div>
-                  </div>      
-              </div>
-              <div class="modal-footer">
-                <div class="col-md-12 col-sm-12">  
-                    <div class="col-md-12">
-                      
-                    </div>
-                  </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Tambah Manual Modal -->
-        <div class="modal fade" id="tambahManualModal" role="dialog">
+        <div class="modal fade" id="tambahModal" role="dialog">
           <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -250,50 +218,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
         </div>
 
-        <!-- Tambah via Upload Excel Modal -->
-        <div class="modal fade" id="tambahExcelModal" role="dialog">
-          <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title"> Upload Excel </h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-              </div>
-              <div class="modal-body">          
-                  <form action="#" class="excel-upl" id="excel-upl" enctype="multipart/form-data" method="post" accept-charset="utf-8">
-                    <div class="form-group col-md-12 col-sm-12">
-                      <div class="col-md-8 col-sm-8">
-                    
-                        <input type="file" class="custom-file-input" id="validatedCustomFile" name="fileURL">
-                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                      </div>
-                      <div class="col-md-4 col-sm-4">
-                    
-                        <button type="submit" name="import" class="float-right btn btn-primary">Import</button>
-                      </div>
-                      
-                    </div>
-                    
-                  </form>
-              </div>
-              <div class="modal-footer">
-                <div class="col-md-12 col-sm-12">  
-                    <div class="col-md-12">
-                      <div> <label>Contoh template excel untuk upload</label>
-                      </div>
-                      <div class="float-right">  
-                        <a href="#" class="btn btn-link btn-sm"><i class="fa fa-file-excel"></i> Sample .XLSX</a>
-                        <a href="#" class="btn btn-link btn-sm"><i class="fa fa-file-excel"></i> Sample .XLS</a>
-                        <a href="#" class="btn btn-link btn-sm" target="_blank" ><i class="fa fa-file-csv"></i> Sample .CSV</a>
-                      </div> 
-                    </div>
-                  </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Filter Modal -->
         <div class="modal fade" id="filterModal" role="dialog">
           <div class="modal-dialog">
@@ -304,24 +228,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
             <div class="modal-body">
-                      
+              <form action="">
               <div class="form-group col-md-12 col-sm-12">
                 <label class="col-form-label col-md-4 col-sm-4 label-align">Bulan : </label>
                 <div class="col-md-6 col-sm-6 ">
                   <select class="select2_single form-control" name="bulan" tabindex="-1">
-                    <option value="Semua Bulan">Semua Bulan</option>;
-                    <option value="Januari">Januari</option>;
-                    <option value="Februari">Februari</option>;
-                    <option value="Maret">Maret</option>;
-                    <option value="April">April</option>;
-                    <option value="Mei">Mei</option>;
-                    <option value="Juni">Juni</option>;
-                    <option value="Juli">Juli</option>;
-                    <option value="Agustus">Agustus</option>;
-                    <option value="September">September</option>;
-                    <option value="Oktober">Oktober</option>;
-                    <option value="November">November</option>;
-                    <option value="Desember">Desember</option>;   
+                    <option value="13">Semua Bulan</option>;
+                    <option value="1">Januari</option>;
+                    <option value="2">Februari</option>;
+                    <option value="3">Maret</option>;
+                    <option value="4">April</option>;
+                    <option value="5">Mei</option>;
+                    <option value="6">Juni</option>;
+                    <option value="7">Juli</option>;
+                    <option value="8">Agustus</option>;
+                    <option value="9">September</option>;
+                    <option value="10">Oktober</option>;
+                    <option value="11">November</option>;
+                    <option value="12">Desember</option>;   
                   </select>
                 </div>
               </div>
@@ -331,7 +255,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-md-6 col-sm-6 ">
                   <div class="form-group">
                     <div class='input-group date' id='myDatepicker3'>
-                      <input type='text' class="form-control" placeholder="Semua Tahun" name="tahun_jadwal_keg" />
+                      <input type='text' class="form-control" placeholder="Semua Tahun" name="tahun" />
                       <span class="input-group-addon" style="padding-top: 10px">
                               <span class="fa fa-calendar-o"></span>
                       </span>
@@ -339,11 +263,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   </div>
                 </div>
               </div>
-
               <br>
               <div class="modal-footer">  
                 <button type="submit" class="btn btn-success">Filter</button>
               </div>
+            </form>
+
           </div>
         </div>
       </div>
@@ -397,14 +322,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('#datatable2').dataTable();
             $( "#nama_imakho_tambah").autocomplete({
               source: "<?= base_url('admin/jadwal_imakho/get_autocomplete/');?>",
-              appendTo: "#tambahManualModal",
+              appendTo: "#tambahModal",
               select: function (event,ui){
                 $( "#nik_imakho").val(ui.item.nik);
               }
             });
             $( "#nama_muadzin_tambah").autocomplete({
               source: "<?= base_url('admin/jadwal_imakho/get_autocomplete/');?>",
-              appendTo: "#tambahManualModal",
+              appendTo: "#tambahModal",
               select: function (event,ui){
                 $( "#nik_muadzin").val(ui.item.nik);
                }
@@ -436,6 +361,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('#editModal').modal();
       }
     </script>
+
+    <script>
+    $(document).ready(function() {
+    // $("#filterModal").submit(function(e) {
+    //   e.preventDefault();
+    //   var id = $("#id_imakho").val();
+    //   // console.log(id);
+    //   var url = "<?= site_url('jadwal_imakho/filter/') ?>" + id;
+    //   $('#result').load(url);
+    // })
+    });
+    </script>
+    
     <script src="<?php echo base_url('js/custom.min.js') ?>"></script>
   
   <!-- bootstrap-daterangepicker -->

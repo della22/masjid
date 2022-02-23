@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +32,7 @@
   <hr class="line-title"> 
   <p align="center">
     LAPORAN JADWAL IMAM DAN KHOTIB MASJID<br>
-    <b>BULAN FEBRUARI TAHUN 2022</b>
+    <b><?=$judul_pdf;?></b>
   </p>
   <table class="table table-bordered">
   <thead>
@@ -49,7 +51,7 @@
       <td align="center"><?php echo $j++ ?></td>
       <td><?=$data_imakho['tanggal_imakho'];?></td>
       <td><?=$data_imakho['nama_imakho'];?></td>
-      <td><?=$data_imakho['nama_muadzin'];?></td>
+      <td><?=($data_imakho['nama_muadzin'] == "") ? "-" : $data_imakho['nama_muadzin'];?></td>
     </tr>
   <?php endforeach;?>  
   </tbody>
