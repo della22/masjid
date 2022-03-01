@@ -7,6 +7,7 @@ class M_pengurus extends CI_Model
         $this->db->select('*');
         $this->db->from('ustadz');
         $this->db->join('pengurus', 'pengurus.nik_pengurus = ustadz.nik' );
+        $this->db->order_by('id_pengurus', 'DESC');
         return $this->db->get();
     }
     

@@ -12,8 +12,17 @@ class Jadwal_keg extends CI_Controller
 
     public function index()
     {
-        $data['jadwal_keg'] = $this->M_keg->list_keg();
-        $this->load->view('admin/jadwal_keg/list_jadwal_keg',$data);
+        if ($this->input->get('bulan') && $this->input->get('tahun')) {
+            $bulan = $this->input->get('bulan');
+            $tahun = $this->input->get('tahun');
+            $data['jadwal_keg'] = $this->M_keg->filter($bulan,$tahun);
+            $data['link_download'] = base_url().'admin/jadwal_keg/cetak/'.$bulan.'/'.$tahun;
+        }
+        else{
+            $data['jadwal_keg'] = $this->M_keg->list_keg();
+            $data['link_download'] = base_url().'admin/jadwal_keg/cetak';
+        }
+         $this->load->view('admin/jadwal_keg/list_jadwal_keg',$data);
     }
 
    public function proses()
@@ -23,7 +32,6 @@ class Jadwal_keg extends CI_Controller
         $tanggal_keg = $this->input->post('tanggal_keg');
         $waktu_keg = $this->input->post('waktu_mulai').' - '.$this->input->post('waktu_selesai').' WIB';
         $tempat_keg = $this->input->post('tempat_keg');
-        // var_dump($nik_pengisi.'/'.$nama_keg.'/'.$tanggal_keg.'/'.$waktu_keg.'/'.$tempat_keg);
         $this->M_keg->input_keg($nik_pengisi, $nama_keg, $tanggal_keg, $waktu_keg, $tempat_keg);
         $this->session->set_flashdata('success','Item berhasil ditambahkan');
         redirect('admin/jadwal_keg');
@@ -61,5 +69,48 @@ class Jadwal_keg extends CI_Controller
                 echo json_encode($arr_result);
             }
         }
+    }
+
+    public function cetak($bulan = null,$tahun = null){
+        // panggil library yang kita buat sebelumnya yang bernama pdfgenerator
+        $bulan_cek = array(
+                '1' => 'JANUARI',
+                '2' => 'FEBRUARI',
+                '3' => 'MARET',
+                '4' => 'APRIL',
+                '5' => 'MEI',
+                '6' => 'JUNI',
+                '7' => 'JULI',
+                '8' => 'AGUSTUS',
+                '9' => 'SEPTEMBER',
+                '10' => 'OKTOBER',
+                '11' => 'NOVEMBER',
+                '12' => 'DESEMBER',
+        );
+        $this->load->library('pdfgenerator');
+        
+        if ($bulan && $tahun) {
+            $data['jadwal_keg'] = $this->M_keg->filter($bulan,$tahun);
+            if ($bulan == 13) {
+                $data['judul_pdf'] = 'JADWAL TAHUN '.$tahun;
+            }else{
+                $data['judul_pdf'] = 'BULAN '.$bulan_cek[$bulan].' TAHUN '.$tahun;
+            }
+        }else{
+            $data['jadwal_keg'] = $this->M_keg->list_keg();
+            $data['judul_pdf'] = 'JADWAL KESELURUHAN';
+        }
+        
+        // filename dari pdf ketika didownload
+        $file_pdf = 'laporan kegiatan masjid';
+        // setting paper
+        $paper = 'A4';
+        //orientasi paper potrait / landscape
+        $orientation = "portrait";
+        
+        $html = $this->load->view('admin/jadwal_keg/laporan_keg_pdf',$data, true);     
+        
+        // run dompdf
+        $this->pdfgenerator->generate($html, $file_pdf,$paper,$orientation);
     }
 }

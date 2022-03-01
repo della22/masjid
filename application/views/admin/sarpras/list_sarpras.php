@@ -58,7 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <?php foreach ($sarpras->result_array() as $data_sarpras):
                           ?>
                             <tr>
-                            <td align="center"><?php echo $j ?></td>
+                            <td align="center"><?php echo $j++ ?></td>
                               <td width="150"><?=$data_sarpras['item'];?></td>
                               <td width="50"><?=$data_sarpras['jumlah_sarpras'];?></td>
                               <td width="100"><?=$data_sarpras['kondisi'];?></td>

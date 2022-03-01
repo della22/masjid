@@ -20,7 +20,7 @@
     <tr>
       <td align="center">
         <span style="line-height: 1.6; font-weight: bold;">
-          LAPORAN JADWAL IMAM DAN KHOTIB
+          LAPORAN JADWAL KEGIATAN
           <br>MASJID NURUL IMAN SELINDUNG BARU KOTA PANGKALPINANG
         </span>
       </td>
@@ -29,29 +29,33 @@
 
   <hr class="line-title"> 
   <p align="center">
-    LAPORAN JADWAL IMAM DAN KHOTIB MASJID<br>
+    LAPORAN JADWAL KEGIATAN MASJID<br>
     <b><?=$judul_pdf;?></b>
   </p>
   <table class="table table-bordered">
   <thead>
     <tr>
       <th width="5%">No.</th>
+        <th>Nama Kegiatan</th>
         <th>Tanggal</th>
-        <th>Nama Imam/Khotib</th>
-        <th>Nama Muadzin</th>
+        <th>Waktu</th>
+        <th>Tempat</th>
+        <th>Pengisi Kegiatan</th>
     </tr>
   </thead>
   <tbody>
     <?php $j = 1; ?>
-    <?php foreach ($jadwal_imakho->result_array() as $data_imakho):
+    <?php foreach ($jadwal_keg->result_array() as $data_keg):
     ?>
     <tr>
       <td align="center"><?php echo $j++ ?></td>
-      <td><?=$data_imakho['tanggal_imakho'];?></td>
-      <td><?=$data_imakho['nama_imakho'];?></td>
-      <td><?=($data_imakho['nama_muadzin'] == "") ? "-" : $data_imakho['nama_muadzin'];?></td>
+      <td><?=$data_keg['nama_keg'];?></td>
+      <td><?=$data_keg['tanggal_keg'];?></td>
+      <td><?=$data_keg['waktu_keg'];?></td>
+      <td><?=$data_keg['tempat_keg'];?></td>
+      <td><?=$data_keg['tanggal_keg'];?></td>
     </tr>
-  <?php endforeach;?>  
+  <?php endforeach;?> 
   </tbody>
 </table>
   <script src="<?php echo base_url('assets/jquery/dist/jquery.min.js') ?>"></script>

@@ -7,6 +7,7 @@ class M_user extends CI_Model
         $this->db->select('*');
         $this->db->from('ustadz','pengurus');
         $this->db->join('user_profile', 'user_profile.nik_user = ustadz.nik', 'user_profile.jabatan_pengurus = ustadz.jabatan_pengurus' );
+        $this->db->order_by('id_user', 'DESC');
         return $this->db->get();
     }
     

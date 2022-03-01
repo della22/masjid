@@ -4,11 +4,11 @@ class M_imakho extends CI_Model
 {
     function list_imakho()
     {
-
         $this->db->select('a.id_imakho, a.tanggal_imakho, a.nik_imakho,a.nik_muadzin, b.nama_ustadz as nama_imakho, c.nama_ustadz as nama_muadzin');
          $this->db->from('jadwal_imakho a');
          $this->db->join('ustadz b', 'a.nik_imakho = b.nik','left');
          $this->db->join('ustadz c', 'a.nik_muadzin = c.nik','left');
+         $this->db->order_by('tanggal_imakho', 'DESC');
          return $this->db->get();
     }
     

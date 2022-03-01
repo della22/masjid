@@ -361,18 +361,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('#editModal').modal();
       }
     </script>
-
-    <script>
-    $(document).ready(function() {
-    // $("#filterModal").submit(function(e) {
-    //   e.preventDefault();
-    //   var id = $("#id_imakho").val();
-    //   // console.log(id);
-    //   var url = "<?= site_url('jadwal_imakho/filter/') ?>" + id;
-    //   $('#result').load(url);
-    // })
-    });
-    </script>
     
     <script src="<?php echo base_url('js/custom.min.js') ?>"></script>
   

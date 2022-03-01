@@ -4,6 +4,7 @@ class M_sarpras extends CI_Model
 {
     function list_sarpras()
     {
+        $this->db->order_by('id_sarpras', 'DESC');
         return $this->db->get("sarpras");
     }
     

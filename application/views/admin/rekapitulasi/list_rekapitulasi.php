@@ -33,14 +33,14 @@
               </div>
 
               <div>
-                <form action="#" method="post" enctype="multipart/form-data" >
+                <form action="" method="get" enctype="multipart/form-data" >
 
                   <div class="item form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-1 col-sm-1 label-align" for="nama_siswa">Bulan : </label>
                     <div class="col-md-2 col-sm-2 ">
                       <div class="form-group">
                         <div class='input-group date' id='myDatepicker4'>
-                          <input type="text" class="form-control" placeholder="Bulan" name="bulan" required value="01"/>
+                          <input type="text" class="form-control" placeholder="Bulan" name="bulan" required value="<?= $bulan ;?>"/>
                           <span class="input-group-addon" style="padding-top: 10px">
                               <span class="fa fa-calendar-o"></span>
                             </span>
@@ -51,7 +51,7 @@
                     <div class="col-md-2 col-sm-2 ">
                       <div class="form-group">
                         <div class='input-group date' id='myDatepicker3'>
-                          <input type='text' class="form-control" placeholder="Tahun" name="tahun" required value="2022"/>
+                          <input type='text' class="form-control" placeholder="Tahun" name="tahun" required value="<?=$tahun;?>"/>
                           <span class="input-group-addon" style="padding-top: 10px">
                               <span class="fa fa-calendar-o"></span>
                             </span>
@@ -100,7 +100,7 @@
                 </div>
                 <div class="top_tiles" >
                   <div class="col-md-4 col-sm-4  tile">
-                    <span>Saldo Bulan Januari 2022 </span>
+                    <span>Saldo Bulan <?=$bulan_terbilang;?> <?=$tahun;?> </span>
                     <h2>Rp. 240.000</h2>
                   </div>
 
@@ -115,7 +115,7 @@
               <div class="clearfix"></div>
             </div>
             <div align="right">
-                  <a href="#" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Export Excel</a>
+                  <a href="<?=$link_download;?>" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Export Excel</a>
                 </div>
           </div>
 
@@ -136,52 +136,37 @@
                     </tr>            
                   </thead>
                   <tbody>
+                    <?php 
+                    $total_pemasukan = 0;
+                    $total_pengeluaran = 0;
+                    $saldo = 0;
+                    foreach($rekapitulasi as $rekap):?>
                       <tr>
                         <td align="center">1</td>
-                        <td align="center">22/01/2022</td>
-                        <td>KETERANGAN</td>
-                        <td align="right" style="padding-right: 40px">Rp. 200.000</td>
-                        <td align="right" style="padding-right: 40px"></td>
+                        <td align="center"><?=$rekap['tanggal'];?></td>
+                        <td><?=$rekap['keterangan'];?></td>
+                        <td align="right" style="padding-right: 40px"><?=($rekap['nominal_pemasukan'] != null) ? 'Rp. '.number_format($rekap['nominal_pemasukan']): null;?></td>
+                        <td align="right" style="padding-right: 40px"><?=($rekap['nominal_pengeluaran'] != null) ? 'Rp. '.number_format($rekap['nominal_pengeluaran']): null;?></td>
                       </tr> 
-
-                      <tr>
-                        <td align="center">2</td>
-                        <td align="center">23/01/2022</td>
-                        <td>KETERANGAN</td>
-                        <td align="right" style="padding-right: 40px">Rp. 100.000</td>
-                        <td align="right" style="padding-right: 40px"></td>
-                      </tr> 
-                      <tr>
-                        <td align="center">3</td>
-                        <td align="center">24/01/2022</td>
-                        <td>KETERANGAN</td>
-                        <td align="right" style="padding-right: 40px"></td>
-                        <td align="right" style="padding-right: 40px">Rp. 10.000</td>
-                      </tr> 
-                      <tr>
-                        <td align="center">4</td>
-                        <td align="center">25/01/2022</td>
-                        <td>KETERANGAN</td>
-                        <td align="right" style="padding-right: 40px"></td>
-                        <td align="right" style="padding-right: 40px">Rp. 50.000</td>
-                      </tr> 
-                    
+                    <?php 
+                    $total_pemasukan = $total_pemasukan + $rekap['nominal_pemasukan']; 
+                    $total_pengeluaran = $total_pengeluaran + $rekap['nominal_pengeluaran']; 
+                    $saldo = ($total_pemasukan - $total_pengeluaran);
+                    endforeach;?>
                     <tr bgcolor="C0C0C0">
                       <th colspan="3" style="text-align: center;">TOTAL</th>
-                        <th style="text-align: right; padding-right: 40px">Rp. 300.000</th>
-                        <th style="text-align: right; padding-right: 40px"> Rp. 60.000</th>
+                        <th style="text-align: right; padding-right: 40px">Rp. <?= number_format($total_pemasukan)?></th>
+                        <th style="text-align: right; padding-right: 40px">Rp. <?= number_format($total_pengeluaran)?></th>
                     </tr>
 
                     <tr bgcolor="E59866">
-                      <th colspan="4" style="text-align: center;">SALDO BULAN JANUARI 2022</th>
-                        <th style="text-align: right; padding-right: 40px"> Rp. 240.000</th>
+                      <th colspan="4" style="text-align: center;">SALDO BULAN <?=$bulan_terbilang;?> <?=$tahun;?></th>
+                        <th style="text-align: right; padding-right: 40px">Rp. <?= number_format($saldo)?></th>
                     </tr>
 
                     </tbody>
                   </table>
                 </div>
-                
-                
                 
               </div>
         </div>

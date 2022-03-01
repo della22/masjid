@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <h2>Jadwal Kegiatan </h2>
                   <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#filterModal" class="btn btn-info"><i class="fa fa-filter"></i> Filter</a></ul>
                    <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#tambahModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Jadwal</a></ul>
-                   <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#exportModal" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export PDF</a></ul>
+                   <ul class="nav navbar-right panel_toolbox"><a href="<?=$link_download;?>" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export PDF</a></ul>
                   <div class="clearfix"></div>
                 </div>
 
@@ -50,6 +50,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <tbody>
                           <?php $j = 1; ?>
                           ;<?php foreach ($jadwal_keg->result_array() as $data_keg):
+
+                          $waktu_explode = explode(" ",$data_keg['waktu_keg']);
+                          $waktu_awal = $waktu_explode[0];
+                          $waktu_akhir = $waktu_explode[2];
                           ?>
                             <tr>
                               <td align="center"><?php echo $j ?></td>
@@ -59,7 +63,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <td width="130"><?=$data_keg['tempat_keg'];?></td>
                               <td width="130"><?=$data_keg['nama_ustadz'];?></td>
                               <td width="120" align="center">
-                                <a href=""  onclick="editData(event, '<?=$data_keg['id_jadkeg'];?>','<?=$data_keg['nama_keg'];?>','<?=$data_keg['tanggal_keg'];?>', '<?=$data_keg['waktu_keg'];?>','<?=$data_keg['tempat_keg'];?>','<?=$data_keg['nama_ustadz'];?>')"><i class="fa fa-edit"></i> Edit</a>
+                                <a href=""  onclick="editData(event, '<?=$data_keg['id_jadkeg'];?>','<?=$data_keg['nama_keg'];?>','<?=$data_keg['tanggal_keg'];?>', '<?=$waktu_awal;?>','<?=$waktu_akhir;?>','<?=$data_keg['tempat_keg'];?>','<?=$data_keg['nama_ustadz'];?>')"><i class="fa fa-edit"></i> Edit</a>
                                 <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/jadwal_keg/hapus/<?=$data_keg['id_jadkeg'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
                             </tr>
                             <?php $j++; ?>
@@ -257,7 +261,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
             <div class="modal-body">
-                      
+              <form action="">
               <div class="form-group col-md-12 col-sm-12">
                 <label class="col-form-label col-md-4 col-sm-4 label-align">Bulan : </label>
                 <div class="col-md-6 col-sm-6 ">
@@ -284,7 +288,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-md-6 col-sm-6 ">
                   <div class="form-group">
                     <div class='input-group date' id='myDatepicker3'>
-                      <input type='text' class="form-control" placeholder="Semua Tahun" name="tahun_jadwal_keg" />
+                      <input type='text' class="form-control" placeholder="Semua Tahun" name="tahun" />
                       <span class="input-group-addon" style="padding-top: 10px">
                               <span class="fa fa-calendar-o"></span>
                       </span>
@@ -297,6 +301,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <div class="modal-footer">  
                 <button type="submit" class="btn btn-success">Filter</button>
               </div>
+            </form>
           </div>
         </div>
       </div>
@@ -362,14 +367,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
         });
 
-      function editData(e,id,nik_pengisi,tanggal_keg,waktu_mulai,waktu_selesai,tempat_keg,nama_pengisi){
+      function editData(e,id,nama_keg,tanggal,waktu_mulai,waktu_selesai,tempat,nama_pengisi){
         e.preventDefault();
         $("#id_jadkeg").val(id);
-        $("#nik_pengisi_edit").val(nik_pengisi);
-        $("#tanggal_keg_edit").val(tanggal_keg);
+        $("#nama_keg_edit").val(nama_keg);
+        $("#tanggal_keg_edit").val(tanggal);
         $("#waktu_mulai_edit").val(waktu_mulai);
         $("#waktu_selesai_edit").val(waktu_selesai);
-        $("#tempat_keg_edit").val(tempat_keg);
+        $("#tempat_keg_edit").val(tempat);
         $("#nama_pengisi_edit").val(nama_pengisi);
         $('#editModal').modal();
       }

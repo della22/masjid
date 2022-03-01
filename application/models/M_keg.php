@@ -50,4 +50,23 @@ class M_keg extends CI_Model
         $this->db->limit(10);
         return $this->db->get('ustadz')->result();
     }
+
+    public function filter($bulan = null, $tahun = null){
+
+        if ($bulan == 13) {
+            $this->db->select('*');
+            $this->db->from('ustadz');
+            $this->db->join('jadwal_keg', 'jadwal_keg.nik_pengisi = ustadz.nik');
+            $this->db->where('YEAR(tanggal_keg)', $tahun);
+            return $this->db->get();
+        }else{
+            $this->db->select('*');
+            $this->db->from('ustadz');
+            $this->db->join('jadwal_keg', 'jadwal_keg.nik_pengisi = ustadz.nik');
+            $this->db->where('MONTH(tanggal_keg)', $bulan);
+            $this->db->where('YEAR(tanggal_keg)', $tahun);
+            return $this->db->get();
+        }
+        
+    }
 }
