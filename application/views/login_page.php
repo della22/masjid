@@ -31,7 +31,15 @@
         <div class="animate form login_form">
           <section class="login_content">
             <img src="<?php echo base_url('images/logo.png') ?>" height="150" width="150"  /> 
-            <form action="<?= site_url('login') ?>" method="POST">
+            <?php if ($this->session->flashdata('success') == TRUE): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <?= $this->session->flashdata('success');?>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              <?php endif; ?>
+            <form action="<?= site_url('login/aksi_login') ?>" method="POST">
 
               <h1>Login Form</h1>
               <div class="col-md-12 col-sm-12">
@@ -41,7 +49,7 @@
                 <input type="password" class="form-control" placeholder="Password" name="password" required />
               </div>
               <div class="col-md-6 col-sm-6 offset-md-3">
-                <a href="<?php echo site_url('admin/overview') ?>" type="submit" class="btn btn-success btn-lg">Login</a>
+                <button type="submit" class="btn btn-success btn-lg">Login</button>
               </div>
 
               <div class="clearfix"></div>

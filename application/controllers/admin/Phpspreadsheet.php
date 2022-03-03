@@ -31,9 +31,14 @@ class Phpspreadsheet extends CI_Controller {
 		$rekapitulasi = $this->M_rekapitulasi->list_rekapitulasi_filter($bulan,$tahun)->result_array();
 		$spreadsheet = new Spreadsheet();
 		$sheet = $spreadsheet->getActiveSheet();
+		$style_col = [      
+			'font' => ['bold' => true],     
+			'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,       
+			'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER],      
+		];
 		$sheet->setCellValue('A1', "REKAPITULASI PENERIMAAN DAN PENGELUARAAN MASJID BULAN ".bulan($bulan)." TAHUN ".$tahun);     
 		$sheet->mergeCells('A1:E1');     
-		$sheet->getStyle('A1')->getFont()->setBold(true);
+		$sheet->getStyle('A1')->applyFromArray($style_col);
 		$sheet->setCellValue('A2', "NO");
 		$sheet->setCellValue('B2', "TANGGAL");
 		$sheet->setCellValue('C2', "KETERANGAN");
@@ -59,9 +64,7 @@ class Phpspreadsheet extends CI_Controller {
 		}
 		$sheet->setCellValue('A'.($numrow), "TOTAL");    
 		$sheet->mergeCells('A'.($numrow).':C'.($numrow));     
-		$sheet->getStyle('A'.($numrow))->getFont()->setBold(true);
-		// $sheet->getStyle('A'.($numrow))->getAlignment()->setHorizontal('center');
-		// $sheet->getColumnDimension('A'.($numrow))->setAutoSize(true);
+		$sheet->getStyle('A'.($numrow))->applyFromArray($style_col);
 
 		$sheet->setCellValue('D'.($numrow), "Rp.".number_format($total_pemasukan));   
 		$sheet->getStyle('D'.($numrow))->getFont()->setBold(true);
@@ -71,16 +74,17 @@ class Phpspreadsheet extends CI_Controller {
 
 		$sheet->setCellValue('A'.($numrow+1), "SALDO BULAN ".bulan($bulan)." TAHUN ".$tahun);    
 		$sheet->mergeCells('A'.($numrow+1).':D'.($numrow+1));     
-		$sheet->getStyle('A'.($numrow+1))->getFont()->setBold(true);
+		$sheet->getStyle('A'.($numrow+1))->applyFromArray($style_col);
+
 
 		$sheet->setCellValue('E'.($numrow+1), "Rp.".number_format($saldo));   
 		$sheet->getStyle('E'.($numrow+1))->getFont()->setBold(true);
 
 		$sheet->getColumnDimension('A')->setWidth(5);
-		$sheet->getColumnDimension('B')->setWidth(15);
+		$sheet->getColumnDimension('B')->setWidth(20);
 		$sheet->getColumnDimension('C')->setWidth(25);
-		$sheet->getColumnDimension('D')->setWidth(15);
-		$sheet->getColumnDimension('E')->setWidth(15);
+		$sheet->getColumnDimension('D')->setWidth(18);
+		$sheet->getColumnDimension('E')->setWidth(18);
 
 		$writer = new Xlsx($spreadsheet);
 		$filename = 'Rekapitulasi '.$bulan.$tahun;

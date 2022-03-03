@@ -8,6 +8,9 @@ class Pengurus extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_pengurus');
+        if($this->session->userdata('status') != "login"){
+            redirect(base_url("login"));
+        }
     }
 
     public function index()

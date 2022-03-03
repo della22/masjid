@@ -9,6 +9,9 @@ class Rekapitulasi extends CI_Controller
         parent::__construct();
         $this->load->model('M_rekapitulasi');
         $this->load->helper('dates_helper');
+        if($this->session->userdata('status') != "login"){
+            redirect(base_url("login"));
+        }
     }
 
     public function index()

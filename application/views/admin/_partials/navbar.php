@@ -11,7 +11,7 @@
             <a class="dropdown-item"  href="<?php echo site_url('admin/profile'); ?>"> Profile</a>
                   
             <!-- <a class="dropdown-item"  href="javascript:;">Help</a> -->
-            <a class="dropdown-item"  href="<?= site_url('masjid') ?>"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+            <a class="dropdown-item"  href="<?= site_url('login/logout') ?>"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
           </div>
         </li>          
       </ul>

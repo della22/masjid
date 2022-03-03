@@ -8,6 +8,9 @@ class Ustadz extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_ustadz');
+        if($this->session->userdata('status') != "login"){
+            redirect(base_url("login"));
+        }
     }
 
     public function index()

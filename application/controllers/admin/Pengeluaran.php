@@ -10,6 +10,9 @@ class Pengeluaran extends CI_Controller
         $this->load->model('M_pengeluaran');
         $this->load->helper('rupiah_helper');
         $this->load->helper('dates_helper');
+        if($this->session->userdata('status') != "login"){
+            redirect(base_url("login"));
+        }
     }
 
     public function index()
