@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 04 Mar 2022 pada 03.13
+-- Waktu pembuatan: 29 Bulan Mei 2022 pada 17.26
 -- Versi server: 10.4.22-MariaDB
 -- Versi PHP: 7.4.26
 
@@ -24,52 +24,95 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jadwal_imakho`
+-- Struktur dari tabel `arisan_kurban`
 --
 
-CREATE TABLE `jadwal_imakho` (
-  `id_imakho` int(255) NOT NULL,
-  `nik_imakho` varchar(20) NOT NULL,
-  `nik_muadzin` varchar(20) DEFAULT NULL,
-  `tanggal_imakho` date NOT NULL
+CREATE TABLE `arisan_kurban` (
+  `id_arisan` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `jadwal_imakho`
---
-
-INSERT INTO `jadwal_imakho` (`id_imakho`, `nik_imakho`, `nik_muadzin`, `tanggal_imakho`) VALUES
-(39, '0987', '', '2018-02-20'),
-(40, '4', '0987', '2021-06-24'),
-(41, '3', '1', '2018-02-22'),
-(42, '0987', '1234', '2022-02-03'),
-(43, '2', '3', '2022-02-24'),
-(44, '1', '', '2020-05-14'),
-(45, '3', '0987', '2022-02-25');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jadwal_keg`
+-- Struktur dari tabel `berita_donasi`
 --
 
-CREATE TABLE `jadwal_keg` (
-  `id_jadkeg` int(255) NOT NULL,
-  `nik_pengisi` varchar(20) NOT NULL,
-  `nama_keg` varchar(100) NOT NULL,
-  `tanggal_keg` date NOT NULL,
-  `waktu_keg` text NOT NULL,
-  `tempat_keg` varchar(100) NOT NULL
+CREATE TABLE `berita_donasi` (
+  `id_berita` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `cicil_arisan_kurban`
+--
+
+CREATE TABLE `cicil_arisan_kurban` (
+  `id_cicil_arisan` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jamaah`
+--
+
+CREATE TABLE `jamaah` (
+  `id_jamaah` varchar(10) NOT NULL,
+  `nama_jamaah` varchar(30) NOT NULL,
+  `telepon_jamaah` varchar(12) NOT NULL,
+  `alamat_jamaah` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `jadwal_keg`
+-- Dumping data untuk tabel `jamaah`
 --
 
-INSERT INTO `jadwal_keg` (`id_jadkeg`, `nik_pengisi`, `nama_keg`, `tanggal_keg`, `waktu_keg`, `tempat_keg`) VALUES
-(3, '3', 'nama kegiatan', '2022-02-24', '21:03 - 21:03 WIB', 'Tempat'),
-(4, '1234', 'test1', '2022-01-13', '21:27 - 21:28 WIB', 'dimana'),
-(5, '1', 'test2', '2021-12-25', '21:27 - 21:27 WIB', 'halaman');
+INSERT INTO `jamaah` (`id_jamaah`, `nama_jamaah`, `telepon_jamaah`, `alamat_jamaah`) VALUES
+('0987', 'della', '0808080', 'alamat'),
+('1', 'abdul', '0812', 'aa'),
+('11', 'abdul', '0812', 'aa'),
+('1234', 'nama', '0812', 'qq'),
+('15', 'budi', '0813', 'bb'),
+('2', 'budi', '0813', 'bb'),
+('3', 'ahmad', '0856', 'cc'),
+('4', 'hafizh', '0882', 'dd'),
+('7', 'hafizh', '0882', 'dd');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kategori_pemasukan`
+--
+
+CREATE TABLE `kategori_pemasukan` (
+  `id_kategori_masuk` int(11) NOT NULL,
+  `nama_kategori_masuk` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kategori_pengeluaran`
+--
+
+CREATE TABLE `kategori_pengeluaran` (
+  `id_kategori_keluar` int(11) NOT NULL,
+  `nama_kategori_keluar` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `layanan`
+--
+
+CREATE TABLE `layanan` (
+  `id_layanan` int(50) NOT NULL,
+  `nama_layanan` varchar(100) NOT NULL,
+  `pj_layanan` varchar(100) NOT NULL,
+  `kontak_layanan` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -79,6 +122,7 @@ INSERT INTO `jadwal_keg` (`id_jadkeg`, `nik_pengisi`, `nama_keg`, `tanggal_keg`,
 
 CREATE TABLE `pemasukan` (
   `id` int(255) NOT NULL,
+  `id_kategori` int(11) NOT NULL,
   `tanggal` date NOT NULL,
   `nominal` varchar(100) NOT NULL,
   `keterangan` text NOT NULL,
@@ -89,12 +133,12 @@ CREATE TABLE `pemasukan` (
 -- Dumping data untuk tabel `pemasukan`
 --
 
-INSERT INTO `pemasukan` (`id`, `tanggal`, `nominal`, `keterangan`, `id_rekapitulasi`) VALUES
-(11, '2022-03-01', '50000', 'a', 19),
-(12, '2022-03-04', '20000', '-', 20),
-(14, '2022-03-10', '15000', '-', 22),
-(15, '2022-01-01', '10000', '-', 24),
-(16, '2022-02-09', '1000', 'p', 25);
+INSERT INTO `pemasukan` (`id`, `id_kategori`, `tanggal`, `nominal`, `keterangan`, `id_rekapitulasi`) VALUES
+(11, 0, '2022-03-01', '50000', 'a', 19),
+(12, 0, '2022-03-04', '20000', '-', 20),
+(14, 0, '2022-03-10', '15000', '-', 22),
+(15, 0, '2022-01-01', '10000', '-', 24),
+(16, 0, '2022-02-09', '1000', 'p', 25);
 
 -- --------------------------------------------------------
 
@@ -104,6 +148,7 @@ INSERT INTO `pemasukan` (`id`, `tanggal`, `nominal`, `keterangan`, `id_rekapitul
 
 CREATE TABLE `pengeluaran` (
   `id` int(255) NOT NULL,
+  `id_kategori` int(11) NOT NULL,
   `tanggal` date NOT NULL,
   `nominal` varchar(100) NOT NULL,
   `keterangan` text NOT NULL,
@@ -114,29 +159,24 @@ CREATE TABLE `pengeluaran` (
 -- Dumping data untuk tabel `pengeluaran`
 --
 
-INSERT INTO `pengeluaran` (`id`, `tanggal`, `nominal`, `keterangan`, `id_rekapitulasi`) VALUES
-(8, '2022-03-04', '10000', '-', 23);
+INSERT INTO `pengeluaran` (`id`, `id_kategori`, `tanggal`, `nominal`, `keterangan`, `id_rekapitulasi`) VALUES
+(8, 0, '2022-03-04', '10000', '-', 23);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengurus`
+-- Struktur dari tabel `profil_masjid`
 --
 
-CREATE TABLE `pengurus` (
-  `id_pengurus` int(100) NOT NULL,
-  `nik_pengurus` varchar(20) NOT NULL,
-  `jabatan_pengurus` varchar(100) NOT NULL
+CREATE TABLE `profil_masjid` (
+  `id_profil` int(11) NOT NULL,
+  `foto_profil` int(11) NOT NULL,
+  `alamat_profil` text NOT NULL,
+  `telp_profil` text NOT NULL,
+  `email_profil` varchar(50) NOT NULL,
+  `norek_profil` varchar(100) NOT NULL,
+  `desk_profil` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `pengurus`
---
-
-INSERT INTO `pengurus` (`id_pengurus`, `nik_pengurus`, `jabatan_pengurus`) VALUES
-(11, '0987', 'Bendahara'),
-(12, '1234', 'Sekretaris'),
-(13, '0987', 'Petugas bersih');
 
 -- --------------------------------------------------------
 
@@ -168,25 +208,19 @@ INSERT INTO `rekapitulasi` (`id_rekapitulasi`, `tanggal`, `nominal_pemasukan`, `
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `sarpras`
+-- Struktur dari tabel `sdm_masjid`
 --
 
-CREATE TABLE `sarpras` (
-  `id_sarpras` int(255) NOT NULL,
-  `item` varchar(100) NOT NULL,
-  `jumlah_sarpras` int(11) NOT NULL,
-  `kondisi` text NOT NULL,
-  `keterangan_sarpras` text NOT NULL
+CREATE TABLE `sdm_masjid` (
+  `id_sdm` int(100) NOT NULL,
+  `foto_sdm` int(11) NOT NULL,
+  `jumlah_pengurus` int(10) NOT NULL,
+  `jumlah_remaja_masjid` int(10) NOT NULL,
+  `jumlah_imam_utama` int(10) NOT NULL,
+  `jumlah_imam_cadangan` int(10) NOT NULL,
+  `jumlah_muadzin` int(10) NOT NULL,
+  `jumlah_khatib` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `sarpras`
---
-
-INSERT INTO `sarpras` (`id_sarpras`, `item`, `jumlah_sarpras`, `kondisi`, `keterangan_sarpras`) VALUES
-(5, 'item', 1, 'Baik', '-'),
-(6, 'item', 2, 'Baik', 'ket'),
-(10, 'sarpras', 2, 'Baik, buruk', '-');
 
 -- --------------------------------------------------------
 
@@ -196,8 +230,8 @@ INSERT INTO `sarpras` (`id_sarpras`, `item`, `jumlah_sarpras`, `kondisi`, `keter
 
 CREATE TABLE `user_profile` (
   `id_user` int(255) NOT NULL,
-  `nik_user` varchar(20) NOT NULL,
-  `id_pengurus` int(100) NOT NULL,
+  `id_jamaah` varchar(20) NOT NULL,
+  `jabatan` text NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(20) NOT NULL,
   `role` varchar(50) NOT NULL
@@ -207,57 +241,55 @@ CREATE TABLE `user_profile` (
 -- Dumping data untuk tabel `user_profile`
 --
 
-INSERT INTO `user_profile` (`id_user`, `nik_user`, `id_pengurus`, `username`, `password`, `role`) VALUES
-(8, '1234', 11, 'aa', 'della', 'Super Admin'),
-(10, '1234', 12, 'admin', 'a', 'Sekretaris');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `ustadz`
---
-
-CREATE TABLE `ustadz` (
-  `nik` varchar(20) NOT NULL,
-  `nama_ustadz` varchar(30) NOT NULL,
-  `telepon_ustadz` varchar(12) NOT NULL,
-  `alamat_ustadz` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `ustadz`
---
-
-INSERT INTO `ustadz` (`nik`, `nama_ustadz`, `telepon_ustadz`, `alamat_ustadz`) VALUES
-('0098', 'd', '08999', 'alamatt'),
-('0987', 'della', '0808080', 'alamat'),
-('1', 'abdul', '0812', 'aa'),
-('11', 'abdul', '0812', 'aa'),
-('1234', 'nama', '0812', 'qq'),
-('15', 'budi', '0813', 'bb'),
-('2', 'budi', '0813', 'bb'),
-('3', 'ahmad', '0856', 'cc'),
-('4', 'hafizh', '0882', 'dd'),
-('7', 'hafizh', '0882', 'dd');
+INSERT INTO `user_profile` (`id_user`, `id_jamaah`, `jabatan`, `username`, `password`, `role`) VALUES
+(8, '1234', 'Ketua', 'aa', 'della', 'Super Admin'),
+(10, '1234', 'Sekretaris', 'admin', 'a', 'Sekretaris');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `jadwal_imakho`
+-- Indeks untuk tabel `arisan_kurban`
 --
-ALTER TABLE `jadwal_imakho`
-  ADD PRIMARY KEY (`id_imakho`),
-  ADD KEY `nik_imakho` (`nik_imakho`),
-  ADD KEY `jadwal_imakho_ibfk_2` (`nik_muadzin`);
+ALTER TABLE `arisan_kurban`
+  ADD PRIMARY KEY (`id_arisan`);
 
 --
--- Indeks untuk tabel `jadwal_keg`
+-- Indeks untuk tabel `berita_donasi`
 --
-ALTER TABLE `jadwal_keg`
-  ADD PRIMARY KEY (`id_jadkeg`),
-  ADD KEY `nik_pengisi` (`nik_pengisi`);
+ALTER TABLE `berita_donasi`
+  ADD PRIMARY KEY (`id_berita`);
+
+--
+-- Indeks untuk tabel `cicil_arisan_kurban`
+--
+ALTER TABLE `cicil_arisan_kurban`
+  ADD PRIMARY KEY (`id_cicil_arisan`);
+
+--
+-- Indeks untuk tabel `jamaah`
+--
+ALTER TABLE `jamaah`
+  ADD PRIMARY KEY (`id_jamaah`);
+
+--
+-- Indeks untuk tabel `kategori_pemasukan`
+--
+ALTER TABLE `kategori_pemasukan`
+  ADD PRIMARY KEY (`id_kategori_masuk`);
+
+--
+-- Indeks untuk tabel `kategori_pengeluaran`
+--
+ALTER TABLE `kategori_pengeluaran`
+  ADD PRIMARY KEY (`id_kategori_keluar`);
+
+--
+-- Indeks untuk tabel `layanan`
+--
+ALTER TABLE `layanan`
+  ADD PRIMARY KEY (`id_layanan`);
 
 --
 -- Indeks untuk tabel `pemasukan`
@@ -272,11 +304,10 @@ ALTER TABLE `pengeluaran`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `pengurus`
+-- Indeks untuk tabel `profil_masjid`
 --
-ALTER TABLE `pengurus`
-  ADD PRIMARY KEY (`id_pengurus`),
-  ADD KEY `nik_pengurus` (`nik_pengurus`);
+ALTER TABLE `profil_masjid`
+  ADD PRIMARY KEY (`id_profil`);
 
 --
 -- Indeks untuk tabel `rekapitulasi`
@@ -285,40 +316,39 @@ ALTER TABLE `rekapitulasi`
   ADD PRIMARY KEY (`id_rekapitulasi`);
 
 --
--- Indeks untuk tabel `sarpras`
+-- Indeks untuk tabel `sdm_masjid`
 --
-ALTER TABLE `sarpras`
-  ADD PRIMARY KEY (`id_sarpras`);
+ALTER TABLE `sdm_masjid`
+  ADD PRIMARY KEY (`id_sdm`);
 
 --
 -- Indeks untuk tabel `user_profile`
 --
 ALTER TABLE `user_profile`
   ADD PRIMARY KEY (`id_user`),
-  ADD KEY `nik_user` (`nik_user`),
-  ADD KEY `id_pengurus` (`id_pengurus`);
-
---
--- Indeks untuk tabel `ustadz`
---
-ALTER TABLE `ustadz`
-  ADD PRIMARY KEY (`nik`);
+  ADD KEY `id_jamaah` (`id_jamaah`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT untuk tabel `jadwal_imakho`
+-- AUTO_INCREMENT untuk tabel `kategori_pemasukan`
 --
-ALTER TABLE `jadwal_imakho`
-  MODIFY `id_imakho` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+ALTER TABLE `kategori_pemasukan`
+  MODIFY `id_kategori_masuk` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `jadwal_keg`
+-- AUTO_INCREMENT untuk tabel `kategori_pengeluaran`
 --
-ALTER TABLE `jadwal_keg`
-  MODIFY `id_jadkeg` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `kategori_pengeluaran`
+  MODIFY `id_kategori_keluar` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `layanan`
+--
+ALTER TABLE `layanan`
+  MODIFY `id_layanan` int(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `pemasukan`
@@ -333,10 +363,10 @@ ALTER TABLE `pengeluaran`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `pengurus`
+-- AUTO_INCREMENT untuk tabel `profil_masjid`
 --
-ALTER TABLE `pengurus`
-  MODIFY `id_pengurus` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+ALTER TABLE `profil_masjid`
+  MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `rekapitulasi`
@@ -345,45 +375,26 @@ ALTER TABLE `rekapitulasi`
   MODIFY `id_rekapitulasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT untuk tabel `sarpras`
+-- AUTO_INCREMENT untuk tabel `sdm_masjid`
 --
-ALTER TABLE `sarpras`
-  MODIFY `id_sarpras` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+ALTER TABLE `sdm_masjid`
+  MODIFY `id_sdm` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_profile`
 --
 ALTER TABLE `user_profile`
-  MODIFY `id_user` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_user` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Ketidakleluasaan untuk tabel `jadwal_imakho`
---
-ALTER TABLE `jadwal_imakho`
-  ADD CONSTRAINT `jadwal_imakho_ibfk_1` FOREIGN KEY (`nik_imakho`) REFERENCES `ustadz` (`nik`);
-
---
--- Ketidakleluasaan untuk tabel `jadwal_keg`
---
-ALTER TABLE `jadwal_keg`
-  ADD CONSTRAINT `jadwal_keg_ibfk_1` FOREIGN KEY (`nik_pengisi`) REFERENCES `ustadz` (`nik`);
-
---
--- Ketidakleluasaan untuk tabel `pengurus`
---
-ALTER TABLE `pengurus`
-  ADD CONSTRAINT `pengurus_ibfk_1` FOREIGN KEY (`nik_pengurus`) REFERENCES `ustadz` (`nik`);
-
---
 -- Ketidakleluasaan untuk tabel `user_profile`
 --
 ALTER TABLE `user_profile`
-  ADD CONSTRAINT `user_profile_ibfk_1` FOREIGN KEY (`nik_user`) REFERENCES `ustadz` (`nik`),
-  ADD CONSTRAINT `user_profile_ibfk_2` FOREIGN KEY (`id_pengurus`) REFERENCES `pengurus` (`id_pengurus`);
+  ADD CONSTRAINT `user_profile_ibfk_1` FOREIGN KEY (`id_jamaah`) REFERENCES `jamaah` (`id_jamaah`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
