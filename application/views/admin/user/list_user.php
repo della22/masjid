@@ -46,6 +46,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tr>
                               <th width="5%">No.</th>
                               <th>Nama</th>
+                              <th>Jabatan</th>
                               <th>Username</th>
                               <th>Password</th>
                               <th>Role</th>
@@ -58,12 +59,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             ?>
                             <tr>
                               <td align="center"><?php echo $j ?></td>
-                              <td width="250"><?=$data_user['nama_ustadz'];?></td>
+                              <td width="250"><?=$data_user['nama_jamaah'];?></td>
+                              <td width="250"><?=$data_user['jabatan'];?></td>
                               <td width="150"><?=$data_user['username'];?></td>
                               <td width="150"><?=$data_user['password'];?></td>
                               <td width="100"><?=$data_user['role'];?></td>
                               <td width="150" align="center">
-                                <a href=""  onclick="editData(event, '<?=$data_user['id_user'];?>','<?=$data_user['id_pengurus'];?>', '<?=$data_user['nik_user'];?>', '<?=$data_user['nama_ustadz'];?>', '<?=$data_user['username'];?>','<?=$data_user['password'];?>','<?=$data_user['role'];?>')"><i class="fa fa-edit"></i> Edit</a>
+                                <a href=""  onclick="editData(event, '<?=$data_user['id_user'];?>', '<?=$data_user['id_jamaah'];?>', '<?=$data_user['jabatan'];?>', '<?=$data_user['nama_jamaah'];?>', '<?=$data_user['username'];?>','<?=$data_user['password'];?>','<?=$data_user['role'];?>')"><i class="fa fa-edit"></i> Edit</a>
                                 <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/user/hapus/<?=$data_user['id_user'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
                             </tr>
                             <?php $j++; ?>
@@ -123,18 +125,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <div class="modal-body">
                 <form role="form" action="<?=base_url();?>admin/user/edit" method="post">
                   <div class="form-group col-md-12 col-sm-12">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">Jabatan: </label>
+                    <input type="hidden" name="id_user" id="id_user" value=""/>
+                     <input type="hidden" name="id_jamaah" id="id_jamaah_edit" value=""/>
+                    <label class="col-form-label col-md-3 col-sm-3 label-align">Nama: </label>
                     <div class="col-md-8 col-sm-8 ">
-                      <input class="form-control" type="text" id="jabatan_user_edit" name="jabatan_user" placeholder="Jabatan" value="" />
-                      <input type="hidden" id="id_pengurus_edit" name="id_pengurus" required/>
+                      <input class="form-control" type="text" id="nama_user_edit" name="nama_user" placeholder="Nama" />
                     </div>
                   </div>
                   <div class="form-group col-md-12 col-sm-12">
                     <input type="hidden" name="id_user" id="id_user" value=""/>
-                     <input type="hidden" name="nik_user" id="nik_user_edit" value=""/>
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">Nama: </label>
+                     <input type="hidden" name="id_jamaah" id="id_jamaah_edit" value=""/>
+                    <label class="col-form-label col-md-3 col-sm-3 label-align">Jabatan: </label>
                     <div class="col-md-8 col-sm-8 ">
-                      <input class="form-control" type="text" id="nama_user_edit" name="nama_user" placeholder="Nama" value="" readonly />
+                      <input class="form-control" type="text" id="jabatan_edit" name="jabatan" placeholder="Jabatan" />
                     </div>
                   </div>
                   <div class="form-group col-md-12 col-sm-12">
@@ -200,19 +203,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-md-12 col-sm-12">  
                     <form action="<?=base_url();?>admin/user/proses" method="post" enctype="multipart/form-data" >
                     <div class="item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="jabatan_user">Jabatan</label>
-                      <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" id="jabatan_user_tambah" name="jabatan_user" placeholder="Jabatan" required/>
-                      </div>
-                    </div>
-                    <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama_user">Nama</label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" id="nama_user_tambah" name="nama_user" placeholder="Nama" required readonly/>
-                        <input type="hidden" id="nik_user" name="nik_user" required/>
-                        <input type="hidden" id="id_pengurus_tambah" name="id_pengurus" required/>
+                        <input class="form-control" type="text" id="nama_user_tambah" name="nama_user" placeholder="Nama" required/>
+                        <input type="hidden" id="id_jamaah" name="id_jamaah" required/>
                       </div>
                     </div>
+
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="jabatan_user">Jabatan</label>
+                      <div class="col-md-8 col-sm-8 ">
+                        <input class="form-control" type="text" id="jabatan_tambah" name="jabatan" placeholder="Jabatan" required/>
+                      </div>
+                    </div>
+                    
 
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="username">Username</label>
@@ -317,8 +321,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               appendTo: "#tambahModal",
               select: function (event,ui){
                 console.log(ui.item)
-                $( "#nik_user").val(ui.item.nik_user);
-                $( "#id_pengurus_tambah").val(ui.item.id_pengurus);
+                $( "#id_jamaah").val(ui.item.id_jamaah);
                 $( "#nama_user_tambah").val(ui.item.nama_user);
               }
             });
@@ -326,17 +329,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               source: "<?= base_url('admin/user/get_autocomplete/');?>",
               appendTo: "#editModal",
               select: function (event,ui){
-                $( "#nik_user_edit").val(ui.item.nik_user);
+                $( "#id_jamaah_edit").val(ui.item.id_jamaah);
                 $( "#nama_user_edit").val(ui.item.nama_user);
               }
             });
         });
 
-      function editData(e,id,id_pengurus,nik,nama,username,password,role){
+      function editData(e,id,id_jamaah,jabatan,nama,username,password,role){
         e.preventDefault();
         $("#id_user").val(id);
-        $("#id_pengurus_edit").val(id_pengurus);
-        $("#nik_user_edit").val(nik);
+        $("#id_jamaah_edit").val(id_jamaah);
+        $("#jabatan_edit").val(jabatan);
         $("#nama_user_edit").val(nama);
         $("#username_edit").val(username);
         $("#password_edit").val(password);

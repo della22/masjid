@@ -115,4 +115,39 @@ class Pemasukan extends CI_Controller
         $this->session->set_flashdata('success','Item berhasil dihapus');
         redirect('admin/pemasukan');
     }
+
+    public function rekap_masuk()
+    {
+        $this->load->view('admin/rekapitulasi/rekap_masuk');
+    }
+
+    public function kategori_pemasukan()
+    {
+
+        $data['kategori'] = $this->M_pemasukan->list_kategori_pemasukan();
+        $this->load->view('admin/pemasukan/list_kategori_pemasukan', $data);
+    }
+
+    public function addKategoriMasuk()
+    {
+        $nama_kategori_masuk = $this->input->post('nama_kategori_masuk');
+        $this->M_pemasukan->input_kategori($nama_kategori_masuk);
+        $this->session->set_flashdata('success','Item berhasil ditambahkan');
+        redirect('admin/pemasukan/list_kategori_pemasukan');
+    }
+
+    public function editKategoriMasuk()
+    {
+        $id_kategori_masuk = $this->input->post('id_kategori_masuk');
+        $nama_kategori_masuk = $this->input->post('nama_kategori_masuk');
+        $this->M_pemasukan->edit_kategori($id_kategori_masuk, $nama_kategori_masuk);
+        $this->session->set_flashdata('success','Item berhasil diedit');
+        redirect('admin/pemasukan/list_kategori_pemasukan');
+    }
+
+    public function hapus_kategori($id = null){
+        $this->M_pemasukan->hapus_kategori($id);
+        $this->session->set_flashdata('success','Item berhasil dihapus');
+        redirect('admin/pemasukan/list_kategori_pemasukan');
+    }
 }

@@ -115,4 +115,14 @@ class Pengeluaran extends CI_Controller
         $this->session->set_flashdata('success','Item berhasil dihapus');
         redirect('admin/pengeluaran');
     }
+
+    public function rekap_keluar()
+    {
+        $this->load->view('admin/rekapitulasi/rekap_keluar');
+    }
+
+    public function kategori_pengeluaran()
+    {
+        $this->load->view('admin/pengeluaran/list_kategori_pengeluaran');
+    }
 }

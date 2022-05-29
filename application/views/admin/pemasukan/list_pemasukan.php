@@ -113,6 +113,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
               <div class="modal-body">
                 <form role="form" action="<?=base_url();?>/admin/pemasukan/edit" method="post">
+
+                  <div class="form-group col-md-12 col-sm-12">
+                      <label class="col-form-label col-md-4 col-sm-4 label-align">Kategori Pemasukan : </label>
+                      <div class='col-md-7 col-sm-7'>
+                        <select class="select2_single form-control" name="kategori_pemasukan" tabindex="-1">
+                          <option value="Kategori">Kategori </option>
+                          <option value="A">A</option>
+                          <option value="B">B</option>
+                        </select>
+                      </div>
+                    </div>
+
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-4 col-sm-4 label-align">Tanggal Pemasukan : </label>
                     <div class='col-md-7 col-sm-7'>
@@ -163,6 +175,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-md-12 col-sm-12">  
                     <form action="<?=base_url();?>/admin/pemasukan/proses" method="post" enctype="multipart/form-data" >
                     
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-4 col-sm-4 label-align" for="kategori_pemasukan">Kategori Pemasukan</label>
+                      <div class='col-md-7 col-sm-7'>
+                        <select class="select2_single form-control" name="kategori_pemasukan" tabindex="-1">
+                          <option value="Kategori">Kategori </option>
+                          <option value="A">A</option>
+                          <option value="B">B</option>
+                        </select>
+                      </div>
+                    </div>
+
                     <div class="item form-group">
                       <label class="col-form-label col-md-4 col-sm-4 label-align" for="tanggal_pemasukan">Tanggal Pemasukan</label>
                       <div class='col-md-7 col-sm-7'>

@@ -5,17 +5,16 @@ class M_user extends CI_Model
     function list_user()
     {
         $this->db->select('*');
-        $this->db->from('ustadz','pengurus');
-        $this->db->join('user_profile', 'user_profile.nik_user = ustadz.nik', 'user_profile.jabatan_pengurus = ustadz.jabatan_pengurus' );
+        $this->db->from('jamaah');
+        $this->db->join('user_profile', 'user_profile.id_jamaah = jamaah.id_jamaah' );
         $this->db->order_by('id_user', 'DESC');
         return $this->db->get();
     }
     
-    public function input_user($nik_user = null, $id_pengurus = null, $username = null, $password = null, $role = null)
+    public function input_user($id_jamaah = null, $username = null, $password = null, $role = null)
     {
         $data = [
-            'id_pengurus' => $id_pengurus,
-            'nik_user' => $nik_user,
+            'id_jamaah' => $id_jamaah,
             'username' => $username,
             'password' => $password,
             'role' => $role
@@ -24,12 +23,12 @@ class M_user extends CI_Model
         $this->db->insert('user_profile', $data);
     }
 
-    public function edit_user($id_user = null, $id_pengurus = null, $nik_user = null, $username = null, $password = null, $role = null)
+    public function edit_user($id_user = null, $id_jamaah = null, $jabatan = null, $username = null, $password = null, $role = null)
     {
         $data = [
             'id_user' => $id_user,
-            'id_pengurus' => $id_pengurus,
-            'nik_user' => $nik_user,
+            'id_jamaah' => $id_jamaah,
+            'jabatan' => $jabatan,
             'username' => $username,
             'password' => $password,
             'role' => $role
@@ -45,10 +44,9 @@ class M_user extends CI_Model
 
     public function search_user($title){
         $this->db->select('*');
-        $this->db->from('pengurus');
-        $this->db->join('ustadz', 'ustadz.nik = pengurus.nik_pengurus' );
-        $this->db->like('jabatan_pengurus', $title , 'both');
-        $this->db->order_by('id_pengurus', 'ASC');
+        $this->db->from('jamaah');
+        $this->db->like('nama_jamaah', $title , 'both');
+        $this->db->order_by('id_jamaah', 'ASC');
         $this->db->limit(10);
         return $this->db->get()->result();
     }

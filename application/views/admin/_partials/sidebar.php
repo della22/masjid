@@ -26,7 +26,16 @@
                 <li><a href="<?php echo site_url('admin/overview') ?>"><i class="fa fa-home"></i> Home <span class="fa fa-chevron"></span></a>
                 </li>
 
-                <li><a href="<?php echo site_url('admin/ustadz') ?>"><i class="fa fa-child"></i> Data Ustadz <span class="fa fa-chevron"></span></a>
+                <li><a><i class="fa fa-area-chart"></i> Rekapitulasi <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="<?php echo site_url('admin/rekapitulasi') ?>">Rekapitulasi Bulanan </a></li>
+                    <li><a href="<?php echo site_url('admin/pemasukan/rekap_masuk') ?>">Rekapitulasi Dana Masuk </a></li>
+                    <li><a href="<?php echo site_url('admin/pengeluaran/rekap_keluar') ?>">Rekapitulasi Dana Keluar </a></li>
+                    <li><a href="<?php echo site_url('admin/arisan_kurban/rekap_arisan') ?>">Rekapitulasi Arisan Kurban </a></li>
+                  </ul>
+                </li>
+
+                <li><a href="<?php echo site_url('admin/jamaah') ?>"><i class="fa fa-child"></i> Data Jamaah <span class="fa fa-chevron"></span></a>
                 </li>
 
                 
@@ -34,21 +43,23 @@
                   <ul class="nav child_menu">
                     <li><a href="<?php echo site_url('admin/pemasukan') ?>">Pemasukan </a></li>
                     <li><a href="<?php echo site_url('admin/pengeluaran') ?>">Pengeluaran </a></li>
-                    <li><a href="<?php echo site_url('admin/rekapitulasi') ?>">Rekapitulasi Keuangan </a></li>
+                    <li><a href="<?php echo site_url('admin/arisan_kurban') ?>">Arisan kurban </a></li>
                   </ul>
                 </li>
 
-                <li><a><i class="fa fa-calendar"></i> Jadwal <span class="fa fa-chevron-down"></span></a>
+                 <li><a><i class="fa fa-edit"></i> Set Kategori <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="<?php echo site_url('admin/jadwal_imakho') ?>">Jadwal Imam / Khotib </a></li>
-                    <li><a href="<?php echo site_url('admin/jadwal_keg') ?>">Jadwal Kegiatan </a></li>
+                    <li><a href="<?php echo site_url('admin/pemasukan/kategori_pemasukan') ?>">Kategori Pemasukkan Lain</a></li>
+                    <li><a href="<?php echo site_url('admin/pengeluaran/kategori_pengeluaran') ?>">Kategori Pengeluaran</a></li>  
                   </ul>
                 </li>
 
-                <li><a href="<?php echo site_url('admin/sarpras') ?>"><i class="fa fa-cube"></i> Sarpras Masjid <span class="fa fa-chevron"></span></a>
+                <li><a href="<?php echo site_url('admin/berita_donasi') ?>"><i class="fa fa-newspaper-o"></i> Berita Donasi <span class="fa fa-chevron"></span></a>
                 </li>
 
-                <li><a href="<?php echo site_url('admin/pengurus') ?>"><i class="fa fa-users"></i> Pengurus Masjid <span class="fa fa-chevron"></span></a>
+                <li>
+                  <script src="https://kit.fontawesome.com/1339df6c4b.js" crossorigin="anonymous"></script>
+                  <a href="<?php echo site_url('admin/profil_masjid') ?>"><i class="fa fa-mosque"></i> Profil Masjid <span class="fa fa-chevron"></span></a>
                 </li>
 
                 <li><a href="<?php echo site_url('admin/user') ?>"><i class="fa fa-user-secret"></i> User Profile <span class="fa fa-chevron"></span></a>

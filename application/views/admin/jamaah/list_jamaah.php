@@ -24,8 +24,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-md-12 col-sm-12 ">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Data Ustadz </h2>
-                   <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#tambahModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Ustadz</a></ul>
+                  <h2>Data Jamaah </h2>
+                   <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#tambahModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Jamaah</a></ul>
                   <div class="clearfix"></div>
                 </div>
 
@@ -34,11 +34,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="col-sm-12">
                       <div class="card-box table-responsive">
 
-                        <?php echo form_error('nik', '<div class="alert alert-danger alert-dismissible fade show" role="alert">','<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button></div>'); ?>
-
-                        <?php echo form_error('telepon_ustadz', '<div class="alert alert-danger alert-dismissible fade show" role="alert">','<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <?php echo form_error('telepon_jamaah', '<div class="alert alert-danger alert-dismissible fade show" role="alert">','<button type="button" class="close" data-dismiss="alert" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button></div>'); ?>
 
@@ -62,7 +58,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <thead>
                             <tr>
                               <th width="5%">No.</th>
-                              <th>NIK</th>
                               <th>Nama</th>
                               <th>Telepon</th>
                               <th>Alamat</th>
@@ -71,17 +66,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           </thead>
                           <tbody>
                           <?php $j = 1; ?>
-                          <?php foreach ($ustadz->result_array() as $data_ustadz):
+                          <?php foreach ($jamaah->result_array() as $data_jamaah):
                           ?>
                             <tr>
                               <td align="center"><?php echo $j ?></td>
-                              <td width="150"><?=$data_ustadz['nik'];?></td>
-                              <td width="200"><?=$data_ustadz['nama_ustadz'];?></td>
-                              <td width="50"><?=$data_ustadz['telepon_ustadz'];?></td>
-                              <td width="350"><?=$data_ustadz['alamat_ustadz'];?></td>
+                              <td width="200"><?=$data_jamaah['nama_jamaah'];?></td>
+                              <td width="50"><?=$data_jamaah['telepon_jamaah'];?></td>
+                              <td width="350"><?=$data_jamaah['alamat_jamaah'];?></td>
                               <td width="150" align="center">
-                                <a href=""  onclick="editData(event, '<?=$data_ustadz['nik'];?>','<?=$data_ustadz['nama_ustadz'];?>','<?=$data_ustadz['telepon_ustadz'];?>','<?=$data_ustadz['alamat_ustadz'];?>')"><i class="fa fa-edit"></i> Edit</a>
-                                <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/ustadz/hapus/<?=$data_ustadz['nik'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
+                                <a href=""  onclick="editData(event, '<?=$data_jamaah['id_jamaah'];?>','<?=$data_jamaah['nama_jamaah'];?>','<?=$data_jamaah['telepon_jamaah'];?>','<?=$data_jamaah['alamat_jamaah'];?>')"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/jamaah/hapus/<?=$data_jamaah['id_jamaah'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
                             </tr>
                             <?php $j++; ?>
                             <?php endforeach; ?>
@@ -134,34 +128,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- Modal content-->
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title"> Edit Data Ustadz </h4>
+                <h4 class="modal-title"> Edit Data Jamaah </h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">
-                <form role="form" action="<?=base_url();?>/admin/ustadz/edit" method="post">
-                  <div class="form-group col-md-12 col-sm-12">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">NIK : </label>
-                    <div class="col-md-8 col-sm-8 ">
-                      <input class="form-control" type="number" name="nik" id="nik_ustadz" placeholder="Nik" value=""/>
-                    </div>
-                  </div>
+                <form role="form" action="<?=base_url();?>/admin/jamaah/edit" method="post">
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Nama : </label>
                     <div class="col-md-8 col-sm-8 ">
-                      <input class="form-control" type="text" name="nama_ustadz" id="nama_ustadz" placeholder="Nama" value=""/>
+                    <input type="hidden" name="id_jamaah" id="id_jamaah" value=""/>
+                      <input class="form-control" type="text" name="nama_jamaah" id="nama_jamaah" placeholder="Nama" value=""/>
                     </div>
                   </div>
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Telepon : </label>
                     <div class='col-md-8 col-sm-8'>
-                       <input class="form-control" type="number" name="telepon_ustadz" id="telepon_ustadz" placeholder="Telepon" required/>    
+                       <input class="form-control" type="number" name="telepon_jamaah" id="telepon_jamaah" placeholder="Telepon" required/>    
                     </div>
                    
                   </div>
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Alamat : </label>
                     <div class="col-md-8 col-sm-8 ">
-                       <textarea class="form-control" name="alamat_ustadz" id="alamat_ustadz" placeholder="Alamat" required></textarea>
+                       <textarea class="form-control" name="alamat_jamaah" id="alamat_jamaah" placeholder="Alamat" required></textarea>
                     </div>
                   </div>
                   <br>
@@ -180,7 +169,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- Modal content-->
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title"> Tambah Data Ustadz </h4>
+                <h4 class="modal-title"> Tambah Data Jamaah </h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">
@@ -211,38 +200,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- Modal content-->
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title"> Form Tambah Ustadz </h4>
+                <h4 class="modal-title"> Form Tambah Jamaah </h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">
                 <div class="col-md-12 col-sm-12">  
-                    <form action="<?=base_url();?>/admin/ustadz/proses" method="post" enctype="multipart/form-data" >
-                    
+                    <form action="<?=base_url();?>/admin/jamaah/proses" method="post" enctype="multipart/form-data" >
                     <div class="item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="NIK">NIK</label>
+                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama_jamaah">Nama</label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" name="nik" placeholder="NIK" value="<?= set_value('nik'); ?>" required />
+                        <input class="form-control" type="text" name="nama_jamaah" placeholder="Nama" value="<?= set_value('nama_jamaah'); ?>" required/>
                       </div>
                     </div>
 
                     <div class="item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama_ustadz">Nama</label>
+                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="telepon_jamaah">Telepon</label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" name="nama_ustadz" placeholder="Nama" value="<?= set_value('nama_ustadz'); ?>" required/>
+                        <input class="form-control" type="text" name="telepon_jamaah" placeholder="Telepon" value="<?= set_value('telepon_jamaah'); ?>" required/>
                       </div>
                     </div>
 
                     <div class="item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="telepon_ustadz">Telepon</label>
+                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="alamat_jamaah">Alamat</label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" name="telepon_ustadz" placeholder="Telepon" value="<?= set_value('telepon_ustadz'); ?>" required/>
-                      </div>
-                    </div>
-
-                    <div class="item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="alamat_ustadz">Alamat</label>
-                      <div class="col-md-8 col-sm-8 ">
-                        <textarea class="form-control" name="alamat_ustadz" placeholder="Alamat" required><?= set_value('alamat_ustadz'); ?></textarea>
+                        <textarea class="form-control" name="alamat_jamaah" placeholder="Alamat" required><?= set_value('alamat_jamaah'); ?></textarea>
                       </div>
                     </div>
 
@@ -269,7 +250,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">          
-                  <form action="<?=base_url();?>admin/phpspreadsheet/import_ustadz" class="excel-upl" id="excel-upl" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+                  <form action="<?=base_url();?>admin/phpspreadsheet/import_jamaah" class="excel-upl" id="excel-upl" enctype="multipart/form-data" method="post" accept-charset="utf-8">
                     <div class="form-group col-md-12 col-sm-12">
                       <div class="col-md-8 col-sm-8">
                     
@@ -348,13 +329,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('#deleteModal').modal();
       }
 
-      function editData(e,nik,nama,telepon,alamat){
+      function editData(e,id_jamaah,nama,telepon,alamat){
         e.preventDefault();
-
-        $("#nik_ustadz").val(nik);
-        $("#nama_ustadz").val(nama);
-        $("#telepon_ustadz").val(telepon);
-        $("#alamat_ustadz").val(alamat);
+        $("#id_jamaah").val(id_jamaah);
+        $("#nama_jamaah").val(nama);
+        $("#telepon_jamaah").val(telepon);
+        $("#alamat_jamaah").val(alamat);
         $('#editModal').modal();
       }
     </script>

@@ -77,7 +77,7 @@
 
             <div class="card-body">
               <div class="x_title" >
-                <h2 >Rekapitulasi Total Penerimaan & Pengeluaran</h2>
+                <h2 >Rekapitulasi Pemasukan & Pengeluaran Maret 2022</h2>
                 <div class="clearfix"></div>
 
               </div>
@@ -86,14 +86,14 @@
                <div class="row col-sm-12 col-md-12" style="display: inline-block;" align="center" >
                 <div class="top_tiles" >
                   <div class="col-md-4 col-sm-4  tile">
-                    <span>Total Penerimaan </span>
+                    <span>Pemasukan </span>
                     <h2>Rp. 300.000</h2>
                   </div>
 
                 </div>
                 <div class="top_tiles" >
                   <div class="col-md-4 col-sm-4  tile">
-                    <span>Total Pengeluaran </span>
+                    <span>Pengeluaran </span>
                     <h2>Rp. 60.000</h2>
                   </div>
 
@@ -126,11 +126,78 @@
                 
 
                 <table id="tes" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th colspan="2" style="text-align: center !important;" bgcolor="FF9999">PEMASUKAN</th>
+                        <th colspan="2" style="text-align: center !important;" bgcolor="9999FF">PENGELUARAN</th>
+
+                      </tr>
+
+                      <tr bgcolor="C0C0C0" align="center">
+                        <th style="width: 130px">KATEGORI</th>
+                        <th style="width: 70px">TOTAL(Rp.)</th>
+                        <th style="width: 130px">KATEGORI</th>
+                        <th style="width: 70px">TOTAL(Rp.)</th>
+                      </tr>
+
+                      <tr>
+                        <td></td>
+                        <td></td>
+                         
+                        <td></td>
+                        <td></td>                     
+                      </tr>
+
+                        <tr>
+                          <td colspan="1" style="text-align: center !important; font-weight: bold;" bgcolor="FF9999">Jumlah Total Debet Maret 2022 </td>
+                          <td style="text-align: center !important; font-weight: bold;" bgcolor="FF9999"> Rp. 0</td>
+                          <td colspan="1" style="text-align: center !important; font-weight: bold;" bgcolor="9999FF" >Jumlah Total Kredit Maret 2022 </td>
+                          <td style="text-align: center !important; font-weight: bold;" bgcolor="9999FF"> Rp. 0</td>
+                        </tr>
+                        <tr bgcolor="C0C0C0" style="text-align: center; font-weight: bold;">
+                          <td colspan="3">
+                            Saldo Bulan Maret 2022                               
+                          </td>
+                          <td>Rp. 10.000.000
+                        </td>
+                      </tr>
+
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                  </table>
+                </div>
+                
+              </div>
+        </div>
+
+    </div>
+
+    <div class="card mb-3">
+
+            <div class="card-body">
+              <div class="x_title" >
+                <h2 >Rekapitulasi Pertanggal Maret 2022</h2>
+                <div class="clearfix"></div>
+              </div>
+              <div align="right">
+                  <a href="<?=$link_download;?>" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Export Excel</a>
+                </div>
+          </div>
+
+
+          <div class="x_content">
+            <div class="col-sm-12 col-md-12" align="center" >
+              <div class="card-box table-responsive">
+                
+
+                <table id="tes" class="table table-striped table-bordered" style="width:100%">
                   <thead>
                     <tr bgcolor="C0C0C0" align="center">
                       <th width="70px">NO</th>
                       <th width="100px">TANGGAL</th>
-                      <th>KETERANGAN</th>
+                      <th>KATEGORI</th>
                       <th width="170px">DEBET(Rp.)</th>
                       <th width="170px">KREDIT(Rp.)</th>
                     </tr>            
@@ -157,11 +224,6 @@
                       <th colspan="3" style="text-align: center;">TOTAL</th>
                         <th style="text-align: right; padding-right: 40px">Rp. <?= number_format($total_pemasukan)?></th>
                         <th style="text-align: right; padding-right: 40px">Rp. <?= number_format($total_pengeluaran)?></th>
-                    </tr>
-
-                    <tr bgcolor="E59866">
-                      <th colspan="4" style="text-align: center;">SALDO BULAN <?=$bulan_terbilang;?> <?=$tahun;?></th>
-                        <th style="text-align: right; padding-right: 40px">Rp. <?= number_format($saldo)?></th>
                     </tr>
 
                     </tbody>

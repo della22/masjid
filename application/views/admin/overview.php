@@ -21,25 +21,26 @@
           <div class="tile_count">
             <div class="col-md-2 col-sm-4 tile_stats_count" style="text-align: center;">
               <a href="#">
-              <span class="count_top"><i class="fa fa-child"></i> Total Ustadz</span>
+              <span class="count_top"><i class="fa fa-child"></i> Total Donatur</span>
               <div class="count" style="text-align: center;">10</div>
               </a>
             </div>
-            <div class="col-md-3 col-sm-4 tile_stats_count" style="text-align: center;">
-              <a href="#">
-              <span class="count_top"><i class="fa fa-calendar-o"></i> Total Kegiatan Januari 2022</span>
-              <div class="count" style="text-align: center;">10</div>
-              </a>
-            </div>
-            <div class="col-md-2 col-sm-4 tile_stats_count" style="text-align: center;">
+             <div class="col-md-2 col-sm-4 tile_stats_count" style="text-align: center;">
               <a href="#">
               <span class="count_top"><i class="fa fa-users"></i> Total Pengurus</span>
               <div class="count">7</div>
               </a>
             </div>
-            <div class="col-md-5 col-sm-5 tile_stats_count" style="text-align: center;">
+            <div class="col-md-4 col-sm-3 tile_stats_count" style="text-align: center;">
               <a href="#">
-              <span class="count_top"><i class="fa fa-money"></i>  Saldo Hingga Saat Ini</span>
+              <span class="count_top"><i class="fa fa-money"></i> Total Tunggakan Arisan Kurban Maret 2022</span>
+              <div class="count" style="text-align: center;">10</div>
+              </a>
+            </div>
+           
+            <div class="col-md-4 col-sm-5 tile_stats_count" style="text-align: center;">
+              <a href="#">
+              <span class="count_top"><i class="fa fa-calculator"></i>  Saldo Hingga Saat Ini</span>
               <div class="count"> Rp. 6.000.000</div>
             </a>
             </div>
@@ -71,38 +72,88 @@
           <br />
           <!-- /grafik -->
 
-          <!-- calendar -->
-           <div class="row">
+          <!-- pie --> 
+          <div class="row">
 
-            <div class="col-md-6 col-sm-6 ">
+               <div class="col-md-6 col-sm-6 ">
               <div class="x_panel">
                   <div class="x_title">
-                    <h2>Jadwal Kegiatan</h2>
+                    <a href="">
+                    <h2>Dana Masuk</h2>
+                    </a>
                     <div class="clearfix"></div>
                   </div>
+                  <table class="" style="width:100%">
+                    <tr>
+                      <th style="width:37%;">
+                        <p>Maret 2022</p>
+                      </th>
+                      <th>
+                        <div class="col-lg-12 col-md-12 col-sm-12 ">
+                          <p class="">Rp. 120.000.000</p>
+                        </div>
+                        
+                      </th>
+                    </tr>
+                    
+                  </table>
                   <div class="x_content">
-                     <div class="calendar-container"></div>
+
+                    <div id="echart_pie_Pemasukkan_lain" style="height:350px;"></div>
+
                   </div>
                 </div>
             </div>
 
+            <div class="col-md-6 col-sm-6 ">
+              <div class="x_panel">
+                  <div class="x_title">
+                    <a href="">
+                    <h2>Dana Keluar</h2>
+                   </a>
+                    <div class="clearfix"></div>
+                  </div>
+                  <table class="" style="width:100%">
+                    <tr>
+                      <th style="width:37%;">
+                        <p>Maret 2022</p>
+                      </th>
+                      <th>
+                        <div class="col-lg-12 col-md-12 col-sm-12 ">
+                          <p class="">Rp. 12.00.000.000</p>
+                        </div>
+                        
+                      </th>
+                    </tr>
+                    
+                  </table>
+                  <div class="x_content">
+
+                    <div id="echart_pie_Pengeluaran" style="height:350px;"></div>
+
+                  </div>
+                </div>
+            </div>
 
             <div class="col-md-6 col-sm-6 ">
               <div class="x_panel">
                   <div class="x_title">
-                    <h2>Jadwal Imam/Khotib</h2>
+                    <a href="">
+                    <h2>Arisan Kurban Maret 2022</h2>
+                   </a>
                     <div class="clearfix"></div>
                   </div>
+                 
                   <div class="x_content">
-                    <div id="calendar-khatib" class="calendar-khatib"></div>
+
+                    <div id="echart_pieSPP" style="height:385px;"></div>
+
                   </div>
-              </div>
+                </div>
             </div>
 
-
           </div>
-          <br />
-          <!-- calendar -->
+          <!-- /pie -->
 
         </div>
         <!-- /page content -->
@@ -432,37 +483,6 @@ function init_echarts() {
             fontFamily: 'Arial, Verdana, sans-serif'
           }
         };
-    </script>
-
-    <!-- Kalender -->
-     <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="<?= base_url() . 'js/mini-event-calendar.min.js' ?>"></script>
-
-    <script>
-        
-    </script>
-    <script>
-        var myEvents = [
-            {
-                title: "Jadwal imam/khatib",
-                date: new Date().getTime(),
-                link: "<?= base_url() ?>"
-            },
-            // more events here
-        ];
-
-        $('.calendar-khatib').MEC({
-            calendar_link: "<?= base_url() ?>", // calendar link
-            events: myEvents
-        });
-        $('.calendar-container').MEC({
-            calendar_link: "jqueryscript.net", // calendar link
-            // events: myEvents
-        });
     </script>
 
     <!-- MODAL -->

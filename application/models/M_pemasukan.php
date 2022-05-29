@@ -8,6 +8,12 @@ class M_pemasukan extends CI_Model
         return $this->db->get("pemasukan");
     }
     
+    function list_kategori_pemasukan()
+    {
+        return $this->db->get("kategori_pemasukan");
+    }
+    
+
     public function input_pemasukan($tanggal_pemasukan = null, $nominal_pemasukan = null, $keterangan_pemasukan = null)
     {
         $this->db->order_by('id_rekapitulasi', 'DESC');
@@ -86,5 +92,36 @@ class M_pemasukan extends CI_Model
         $this->db->select("*");
         $this->db->where("id", $no);
         return $this->db->get("pemasukan")->row();
+    }
+
+    public function getKategori()
+    {
+        $this->db->select("*");
+        $this->db->order_by('id_kategori_masuk', 'ASC');
+        return $this->db->get("kategori_pemasukkan")->result();
+    }
+    
+    public function input_kategori($item = null)
+    {
+        $data = [
+            'item' => $item
+        ];
+        
+        $this->db->insert('kategori_pemasukan', $data);
+    }
+
+    public function edit_kategori($id_kategori_masuk = null, $item = null)
+    {
+        $data = [
+            'id_sarpras' => $id_kategori_masuk,
+            'item' => $item
+        ];
+        $this->db->where('id_kategori_masuk', $id_kategori_masuk);
+        $this->db->update('kategori_pemasukan', $data);
+    }
+
+    public function hapus_kategori($id_kategori_masuk = null){
+        $this->db->where('id_kategori_masuk', $id_kategori_masuk);
+        $this->db->delete('kategori_pemasukan');
     }
 }
