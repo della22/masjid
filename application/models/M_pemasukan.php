@@ -28,11 +28,12 @@ class M_pemasukan extends CI_Model
         $this->db->insert('pemasukan', $data);
     }
 
-    public function edit_pemasukan($id_pemasukan = null, $tanggal_pemasukan = null, $nominal_pemasukan = null, $keterangan_pemasukan = null)
+    public function edit_pemasukan($id_pemasukan = null, $tanggal_pemasukan = null, $kategori_pemasukan = null, $nominal_pemasukan = null, $keterangan_pemasukan = null)
     {
         $data = [
             'id' => $id_pemasukan,
             'tanggal' => $tanggal_pemasukan,
+            'id_kategori' => $kategori_pemasukan,
             'nominal' => $nominal_pemasukan,
             'keterangan' => $keterangan_pemasukan
         ];
@@ -80,14 +81,5 @@ class M_pemasukan extends CI_Model
     public function hapus_kategori($id_kategori_masuk = null){
         $this->db->where('id_kategori_masuk', $id_kategori_masuk);
         $this->db->delete('kategori_pemasukan');
-    }
-
-    public function search($title){
-        $this->db->select('*');
-        $this->db->from('kategori_pemasukan');
-        $this->db->like('nama_jamaah', $title , 'both');
-        $this->db->order_by('id_jamaah', 'ASC');
-        $this->db->limit(10);
-        return $this->db->get()->result();
     }
 }

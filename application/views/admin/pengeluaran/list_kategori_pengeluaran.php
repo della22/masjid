@@ -52,7 +52,7 @@
 
                     <div class="col-sm-12">
                       <div class="card-box table-responsive">
-                       <table id="list_kat_keluar" class="table table-striped table-bordered" style="width:100%">
+                       <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                           <thead>
                             <tr>
                               <th width="5%">No.</th>

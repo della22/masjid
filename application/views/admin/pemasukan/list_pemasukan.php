@@ -339,7 +339,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $("#tanggal_pemasukan").val(tanggal);
         $("#nominal_pemasukan").val(nominal);
         $("#keterangan_pemasukan").val(keterangan);
-        $("#kategori_masuk").val(id_kategori_masuk);
+        $("#id_kategori_masuk").val(id_kategori_masuk);
         $('#editModal').modal();
       }
     </script>

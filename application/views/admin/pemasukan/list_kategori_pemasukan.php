@@ -52,7 +52,7 @@
 
                     <div class="col-sm-12">
                       <div class="card-box table-responsive">
-                       <table id="list_kat_masuk" class="table table-striped table-bordered" style="width:100%">
+                       <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                           <thead>
                             <tr>
                               <th width="5%">No.</th>
@@ -218,16 +218,6 @@
     <script src="<?php echo base_url('assets/jszip/dist/jszip.min.js') ?>"></script>
     <script src="<?php echo base_url('assets/pdfmake/build/pdfmake.min.js') ?>"></script>
     <script src="<?php echo base_url('assets/pdfmake/build/vfs_fonts.js') ?>"></script>
-
-    <!-- Datatable DSC -->
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $('#list_daftar_ulang').DataTable( {
-          "order": [[ 0, "asc" ]]
-        } );
-      } );
-
-    </script>
 
 
     <!-- Custom Theme Scripts -->

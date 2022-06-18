@@ -224,7 +224,7 @@
                   </div>
 
                       <div class="card-box table-responsive">
-                       <table id="list_daftar_ulang" class="table table-striped table-bordered" style="width:100%">
+                       <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                           <thead>
                             <tr>
                               <th width="10">No.</th>
@@ -245,6 +245,7 @@
                               <td><?=$data_layanan['kontak_layanan'];?></td>
                               <td align="center">
                                 <a href=""  onclick="editData(event, '<?=$data_layanan['id_layanan'];?>', '<?=$data_layanan['nama_layanan'];?>','<?=$data_layanan['pj_layanan'];?>','<?=$data_layanan['kontak_layanan'];?>')"><i class="fa fa-edit"></i> Edit</a>
+
                                 <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/profil_masjid/hapusLayanan/<?=$data_layanan['id_layanan'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
                             </tr>
                             <?php endforeach;?>
@@ -274,7 +275,7 @@
 
       <!-- Modal -->
 <!-- Modal Edit -->
-    <div class="modal fade" id="editLayanan" role="dialog">
+    <div class="modal fade" id="editModal" role="dialog">
       <div class="modal-dialog">
       <!-- Modal content-->
         <div class="modal-content">
@@ -319,7 +320,7 @@
     </div>
 
     <!-- Delete -->
-    <div class="modal fade" id="deleteLayanan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -351,7 +352,7 @@
               </div>
               <div class="modal-body">
                 <div class="col-md-12 col-sm-12">  
-                    <form action="" method="post" enctype="multipart/form-data" >
+                    <form action="<?=base_url();?>/admin/profil_masjid/inputLayanan" method="post" enctype="multipart/form-data" >
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="jenis_layanan">Nama Layanan : </label>
                       <div class="col-md-8 col-sm-8 ">
@@ -429,6 +430,23 @@
 
     <!-- bootstrap-datetimepicker -->    
     <script src="<?php echo base_url('assets/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') ?>"></script>
+
+    <!-- Datatables -->
+    <script src="<?php echo base_url('assets/datatables.net/js/jquery.dataTables.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/datatables.net-bs/js/dataTables.bootstrap.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/datatables.net-buttons/js/dataTables.buttons.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/datatables.net-buttons/js/buttons.flash.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/datatables.net-buttons/js/buttons.html5.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/datatables.net-buttons/js/buttons.print.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/datatables.net-keytable/js/dataTables.keyTable.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/datatables.net-responsive/js/dataTables.responsive.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/datatables.net-responsive-bs/js/responsive.bootstrap.js') ?>"></script>
+    <script src="<?php echo base_url('assets/datatables.net-scroller/js/dataTables.scroller.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/jszip/dist/jszip.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/pdfmake/build/pdfmake.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/pdfmake/build/vfs_fonts.js') ?>"></script>
 
     <!-- Initialize datetimepicker -->
     <script  type="text/javascript">
