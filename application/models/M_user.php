@@ -5,16 +5,16 @@ class M_user extends CI_Model
     function list_user()
     {
         $this->db->select('*');
-        $this->db->from('jamaah');
-        $this->db->join('user_profile', 'user_profile.id_jamaah = jamaah.id_jamaah' );
+        $this->db->from('user_profile');
         $this->db->order_by('id_user', 'DESC');
         return $this->db->get();
     }
     
-    public function input_user($id_jamaah = null, $username = null, $password = null, $role = null)
+    public function input_user($nama_user = null, $jabatan = null, $username = null, $password = null, $role = null)
     {
         $data = [
-            'id_jamaah' => $id_jamaah,
+            'nama_user' => $nama_user,
+            'jabatan' => $jabatan,
             'username' => $username,
             'password' => $password,
             'role' => $role
@@ -23,11 +23,10 @@ class M_user extends CI_Model
         $this->db->insert('user_profile', $data);
     }
 
-    public function edit_user($id_user = null, $id_jamaah = null, $jabatan = null, $username = null, $password = null, $role = null)
+    public function edit_user($id_user = null, $nama_user = null, $jabatan = null, $username = null, $password = null, $role = null)
     {
         $data = [
-            'id_user' => $id_user,
-            'id_jamaah' => $id_jamaah,
+            'nama_user' => $nama_user,
             'jabatan' => $jabatan,
             'username' => $username,
             'password' => $password,

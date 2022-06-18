@@ -120,8 +120,8 @@
                   <div class="x_title" style="margin-bottom: 10px;">
                   <div class="clearfix"></div>
                   </div>
-                  <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#tambahModal" class="btn btn-success btn-xs"> Simpan</a></ul>
-                  <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#cancel" class="btn btn-danger"> Hapus</a></ul>
+                  <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#save" class="btn btn-success btn-xs"> Simpan</a></ul>
+                  <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#cancel" class="btn btn-danger"> Batal</a></ul>
 
               </div><!-- /card Body-->
                 </div>
@@ -209,8 +209,8 @@
                   <div class="x_title" style="margin-bottom: 10px;">
                   <div class="clearfix"></div>
                   </div>
-                  <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#tambahModal" class="btn btn-success btn-xs"> Simpan</a></ul>
-                  <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#cancel" class="btn btn-danger"> Hapus</a></ul>
+                  <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#save" class="btn btn-success btn-xs"> Simpan</a></ul>
+                  <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#cancel" class="btn btn-danger"> Batal</a></ul>
 
                 </div><!-- /card Body-->
                 </div>
@@ -235,19 +235,44 @@
                             </tr>
                           </thead>
                           <tbody>
+                            <?php $j = 1; ?>
+                            <?php foreach ($layanan->result_array() as $data_layanan):
+                            ?>
                             <tr>
-                              <td align="center">1</td>
-                              <td>Pemakaman</td>
-                              <td>Abdullah</td>
-                              <td>0856-0101-8452</td>
+                              <td align="center"><?php echo $j++ ?></td>
+                              <td><?=$data_layanan['nama_layanan'];?></td>
+                              <td><?=$data_layanan['pj_layanan'];?></td>
+                              <td><?=$data_layanan['kontak_layanan'];?></td>
                               <td align="center">
-                                <a href="#" data-toggle="modal" data-target="#editLayanan" style="margin-right: 10px"><i class="fa fa-edit"></i> Edit</a>
-                                <a href="#" data-toggle="modal" data-target="#deleteLayanan" style="margin-right: 10px"><i class="fa fa-trash"></i> Hapus</a>
-                                
-                              </td>
+                                <a href=""  onclick="editData(event, '<?=$data_layanan['id_layanan'];?>', '<?=$data_layanan['nama_layanan'];?>','<?=$data_layanan['pj_layanan'];?>','<?=$data_layanan['kontak_layanan'];?>')"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/profil_masjid/hapusLayanan/<?=$data_layanan['id_layanan'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
                             </tr>
+                            <?php endforeach;?>
 
-                            <!-- Modal -->
+                          </tbody>
+                        </table>
+                      </div>
+
+
+                </div><!-- /card Body-->
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+          
+
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <?php $this->load->view("admin/_partials/footer.php") ?>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+      <!-- Modal -->
 <!-- Modal Edit -->
     <div class="modal fade" id="editLayanan" role="dialog">
       <div class="modal-dialog">
@@ -259,27 +284,27 @@
           </div>
           
           <div class="modal-body">
-            <form role="form" action="" method="post">
-              <input type="hidden" name="" value="">
+            <form role="form" action="<?=base_url();?>/admin/profil_masjid/editLayanan" method="post">
               
               <div class="form-group col-md-12 col-sm-12">
-              <label class="col-form-label col-md-3 col-sm-3 label-align" for="jenis_layanan">Jenis Layanan : </label>
+              <label class="col-form-label col-md-3 col-sm-3 label-align" for="jenis_layanan">Nama Layanan : </label>
                     <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" name="jenis_layanan" placeholder="Jenis Layanan" required/>
+                      <input type="hidden" name="id_layanan" id="id_layanan" value=""/>
+                        <input class="form-control" type="text" name="nama_layanan" id="nama_layanan" placeholder="Jenis Layanan" required/>
                     </div>
               </div>
 
               <div class="form-group col-md-12 col-sm-12">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="pj_layanan">Penanggung Jawab : </label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" name="pj_layanan" placeholder="Nama" required/>
+                        <input class="form-control" type="text" name="pj_layanan" id="pj_layanan"placeholder="Nama" required/>
                       </div>
                     </div>
 
                     <div class="form-group col-md-12 col-sm-12">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="kontak_layanan">Kontak : </label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" name="kontak_layanan" placeholder="No. Telepon" required/>
+                        <input class="form-control" type="text" name="kontak_layanan" id="kontak_layanan"placeholder="No. Telepon" required/>
                       </div>
                     </div>
                     <br>
@@ -314,7 +339,7 @@
           </div>
         </div>
 
-                          <!-- End Modal -->
+       <!-- Tambah Modal -->
 
         <div class="modal fade" id="tambahModal" role="dialog">
           <div class="modal-dialog">
@@ -328,23 +353,23 @@
                 <div class="col-md-12 col-sm-12">  
                     <form action="" method="post" enctype="multipart/form-data" >
                     <div class="item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="jenis_layanan">Jenis Layanan : </label>
+                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="jenis_layanan">Nama Layanan : </label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" name="jenis_layanan" placeholder="Jenis Layanan" required/>
+                        <input class="form-control" type="text" name="nama_layanan" id="nama_layanan" placeholder="Nama Layanan" required/>
                       </div>
                     </div>
 
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="pj_layanan">Penanggung Jawab : </label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" name="pj_layanan" placeholder="Nama" required/>
+                        <input class="form-control" type="text" name="pj_layanan" id="pj_layanan" placeholder="Nama" required/>
                       </div>
                     </div>
 
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="kontak_layanan">Kontak : </label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" name="kontak_layanan" placeholder="No. Telepon" required/>
+                        <input class="form-control" type="text" name="kontak_layanan" id="kontak_layanan" placeholder="No. Telepon" required/>
                       </div>
                     </div>
                     <br>
@@ -360,28 +385,6 @@
           </div>
         </div>   <!-- End Modal -->
 
-                          </tbody>
-                        </table>
-                      </div>
-
-
-                </div><!-- /card Body-->
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-          
-
-        <!-- /page content -->
-
-        <!-- footer content -->
-        <?php $this->load->view("admin/_partials/footer.php") ?>
-        <!-- /footer content -->
-      </div>
-    </div>
 
     <?php $this->load->view("admin/_partials/modal.php") ?>    
 
@@ -395,9 +398,19 @@
     <script src="<?php echo base_url('assets/nprogress/nprogress.js') ?>"></script>
 
   <script>
-      function deleteConfirm(url){
+      function deleteConfirm(e,url){
+        e.preventDefault();
         $('#btn-delete').attr('href', url);
         $('#deleteModal').modal();
+      }
+
+      function editData(e,id,nama,pj,kontak){
+        e.preventDefault();
+        $("#id_layanan").val(id);
+        $("#nama_layanan").val(nama);
+        $("#pj_layanan").val(pj);
+        $("#kontak_layanan").val(kontak);
+        $('#editModal').modal();
       }
     </script>
 
@@ -432,7 +445,5 @@
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url('js/custom.min.js') ?>"></script>
 
-    
-  
   </body>
 </html>

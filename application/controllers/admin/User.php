@@ -21,12 +21,12 @@ class User extends CI_Controller
 
     public function proses()
     {
-        $id_jamaah = $this->input->post('id_jamaah');
         $jabatan = $this->input->post('jabatan');
+        $nama_user = $this->input->post('nama_user');
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         $role = $this->input->post('role');
-        $this->M_user->input_user($id_jamaah, $jabatan, $username, $password, $role);
+        $this->M_user->input_user($nama_user, $jabatan, $username, $password, $role);
         $this->session->set_flashdata('success','Item berhasil ditambahkan');
         redirect('admin/user');
     }
@@ -34,12 +34,13 @@ class User extends CI_Controller
     public function edit()
     {
         $id_user = $this->input->post('id_user');
-        $id_jamaah = $this->input->post('id_jamaah');
+        $nama_user = $this->input->post('nama_user');
         $jabatan = $this->input->post('jabatan');
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         $role = $this->input->post('role');
-        $this->M_user->edit_user($id_user, $id_jamaah, $jabatan, $username, $password, $role);
+
+        $this->M_user->edit_user($id_user, $nama_user, $jabatan, $username, $password, $role);
         $this->session->set_flashdata('success','Item berhasil diedit');
         redirect('admin/user');
     }

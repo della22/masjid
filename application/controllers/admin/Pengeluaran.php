@@ -17,6 +17,7 @@ class Pengeluaran extends CI_Controller
 
     public function index()
     {
+        $data['kategori_pengeluaran'] = $this->M_pengeluaran->list_kategori_pengeluaran();
         $data['pengeluaran'] = $this->M_pengeluaran->list_pengeluaran();
         $this->load->view('admin/pengeluaran/list_pengeluaran',$data);
     }
@@ -34,11 +35,10 @@ class Pengeluaran extends CI_Controller
     public function edit()
     {
         $id_pengeluaran = $this->input->post('id_pengeluaran');
-        $id_rekapitulasi = $this->input->post('id_rekapitulasi');
         $tanggal_pengeluaran = $this->input->post('tanggal_pengeluaran');
         $nominal_pengeluaran = $this->input->post('nominal_pengeluaran');
         $keterangan_pengeluaran = $this->input->post('keterangan_pengeluaran');
-        $this->M_pengeluaran->edit_pengeluaran($id_pengeluaran, $tanggal_pengeluaran, $nominal_pengeluaran, $keterangan_pengeluaran, $id_rekapitulasi);
+        $this->M_pengeluaran->edit_pengeluaran($id_pengeluaran, $tanggal_pengeluaran, $nominal_pengeluaran, $keterangan_pengeluaran);
         $this->session->set_flashdata('success','Item berhasil diedit');
         redirect('admin/pengeluaran');
     }
@@ -111,7 +111,7 @@ class Pengeluaran extends CI_Controller
     }
 
     public function hapus($id = null){
-        $this->M_pengeluaran->hapus_pengeluaran($id, $id_rekapitulasi);
+        $this->M_pengeluaran->hapus_pengeluaran($id);
         $this->session->set_flashdata('success','Item berhasil dihapus');
         redirect('admin/pengeluaran');
     }
@@ -123,6 +123,30 @@ class Pengeluaran extends CI_Controller
 
     public function kategori_pengeluaran()
     {
-        $this->load->view('admin/pengeluaran/list_kategori_pengeluaran');
+        $data['kategori_pengeluaran'] = $this->M_pengeluaran->list_kategori_pengeluaran();
+        $this->load->view('admin/pengeluaran/list_kategori_pengeluaran', $data);
+    }
+
+    public function addKategoriKeluar()
+    {
+        $nama_kategori_keluar = $this->input->post('nama_kategori_keluar');
+        $this->M_pengeluaran->input_kategori($nama_kategori_keluar);
+        $this->session->set_flashdata('success','Item berhasil ditambahkan');
+        redirect('admin/pengeluaran/kategori_pengeluaran');
+    }
+
+    public function editKategoriKeluar()
+    {
+        $id_kategori_keluar = $this->input->post('id_kategori_keluar');
+        $nama_kategori_keluar = $this->input->post('nama_kategori_keluar');
+        $this->M_pengeluaran->edit_kategori($id_kategori_keluar, $nama_kategori_keluar);
+        $this->session->set_flashdata('success','Item berhasil diedit');
+        redirect('admin/pengeluaran/kategori_pengeluaran');
+    }
+
+    public function hapus_kategori($id = null){
+        $this->M_pengeluaran->hapus_kategori($id);
+        $this->session->set_flashdata('success','Item berhasil dihapus');
+        redirect('admin/pengeluaran/kategori_pengeluaran');
     }
 }

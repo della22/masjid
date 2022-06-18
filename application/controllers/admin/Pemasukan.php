@@ -17,6 +17,7 @@ class Pemasukan extends CI_Controller
 
     public function index()
     {
+        $data['kategori_pemasukan'] = $this->M_pemasukan->list_kategori_pemasukan();
         $data['pemasukan'] = $this->M_pemasukan->list_pemasukan();
         $this->load->view('admin/pemasukan/list_pemasukan', $data);
     }
@@ -34,11 +35,12 @@ class Pemasukan extends CI_Controller
     public function edit()
     {
         $id_pemasukan = $this->input->post('id_pemasukan');
-        $id_rekapitulasi = $this->input->post('id_rekapitulasi');
+        $id_kategori = $this->input->post('kategori_pemasukan');
         $tanggal_pemasukan = $this->input->post('tanggal_pemasukan');
         $nominal_pemasukan = $this->input->post('nominal_pemasukan');
         $keterangan_pemasukan = $this->input->post('keterangan_pemasukan');
-        $this->M_pemasukan->edit_pemasukan($id_pemasukan, $tanggal_pemasukan, $nominal_pemasukan, $keterangan_pemasukan,$id_rekapitulasi);
+        // var_dump($_POST);
+        $this->M_pemasukan->edit_pemasukan($id_pemasukan, $tanggal_pemasukan, $nominal_pemasukan, $keterangan_pemasukan,$kategori_pemasukan);
         $this->session->set_flashdata('success','Item berhasil diedit');
         redirect('admin/pemasukan');
     }
@@ -110,8 +112,8 @@ class Pemasukan extends CI_Controller
         $pdf->Output('Laporan Pemasukan '.' .pdf');
     }
 
-    public function hapus($id = null,$id_rekapitulasi = null){
-        $this->M_pemasukan->hapus_pemasukan($id,$id_rekapitulasi);
+    public function hapus($id = null){
+        $this->M_pemasukan->hapus_pemasukan($id);
         $this->session->set_flashdata('success','Item berhasil dihapus');
         redirect('admin/pemasukan');
     }
@@ -124,7 +126,7 @@ class Pemasukan extends CI_Controller
     public function kategori_pemasukan()
     {
 
-        $data['kategori'] = $this->M_pemasukan->list_kategori_pemasukan();
+        $data['kategori_pemasukan'] = $this->M_pemasukan->list_kategori_pemasukan();
         $this->load->view('admin/pemasukan/list_kategori_pemasukan', $data);
     }
 
@@ -133,7 +135,7 @@ class Pemasukan extends CI_Controller
         $nama_kategori_masuk = $this->input->post('nama_kategori_masuk');
         $this->M_pemasukan->input_kategori($nama_kategori_masuk);
         $this->session->set_flashdata('success','Item berhasil ditambahkan');
-        redirect('admin/pemasukan/list_kategori_pemasukan');
+        redirect('admin/pemasukan/kategori_pemasukan');
     }
 
     public function editKategoriMasuk()
@@ -142,12 +144,14 @@ class Pemasukan extends CI_Controller
         $nama_kategori_masuk = $this->input->post('nama_kategori_masuk');
         $this->M_pemasukan->edit_kategori($id_kategori_masuk, $nama_kategori_masuk);
         $this->session->set_flashdata('success','Item berhasil diedit');
-        redirect('admin/pemasukan/list_kategori_pemasukan');
+        redirect('admin/pemasukan/kategori_pemasukan');
     }
 
     public function hapus_kategori($id = null){
         $this->M_pemasukan->hapus_kategori($id);
         $this->session->set_flashdata('success','Item berhasil dihapus');
-        redirect('admin/pemasukan/list_kategori_pemasukan');
+        redirect('admin/pemasukan/kategori_pemasukan');
     }
+
+    
 }

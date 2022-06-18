@@ -130,7 +130,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class='col-md-7 col-sm-7'>
                       <div class='input-group date myDatepicker2' >
                         <input type="hidden" name="id_pengeluaran" id="id_pengeluaran" value=""/>
-                         <input type="hidden" name="id_rekapitulasi" id="id_rekapitulasi" value=""/>
                         <input type="text" class="form-control" placeholder="Tanggal " id="tanggal_pengeluaran" name="tanggal_pengeluaran" required/>
                         <span class="input-group-addon" style="padding-top: 10px">
                         <span class="fa fa-calendar-o"></span>

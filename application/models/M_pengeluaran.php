@@ -4,38 +4,30 @@ class M_pengeluaran extends CI_Model
 {
     function list_pengeluaran()
     {
-        $this->db->order_by('tanggal', 'DESC');
-        return $this->db->get("pengeluaran");
+        $this->db->select('*');
+        $this->db->from('pengeluaran');
+        $this->db->join('kategori_pengeluaran', 'pengeluaran.id_kategori = kategori_pengeluaran.id_kategori_keluar' );
+        $this->db->order_by('id', 'DESC');
+        return $this->db->get();
     }
     
-    function saldo_terakhir(){
-        $this->db->order_by('id_rekapitulasi', 'DESC');
-        return $this->db->get("rekapitulasi")->row_array()['saldo'];
+    function list_kategori_pengeluaran()
+    {
+        return $this->db->get("kategori_pengeluaran");
     }
+
 
     public function input_pengeluaran($tanggal_pengeluaran = null, $nominal_pengeluaran = null, $keterangan_pengeluaran = null)
     {
-        $this->db->order_by('id_rekapitulasi', 'DESC');
-        $get_last_saldo = $this->db->get("rekapitulasi")->row_array()['saldo'];
         $data = [
-            'tanggal' => $tanggal_pengeluaran,
-            'nominal_pengeluaran' => $nominal_pengeluaran,
-            'keterangan' => $keterangan_pengeluaran,
-            'saldo' => $get_last_saldo - $nominal_pengeluaran
-        ];
-        
-        $this->db->insert('rekapitulasi', $data);
-        $insert_id_rekapitulasi = $this->db->insert_id();
-        $data2 = [
             'tanggal' => $tanggal_pengeluaran,
             'nominal' => $nominal_pengeluaran,
             'keterangan' => $keterangan_pengeluaran,
-            'id_rekapitulasi' => $insert_id_rekapitulasi
         ];
-        $this->db->insert('pengeluaran', $data2);
+        $this->db->insert('pengeluaran', $data);
     }
 
-    public function edit_pengeluaran($id_pengeluaran = null, $tanggal_pengeluaran = null, $nominal_pengeluaran = null, $keterangan_pengeluaran = null, $id_rekapitulasi = null)
+    public function edit_pengeluaran($id_pengeluaran = null, $tanggal_pengeluaran = null, $nominal_pengeluaran = null, $keterangan_pengeluaran = null)
     {
         $data = [
             'id' => $id_pengeluaran,
@@ -43,23 +35,13 @@ class M_pengeluaran extends CI_Model
             'nominal' => $nominal_pengeluaran,
             'keterangan' => $keterangan_pengeluaran
         ];
-        $data2 = [
-            'id_rekapitulasi' => $id_rekapitulasi,
-            'tanggal' => $tanggal_pengeluaran,
-            'nominal_pengeluaran' => $nominal_pengeluaran,
-            'keterangan' => $keterangan_pengeluaran
-        ];
         $this->db->where('id', $id_pengeluaran);
         $this->db->update('pengeluaran', $data);
-        $this->db->where('id_rekapitulasi', $id_rekapitulasi);
-        $this->db->update('rekapitulasi', $data2);
     }
 
-    public function hapus_pengeluaran($id_pengeluaran = null, $id_rekapitulasi = null){
+    public function hapus_pengeluaran($id_pengeluaran = null){
         $this->db->where('id', $id_pengeluaran);
         $this->db->delete('pengeluaran');
-        $this->db->where('id_rekapitulasi', $id_rekapitulasi);
-        $this->db->delete('rekapitulasi');
     }
 
     public function getByNoPengeluaran($no)
@@ -68,4 +50,37 @@ class M_pengeluaran extends CI_Model
         $this->db->where("id", $no);
         return $this->db->get("pengeluaran")->row();
     }
+
+
+public function getKategori()
+    {
+        $this->db->select("*");
+        $this->db->order_by('id_kategori_keluar', 'ASC');
+        return $this->db->get("kategori_pengeluaran")->result();
+    }
+    
+    public function input_kategori($nama_kategori_keluar = null)
+    {
+        $data = [
+            'nama_kategori_keluar' => $nama_kategori_keluar
+        ];
+        
+        $this->db->insert('kategori_pengeluaran', $data);
+    }
+
+    public function edit_kategori($id_kategori_keluar = null, $nama_kategori_keluar = null)
+    {
+        $data = [
+            'nama_kategori_keluar' => $nama_kategori_keluar
+        ];
+        $this->db->where('id_kategori_keluar', $id_kategori_keluar);
+        $this->db->update('kategori_pengeluaran', $data);
+    }
+
+    public function hapus_kategori($id_kategori_keluar = null){
+        $this->db->where('id_kategori_keluar', $id_kategori_keluar);
+        $this->db->delete('kategori_pengeluaran');
+    }
+
+
 }

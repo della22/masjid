@@ -39,6 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tr>
                               <th width="5%">No.</th>
                               <th>Tanggal</th>
+                              <th>Kategori</th>
                               <th>Nominal(Rp.)</th>
                               <th>Keterangan</th>
                               <th>Aksi</th>
@@ -51,12 +52,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tr>
                               <td align="center"><?php echo $j++ ?></td>
                               <td width="70"><?=$data_pemasukan['tanggal'];?></td>
+                              <td width="70"><?=$data_pemasukan['nama_kategori_masuk'];?></td>
                               <td width="70"><?=$data_pemasukan['nominal'];?></td>
                               <td width="300"><?=$data_pemasukan['keterangan'];?></td>
                               <td width="150" align="center">
-                                <a href=""  onclick="editData(event, '<?=$data_pemasukan['id'];?>', '<?=$data_pemasukan['tanggal'];?>','<?=$data_pemasukan['nominal'];?>','<?=$data_pemasukan['keterangan'];?>','<?=$data_pemasukan['id_rekapitulasi'];?>')"><i class="fa fa-edit"></i> Edit</a>
+                                <a href=""  onclick="editData(event, '<?=$data_pemasukan['id'];?>', '<?=$data_pemasukan['tanggal'];?>','<?=$data_pemasukan['nominal'];?>','<?=$data_pemasukan['keterangan'];?>','<?=$data_pemasukan['id_kategori_masuk'];?>')"><i class="fa fa-edit"></i> Edit</a>
                                 <a href="<?=base_url('admin/pemasukan/print');?>/<?=$data_pemasukan['id'];?>" style="margin-right: 9px" target="_blank"><i class="fa fa-print"></i> Print </a>
-                                <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/pemasukan/hapus/<?=$data_pemasukan['id'];?>/<?=$data_pemasukan['id_rekapitulasi'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
+                                <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/pemasukan/hapus/<?=$data_pemasukan['id'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
                             </tr>
                             <?php endforeach;?>
                           </tbody>
@@ -118,9 +120,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <label class="col-form-label col-md-4 col-sm-4 label-align">Kategori Pemasukan : </label>
                       <div class='col-md-7 col-sm-7'>
                         <select class="select2_single form-control" name="kategori_pemasukan" tabindex="-1">
-                          <option value="Kategori">Kategori </option>
-                          <option value="A">A</option>
-                          <option value="B">B</option>
+                          <?php
+                            foreach($kategori_pemasukan->result_array() as $kategori):
+                          ?>
+                          <option value="<?=$kategori['id_kategori_masuk'];?>"><?=$kategori['nama_kategori_masuk'];?></option>
+                          <?php endforeach;?>
                         </select>
                       </div>
                     </div>
@@ -130,7 +134,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class='col-md-7 col-sm-7'>
                       <div class='input-group date myDatepicker2' >
                         <input type="hidden" name="id_pemasukan" id="id_pemasukan" value=""/>
-                        <input type="hidden" name="id_rekapitulasi" id="id_rekapitulasi" value=""/>
                         <input type="text" class="form-control" placeholder="Tanggal " id="tanggal_pemasukan" name="tanggal_pemasukan" required/>
                         <span class="input-group-addon" style="padding-top: 10px">
                         <span class="fa fa-calendar-o"></span>
@@ -179,9 +182,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <label class="col-form-label col-md-4 col-sm-4 label-align" for="kategori_pemasukan">Kategori Pemasukan</label>
                       <div class='col-md-7 col-sm-7'>
                         <select class="select2_single form-control" name="kategori_pemasukan" tabindex="-1">
-                          <option value="Kategori">Kategori </option>
-                          <option value="A">A</option>
-                          <option value="B">B</option>
+                          <?php
+                            foreach($kategori_pemasukan->result_array() as $kategori):
+                          ?>
+                          <option value="<?=$kategori['id_kategori_masuk'];?>"><?=$kategori['nama_kategori_masuk'];?></option>
+                          <?php endforeach;?>
                         </select>
                       </div>
                     </div>
@@ -328,13 +333,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('#deleteModal').modal();
       }
 
-      function editData(e,id,tanggal,nominal,keterangan,id_rekapitulasi){
+      function editData(e,id,tanggal,nominal,keterangan,id_kategori_masuk){
         e.preventDefault();
         $("#id_pemasukan").val(id);
         $("#tanggal_pemasukan").val(tanggal);
         $("#nominal_pemasukan").val(nominal);
         $("#keterangan_pemasukan").val(keterangan);
-        $("#id_rekapitulasi").val(id_rekapitulasi);
+        $("#kategori_masuk").val(id_kategori_masuk);
         $('#editModal').modal();
       }
     </script>

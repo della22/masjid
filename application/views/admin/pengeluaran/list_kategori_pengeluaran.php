@@ -52,7 +52,7 @@
 
                     <div class="col-sm-12">
                       <div class="card-box table-responsive">
-                       <table id="list_daftar_ulang" class="table table-striped table-bordered" style="width:100%">
+                       <table id="list_kat_keluar" class="table table-striped table-bordered" style="width:100%">
                           <thead>
                             <tr>
                               <th width="5%">No.</th>
@@ -61,11 +61,17 @@
                             </tr>
                           </thead>
                           <tbody>
+                            <?php $j = 1; ?>
+                            <?php foreach ($kategori_pengeluaran->result_array() as $kat_keluar):
+                            ?>
                             <tr>
-                              <td align="center">1</td>
-                              <td>Kategori</td>
+                              <td align="center"><?php echo $j++ ?></td>
+                              <td><?=$kat_keluar['nama_kategori_keluar'];?></td>
                               <td align="center">
-                                <a href="#"  data-toggle="modal" data-target="#editKategoriModal" style="margin-right: 9px" ><i class="fa fa-edit"></i> Edit </a>
+                                <a href=""  onclick="editData(event, '<?=$kat_keluar['id_kategori_keluar'];?>', '<?=$kat_keluar['nama_kategori_keluar'];?>')"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/pengeluaran/hapus_kategori/<?=$kat_keluar['id_kategori_keluar'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
+                            </tr>
+                             <?php endforeach;?>
 
                                 <!-- Modal Edit Kategori-->
                                     <div class="modal fade" id="editKategoriModal" role="dialog">
@@ -73,18 +79,18 @@
                                         <!-- Modal content-->
                                         <div class="modal-content">
                                           <div class="modal-header">
-                                            <h4 class="modal-title"> No Kategori : 1 </h4>
+                                            <h4 class="modal-title"> Edit Kategori </h4>
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                           </div>
                                           <div class="modal-body">
-                                            <form role="form" action="" method="post">
-                                                <input type="hidden" name="" value="">
+                                            <form role="form" action="<?=base_url();?>admin/pengeluaran/editKategoriKeluar" method="post">
 
                                                 <div class="form-group col-md-12 col-sm-12">
                                                 <div class="item form-group">
                                                     <label class="col-form-label col-md-4 col-sm-4 label-align" for="nama_kategori">Nama Kategori</label>
                                                     <div class="col-md-7 col-sm-7 ">
-                                                        <input class="form-control" type="text" name="nama_kategori" placeholder="Nama Kategori" required/>
+                                                       <input class="form-control" id="nama_kategori_keluar_edit" type="text" name="nama_kategori_keluar" placeholder="Nama Kategori" required/>
+                                                        <input type="hidden" name="id_kategori_keluar" id="id_kategori_keluar_edit">
                                                     </div>
                                                 </div>
                                                 </div>
@@ -102,13 +108,6 @@
                                     </div>
 
 
-
-                                <a onclick="" href="#!" ><i class="fa fa-trash"></i> Hapus</a>
-                              </td>
-
-                                    
-
-                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -137,12 +136,12 @@
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
             <div class="modal-body">
-            <form role="form" action="" method="post">
+            <form role="form" action="<?=base_url();?>admin/pengeluaran/addKategoriKeluar" method="post">
               <div class="form-group col-md-12 col-sm-12">
                 <div class="item form-group">
-                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="nama_kategori">Nama Kategori</label>
+                    <label class="col-form-label col-md-4 col-sm-4 label-align" for="nama_kategori_keluar">Nama Kategori</label>
                     <div class="col-md-7 col-sm-7 ">
-                        <input class="form-control" type="text" name="nama_kategori" placeholder="Nama Kategori" required/>
+                        <input class="form-control" type="text" name="nama_kategori_keluar" placeholder="Nama Kategori" required/>
                     </div>
                 </div>
               </div>
@@ -192,7 +191,7 @@
 <!-- MODAL -->
     <?php $this->load->view("admin/_partials/modal.php") ?>    
     <!-- js -->
-     <!-- jQuery -->
+    <!-- jQuery -->
     <script src="<?php echo base_url('assets/jquery/dist/jquery.min.js') ?>"></script>
     <!-- Bootstrap -->
     <script src="<?php echo base_url('assets/bootstrap/dist/js/bootstrap.bundle.min.js') ?>"></script>
@@ -244,15 +243,18 @@
     </script>
 
     <script>
-      function deleteConfirm(url){
+      function deleteConfirm(e,url){
+        e.preventDefault();
         $('#btn-delete').attr('href', url);
         $('#deleteModal').modal();
       }
 
-      // function bayarsppConfirm(url){
-      //   $('#btn-bayar').attr('href', url);
-      //   $('#bayarModal').modal();
-      // }
+      function editData(e,id,nama){
+        e.preventDefault();
+        $("#id_kategori_keluar_edit").val(id);
+        $("#nama_kategori_keluar_edit").val(nama);
+        $('#editKategoriModal').modal();
+      }
     </script>
 
 <!-- bootstrap-daterangepicker -->
