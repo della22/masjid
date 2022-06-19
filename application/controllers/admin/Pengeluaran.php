@@ -17,8 +17,16 @@ class Pengeluaran extends CI_Controller
 
     public function index()
     {
-        $data['kategori_pengeluaran'] = $this->M_pengeluaran->list_kategori_pengeluaran();
-        $data['pengeluaran'] = $this->M_pengeluaran->list_pengeluaran();
+        if ($this->input->get('tanggalawal') && $this->input->get('tanggalakhir')) {
+            $tanggalawal = $this->input->get('tanggalawal');
+            $tanggalakhir = $this->input->get('tanggalakhir');
+            $data['pengeluaran'] = $this->M_pengeluaran->filter($tanggalawal,$tanggalakhir);
+        }
+        else
+        {
+            $data['kategori_pengeluaran'] = $this->M_pengeluaran->list_kategori_pengeluaran();
+            $data['pengeluaran'] = $this->M_pengeluaran->list_pengeluaran();
+        }
         $this->load->view('admin/pengeluaran/list_pengeluaran',$data);
     }
 
@@ -27,7 +35,8 @@ class Pengeluaran extends CI_Controller
         $tanggal_pengeluaran = $this->input->post('tanggal_pengeluaran');
         $nominal_pengeluaran = $this->input->post('nominal_pengeluaran');
         $keterangan_pengeluaran = $this->input->post('keterangan_pengeluaran');
-        $this->M_pengeluaran->input_pengeluaran($tanggal_pengeluaran, $nominal_pengeluaran, $keterangan_pengeluaran);
+        $id_kategori = $this->input->post('kategori_pengeluaran');
+        $this->M_pengeluaran->input_pengeluaran($tanggal_pengeluaran, $nominal_pengeluaran, $keterangan_pengeluaran, $id_kategori);
         $this->session->set_flashdata('success','Item berhasil ditambahkan');
         redirect('admin/pengeluaran');
     }
@@ -38,7 +47,8 @@ class Pengeluaran extends CI_Controller
         $tanggal_pengeluaran = $this->input->post('tanggal_pengeluaran');
         $nominal_pengeluaran = $this->input->post('nominal_pengeluaran');
         $keterangan_pengeluaran = $this->input->post('keterangan_pengeluaran');
-        $this->M_pengeluaran->edit_pengeluaran($id_pengeluaran, $tanggal_pengeluaran, $nominal_pengeluaran, $keterangan_pengeluaran);
+        $id_kategori = $this->input->post('kategori_pengeluaran');
+        $this->M_pengeluaran->edit_pengeluaran($id_pengeluaran, $tanggal_pengeluaran, $nominal_pengeluaran, $keterangan_pengeluaran, $id_kategori);
         $this->session->set_flashdata('success','Item berhasil diedit');
         redirect('admin/pengeluaran');
     }
@@ -49,6 +59,7 @@ class Pengeluaran extends CI_Controller
             redirect('admin/pengeluaran');
         
         $data = $this->M_pengeluaran->getByNoPengeluaran($no);
+        $data_kategori = $this->M_pengeluaran->getByKategori($data->id_kategori);
 
         $pdf = new \TCPDF();
         $pdf->AddPage('L', 'mm', 'A4');
@@ -81,6 +92,12 @@ class Pengeluaran extends CI_Controller
         $pdf->Cell(60,10,'Uang Sejumlah  : ',0,0,'R');
         $pdf->SetFont('','',14);
         $pdf->Cell(16,10,terbilang($data->nominal). 'Rupiah',0,1,'L');
+
+        $pdf->Cell(20);
+        $pdf->SetFont('','',14);
+        $pdf->Cell(60,10,'Kategori  : ',0,0,'R');
+        $pdf->SetFont('','',14);
+        $pdf->Cell(16,10,' '.$data_kategori->nama_kategori_keluar,0,1,'L');
 
         $pdf->Cell(20);
         $pdf->SetFont('','',14);

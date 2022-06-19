@@ -17,25 +17,26 @@ class M_pemasukan extends CI_Model
     }
     
 
-    public function input_pemasukan($tanggal_pemasukan = null, $nominal_pemasukan = null, $keterangan_pemasukan = null)
+    public function input_pemasukan($tanggal_pemasukan = null, $nominal_pemasukan = null, $keterangan_pemasukan = null, $kategori_pemasukan)
     {
         $data = [
             'tanggal' => $tanggal_pemasukan,
             'nominal' => $nominal_pemasukan,
             'keterangan' => $keterangan_pemasukan,
+            'id_kategori' => $kategori_pemasukan
         ];
         
         $this->db->insert('pemasukan', $data);
     }
 
-    public function edit_pemasukan($id_pemasukan = null, $tanggal_pemasukan = null, $kategori_pemasukan = null, $nominal_pemasukan = null, $keterangan_pemasukan = null)
+    public function edit_pemasukan($id_pemasukan = null, $tanggal_pemasukan = null, $nominal_pemasukan = null, $keterangan_pemasukan = null, $kategori_pemasukan = null)
     {
         $data = [
             'id' => $id_pemasukan,
             'tanggal' => $tanggal_pemasukan,
-            'id_kategori' => $kategori_pemasukan,
             'nominal' => $nominal_pemasukan,
-            'keterangan' => $keterangan_pemasukan
+            'keterangan' => $keterangan_pemasukan,
+            'id_kategori' => $kategori_pemasukan
         ];
         $this->db->where('id', $id_pemasukan);
         $this->db->update('pemasukan', $data);
@@ -51,6 +52,24 @@ class M_pemasukan extends CI_Model
         $this->db->select("*");
         $this->db->where("id", $no);
         return $this->db->get("pemasukan")->row();
+    }
+
+    public function getByKategori($no)
+    {
+        $this->db->select("*");
+        $this->db->where("id_kategori_masuk", $no);
+        return $this->db->get("kategori_pemasukan")->row();
+    }
+
+    public function filter($tanggalawal = null, $tanggalakhir = null)
+    {
+        
+        $this->db->select('*');
+        $this->db->from('pemasukan');
+        $this->db->join('kategori_pemasukan', 'pemasukan.id_kategori = kategori_pemasukan.id_kategori_masuk' );
+        $this->db->where("tanggal BETWEEN '$tanggalawal' AND '$tanggalakhir'");
+        $this->db->order_by('tanggal', 'ASC');
+        return $this->db->get();
     }
 
     public function getKategori()

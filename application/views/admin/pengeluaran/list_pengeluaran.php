@@ -39,6 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tr>
                               <th width="5%">No.</th>
                               <th>Tanggal</th>
+                              <th>Kategori</th>
                               <th>Nominal(Rp.)</th>
                               <th>Keterangan</th>
                               <th>Aksi</th>
@@ -51,11 +52,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tr>
                               <td align="center"><?php echo $j++ ?></td>
                               <td width="70"><?=$data_pengeluaran['tanggal'];?></td>
-                              <td width="70"><?=$data_pengeluaran['nominal'];?></td>
+                              <td width="70"><?=$data_pengeluaran['nama_kategori_keluar'];?></td>
+                              <td width="70"><?=number_format($data_pengeluaran['nominal'],0,',','.');?></td>
                               <td width="300"><?=$data_pengeluaran['keterangan'];?></td>
                               <td width="150" align="center">
-                                <a href=""  onclick="editData(event, '<?=$data_pengeluaran['id'];?>', '<?=$data_pengeluaran['tanggal'];?>','<?=$data_pengeluaran['nominal'];?>','<?=$data_pengeluaran['keterangan'];?>')"><i class="fa fa-edit"></i> Edit</a>
-                                <a href="#" style="margin-right: 9px" target="_blank"><i class="fa fa-print"></i> Print </a>
+                                <a href=""  onclick="editData(event, '<?=$data_pengeluaran['id'];?>', '<?=$data_pengeluaran['tanggal'];?>','<?=$data_pengeluaran['nominal'];?>','<?=$data_pengeluaran['keterangan'];?>','<?=$data_pengeluaran['id_kategori_keluar'];?>')"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="<?=base_url('admin/pengeluaran/print');?>/<?=$data_pengeluaran['id'];?>" style="margin-right: 9px" target="_blank"><i class="fa fa-print"></i> Print </a>
                                 <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/pengeluaran/hapus/<?=$data_pengeluaran['id'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
                             </tr>
                             <?php endforeach;?>
@@ -118,9 +120,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <label class="col-form-label col-md-4 col-sm-4 label-align">Kategori Pengeluaran : </label>
                       <div class='col-md-7 col-sm-7'>
                         <select class="select2_single form-control" name="kategori_pengeluaran" tabindex="-1">
-                          <option value="Kategori">Kategori </option>
-                          <option value="A">A</option>
-                          <option value="B">B</option>
+                          <?php
+                            foreach($kategori_pengeluaran->result_array() as $kategori):
+                          ?>
+                          <option value="<?=$kategori['id_kategori_keluar'];?>"><?=$kategori['nama_kategori_keluar'];?></option>
+                          <?php endforeach;?>
                         </select>
                       </div>
                     </div>
@@ -128,9 +132,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-4 col-sm-4 label-align">Tanggal Pengeluaran : </label>
                     <div class='col-md-7 col-sm-7'>
+                      <input type="hidden" name="id_pengeluaran" id="id_pengeluaran" value=""/>
                       <div class='input-group date myDatepicker2' >
-                        <input type="hidden" name="id_pengeluaran" id="id_pengeluaran" value=""/>
-                        <input type="text" class="form-control" placeholder="Tanggal " id="tanggal_pengeluaran" name="tanggal_pengeluaran" required/>
+                        <input type="text" class="form-control" placeholder="Tanggal " id="tanggal_pengeluaran_edit" name="tanggal_pengeluaran" required/>
                         <span class="input-group-addon" style="padding-top: 10px">
                         <span class="fa fa-calendar-o"></span>
                       </span>  
@@ -140,14 +144,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-4 col-sm-4 label-align">Nominal(Rp.) : </label>
                     <div class='col-md-7 col-sm-7'>
-                       <input class="form-control" type="number" id="nominal_pengeluaran" name="nominal_pengeluaran" placeholder="Nominal" required/>    
+                       <input class="form-control" type="number" id="nominal_pengeluaran_edit" name="nominal_pengeluaran" placeholder="Nominal" required/>    
                     </div>
                    
                   </div>
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-4 col-sm-4 label-align">Keterangan : </label>
                     <div class="col-md-7 col-sm-7 ">
-                       <textarea class="form-control" id="keterangan_pengeluaran" name="keterangan_pengeluaran" placeholder="Keterangan" required></textarea>
+                       <textarea class="form-control" id="keterangan_pengeluaran_edit" name="keterangan_pengeluaran" placeholder="Keterangan" required></textarea>
                     </div>
                   </div>
                   <br>
@@ -173,14 +177,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <div class="modal-body">
                 <div class="col-md-12 col-sm-12">  
                     <form action="<?=base_url();?>/admin/pengeluaran/proses" method="post" enctype="multipart/form-data" >
-                    
+
                     <div class="item form-group">
                       <label class="col-form-label col-md-4 col-sm-4 label-align" for="kategori_pengeluaran">Kategori Pengeluaran</label>
                       <div class='col-md-7 col-sm-7'>
                         <select class="select2_single form-control" name="kategori_pengeluaran" tabindex="-1">
-                          <option value="Kategori">Kategori </option>
-                          <option value="A">A</option>
-                          <option value="B">B</option>
+                          <?php
+                            foreach($kategori_pengeluaran->result_array() as $kategori):
+                          ?>
+                          <option value="<?=$kategori['id_kategori_keluar'];?>"><?=$kategori['nama_kategori_keluar'];?></option>
+                          <?php endforeach;?>
                         </select>
                       </div>
                     </div>
@@ -233,13 +239,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <h4 class="modal-title"> Filter </h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
-            <div class="modal-body">    
+            <div class="modal-body">
+            <form action="">    
             <div class="form-group col-md-12 col-sm-12">
               <div class="col-md-6">
                 <div class="form-group">
                     <label for="input_from">Dari</label>
                     <div class='input-group date myDatepicker2' >
-                          <input type="text" class="form-control" placeholder="Dari " name="filter_mulai_pengeluaran" required/>
+                          <input type="text" class="form-control" placeholder="Dari " name="tanggalawal" required/>
                           <span class="input-group-addon" style="padding-top: 10px">
                           <span class="fa fa-calendar-o"></span>
                         </span>  
@@ -250,7 +257,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="form-group">
                   <label for="input_to">Sampai</label>
                   <div class='input-group date myDatepicker2' >
-                          <input type="text" class="form-control" placeholder="Sampai " name="filter_selesai_pengeluaran" required/>
+                          <input type="text" class="form-control" placeholder="Sampai " name="tanggalakhir" required/>
                           <span class="input-group-addon" style="padding-top: 10px">
                           <span class="fa fa-calendar-o"></span>
                         </span>  
@@ -263,6 +270,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <div class="modal-footer">  
                 <button type="submit" class="btn btn-success">Filter</button>
               </div>
+            </form>
           </div>
         </div>
       </div>
@@ -270,8 +278,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <!-- MODAL -->
     <?php $this->load->view("admin/_partials/modal.php") ?>
-
-
     
     <!-- js -->
      <!-- jQuery -->
@@ -305,19 +311,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url('js/custom.min.js') ?>"></script>
 
-    <script>
-      function deleteConfirm(url){
-        $('#btn-delete').attr('href', url);
-        $('#deleteModal').modal();
-      }
-    </script>
-
-    </script>
-
-    <!-- bootstrap-daterangepicker -->
-    <script src="<?php echo base_url('assets/moment/min/moment.min.js') ?>"></script>
-    <script src="<?php echo base_url('assets/bootstrap-daterangepicker/daterangepicker.js') ?>"></script>
-
     <script src="<?php echo base_url().'js/jquery-ui.js'?>" type="text/javascript"></script>
 
     <script>
@@ -327,15 +320,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('#deleteModal').modal();
       }
 
-      function editData(e,id,tanggal,nominal,keterangan){
+      function editData(e,id,tanggal,nominal,keterangan,kategori){
         e.preventDefault();
         $("#id_pengeluaran").val(id);
-        $("#tanggal_pengeluaran").val(tanggal);
-        $("#nominal_pengeluaran").val(nominal);
-        $("#keterangan_pengeluaran").val(keterangan);
+        $("#tanggal_pengeluaran_edit").val(tanggal);
+        $("#nominal_pengeluaran_edit").val(nominal);
+        $("#keterangan_pengeluaran_edit").val(keterangan);
+        $("#id_kategori_keluar").val(kategori);
         $('#editModal').modal();
       }
     </script>
+
+    <!-- bootstrap-daterangepicker -->
+    <script src="<?php echo base_url('assets/moment/min/moment.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/bootstrap-daterangepicker/daterangepicker.js') ?>"></script>
 
     <!-- bootstrap-datetimepicker -->    
     <script src="<?php echo base_url('assets/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') ?>"></script>

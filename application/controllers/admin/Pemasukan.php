@@ -17,9 +17,16 @@ class Pemasukan extends CI_Controller
 
     public function index()
     {
-        $data['kategori_pemasukan'] = $this->M_pemasukan->list_kategori_pemasukan();
-        $data['pemasukan'] = $this->M_pemasukan->list_pemasukan();
-        $this->load->view('admin/pemasukan/list_pemasukan', $data);
+        if ($this->input->get('tanggalawal') && $this->input->get('tanggalakhir')) {
+            $tanggalawal = $this->input->get('tanggalawal');
+            $tanggalakhir = $this->input->get('tanggalakhir');
+            $data['pemasukan'] = $this->M_pemasukan->filter($tanggalawal,$tanggalakhir);
+        }   
+        else{
+            $data['kategori_pemasukan'] = $this->M_pemasukan->list_kategori_pemasukan();
+            $data['pemasukan'] = $this->M_pemasukan->list_pemasukan();
+        }
+        $this->load->view('admin/pemasukan/list_pemasukan', $data);  
     }
 
     public function proses()
@@ -27,7 +34,8 @@ class Pemasukan extends CI_Controller
         $tanggal_pemasukan = $this->input->post('tanggal_pemasukan');
         $nominal_pemasukan = $this->input->post('nominal_pemasukan');
         $keterangan_pemasukan = $this->input->post('keterangan_pemasukan');
-        $this->M_pemasukan->input_pemasukan($tanggal_pemasukan, $nominal_pemasukan, $keterangan_pemasukan);
+        $id_kategori = $this->input->post('kategori_pemasukan');
+        $this->M_pemasukan->input_pemasukan($tanggal_pemasukan, $nominal_pemasukan, $keterangan_pemasukan, $id_kategori);
         $this->session->set_flashdata('success','Item berhasil ditambahkan');
         redirect('admin/pemasukan');
     }
@@ -35,12 +43,11 @@ class Pemasukan extends CI_Controller
     public function edit()
     {
         $id_pemasukan = $this->input->post('id_pemasukan');
-        $id_kategori = $this->input->post('kategori_pemasukan');
         $tanggal_pemasukan = $this->input->post('tanggal_pemasukan');
         $nominal_pemasukan = $this->input->post('nominal_pemasukan');
         $keterangan_pemasukan = $this->input->post('keterangan_pemasukan');
-        // var_dump($_POST);
-        $this->M_pemasukan->edit_pemasukan($id_pemasukan, $tanggal_pemasukan, $nominal_pemasukan, $keterangan_pemasukan,$kategori_pemasukan);
+        $id_kategori = $this->input->post('kategori_pemasukan');
+        $this->M_pemasukan->edit_pemasukan($id_pemasukan, $tanggal_pemasukan, $nominal_pemasukan, $keterangan_pemasukan, $id_kategori);
         $this->session->set_flashdata('success','Item berhasil diedit');
         redirect('admin/pemasukan');
     }
@@ -51,6 +58,7 @@ class Pemasukan extends CI_Controller
             redirect('admin/pemasukan');
         
         $data = $this->M_pemasukan->getByNoPemasukan($no);
+        $data_kategori = $this->M_pemasukan->getByKategori($data->id_kategori);
 
         $pdf = new \TCPDF();
         $pdf->AddPage('L', 'mm', 'A4');
@@ -68,7 +76,7 @@ class Pemasukan extends CI_Controller
         $style = array('width' => 0.5, 'dash' => '0,0,0,0', 'phase' => 0, 'color' => array(0, 0, 0));
         $pdf->Line(10, 50, 290, 50, $style);
         $pdf->SetFont('', 'B', 25);
-        $pdf->Cell(260, 45, "KUITANSI PEMBAYARAN", 0, 4, 'C');
+        $pdf->Cell(260, 45, "KUITANSI", 0, 4, 'C');
 
 
         $pdf->SetY(70);
@@ -83,6 +91,12 @@ class Pemasukan extends CI_Controller
         $pdf->Cell(60,10,'Uang Sejumlah  : ',0,0,'R');
         $pdf->SetFont('','',14);
         $pdf->Cell(16,10,terbilang($data->nominal). 'Rupiah',0,1,'L');
+
+        $pdf->Cell(20);
+        $pdf->SetFont('','',14);
+        $pdf->Cell(60,10,'Kategori  : ',0,0,'R');
+        $pdf->SetFont('','',14);
+        $pdf->Cell(16,10,' '.$data_kategori->nama_kategori_masuk,0,1,'L');
 
         $pdf->Cell(20);
         $pdf->SetFont('','',14);

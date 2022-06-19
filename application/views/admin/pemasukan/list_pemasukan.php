@@ -53,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <td align="center"><?php echo $j++ ?></td>
                               <td width="70"><?=$data_pemasukan['tanggal'];?></td>
                               <td width="70"><?=$data_pemasukan['nama_kategori_masuk'];?></td>
-                              <td width="70"><?=$data_pemasukan['nominal'];?></td>
+                              <td width="70"><?=number_format($data_pemasukan['nominal'],0,',','.');?></td>
                               <td width="300"><?=$data_pemasukan['keterangan'];?></td>
                               <td width="150" align="center">
                                 <a href=""  onclick="editData(event, '<?=$data_pemasukan['id'];?>', '<?=$data_pemasukan['tanggal'];?>','<?=$data_pemasukan['nominal'];?>','<?=$data_pemasukan['keterangan'];?>','<?=$data_pemasukan['id_kategori_masuk'];?>')"><i class="fa fa-edit"></i> Edit</a>
@@ -70,7 +70,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
             </div>
               <!-- /DataTables -->
-
 
           </div>
           <br />
@@ -132,9 +131,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-4 col-sm-4 label-align">Tanggal Pemasukan : </label>
                     <div class='col-md-7 col-sm-7'>
+                      <input type="hidden" name="id_pemasukan" id="id_pemasukan" value=""/>
                       <div class='input-group date myDatepicker2' >
-                        <input type="hidden" name="id_pemasukan" id="id_pemasukan" value=""/>
-                        <input type="text" class="form-control" placeholder="Tanggal " id="tanggal_pemasukan" name="tanggal_pemasukan" required/>
+                        <input type="text" class="form-control" placeholder="Tanggal " id="tanggal_pemasukan_edit" name="tanggal_pemasukan" required/>
                         <span class="input-group-addon" style="padding-top: 10px">
                         <span class="fa fa-calendar-o"></span>
                       </span>  
@@ -144,14 +143,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-4 col-sm-4 label-align">Nominal(Rp.) : </label>
                     <div class='col-md-7 col-sm-7'>
-                       <input class="form-control" type="number" id="nominal_pemasukan" name="nominal_pemasukan" placeholder="Nominal" required/>    
+                       <input class="form-control" type="number" id="nominal_pemasukan_edit" name="nominal_pemasukan" placeholder="Nominal" required/>    
                     </div>
                    
                   </div>
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-4 col-sm-4 label-align">Keterangan : </label>
                     <div class="col-md-7 col-sm-7 ">
-                       <textarea class="form-control" id="keterangan_pemasukan" name="keterangan_pemasukan" placeholder="Keterangan" required></textarea>
+                       <textarea class="form-control" id="keterangan_pemasukan_edit" name="keterangan_pemasukan" placeholder="Keterangan" required></textarea>
                     </div>
                   </div>
                   <br>
@@ -239,36 +238,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <h4 class="modal-title"> Filter </h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
-            <div class="modal-body">    
+            <div class="modal-body">
+            <form action="">    
             <div class="form-group col-md-12 col-sm-12">
               <div class="col-md-6">
                 <div class="form-group">
                     <label for="input_from">Dari</label>
                     <div class='input-group date myDatepicker2' >
-                          <input type="text" class="form-control" placeholder="Dari " name="filter_mulai_pemasukan" required/>
+                          <input type="text" class="form-control" placeholder="Dari " name="tanggalawal" required/>
                           <span class="input-group-addon" style="padding-top: 10px">
-                          <span class="fa fa-calendar-o"></span>
-                        </span>  
+                            <span class="fa fa-calendar-o"></span>
+                          </span>  
                     </div>
                 </div>
               </div>
-            <div class="col-md-6">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label for="input_to">Sampai</label>
                   <div class='input-group date myDatepicker2' >
-                          <input type="text" class="form-control" placeholder="Sampai " name="filter_selesai_pemasukan" required/>
+                          <input type="text" class="form-control" placeholder="Sampai " name="tanggalakhir" required/>
                           <span class="input-group-addon" style="padding-top: 10px">
-                          <span class="fa fa-calendar-o"></span>
-                        </span>  
+                            <span class="fa fa-calendar-o"></span>
+                          </span>  
                     </div>
                 </div>
+              </div>
             </div>
-
-                </div>
               <br>
               <div class="modal-footer">  
                 <button type="submit" class="btn btn-success">Filter</button>
               </div>
+            </form>
           </div>
         </div>
       </div>
@@ -278,7 +278,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <?php $this->load->view("admin/_partials/modal.php") ?>
 
 
-    
     <!-- js -->
      <!-- jQuery -->
     <script src="<?php echo base_url('assets/jquery/dist/jquery.min.js') ?>"></script>
@@ -311,19 +310,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url('js/custom.min.js') ?>"></script>
 
-    <script>
-      function deleteConfirm(url){
-        $('#btn-delete').attr('href', url);
-        $('#deleteModal').modal();
-      }
-    </script>
-
-    </script>
-
-    <!-- bootstrap-daterangepicker -->
-    <script src="<?php echo base_url('assets/moment/min/moment.min.js') ?>"></script>
-    <script src="<?php echo base_url('assets/bootstrap-daterangepicker/daterangepicker.js') ?>"></script>
-
     <script src="<?php echo base_url().'js/jquery-ui.js'?>" type="text/javascript"></script>
 
     <script>
@@ -333,16 +319,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('#deleteModal').modal();
       }
 
-      function editData(e,id,tanggal,nominal,keterangan,id_kategori_masuk){
+      function editData(e,id,tanggal,nominal,keterangan,kategori){
         e.preventDefault();
         $("#id_pemasukan").val(id);
-        $("#tanggal_pemasukan").val(tanggal);
-        $("#nominal_pemasukan").val(nominal);
-        $("#keterangan_pemasukan").val(keterangan);
-        $("#id_kategori_masuk").val(id_kategori_masuk);
+        $("#tanggal_pemasukan_edit").val(tanggal);
+        $("#nominal_pemasukan_edit").val(nominal);
+        $("#keterangan_pemasukan_edit").val(keterangan);
+        $("#id_kategori_masuk").val(kategori);
         $('#editModal').modal();
       }
     </script>
+
+    <!-- bootstrap-daterangepicker -->
+    <script src="<?php echo base_url('assets/moment/min/moment.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/bootstrap-daterangepicker/daterangepicker.js') ?>"></script>
 
     <!-- bootstrap-datetimepicker -->    
     <script src="<?php echo base_url('assets/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') ?>"></script>
