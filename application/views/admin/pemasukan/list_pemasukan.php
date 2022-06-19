@@ -239,7 +239,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
             <div class="modal-body">
-            <form action="">    
+            <form action="" method="post">    
             <div class="form-group col-md-12 col-sm-12">
               <div class="col-md-6">
                 <div class="form-group">

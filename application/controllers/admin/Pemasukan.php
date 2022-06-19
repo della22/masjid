@@ -17,9 +17,9 @@ class Pemasukan extends CI_Controller
 
     public function index()
     {
-        if ($this->input->get('tanggalawal') && $this->input->get('tanggalakhir')) {
-            $tanggalawal = $this->input->get('tanggalawal');
-            $tanggalakhir = $this->input->get('tanggalakhir');
+        if ($this->input->post('tanggalawal') && $this->input->post('tanggalakhir')) {
+            $tanggalawal = $this->input->post('tanggalawal');
+            $tanggalakhir = $this->input->post('tanggalakhir');
             $data['pemasukan'] = $this->M_pemasukan->filter($tanggalawal,$tanggalakhir);
         }   
         else{
