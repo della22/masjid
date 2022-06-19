@@ -274,7 +274,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
     </div>
 
-        <!-- MODAL -->
+    <!-- MODAL -->
     <?php $this->load->view("admin/_partials/modal.php") ?>
 
 
@@ -339,15 +339,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <!-- Initialize datetimepicker -->
     <script  type="text/javascript">
-       
-        
-        $('.myDatepicker2').datetimepicker({
-            format: 'YYYY-MM-DD'
-        });
+         
+    $('.myDatepicker2').datetimepicker({
+      format: 'YYYY-MM-DD'
+    });
 
-        $('#myDatepicker3').datetimepicker({
-            format: 'YYYY'
-        });
+    $('#myDatepicker3').datetimepicker({
+      format: 'YYYY'
+    });
     </script>
 	
   </body>
