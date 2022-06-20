@@ -15,8 +15,29 @@ class Profil_masjid extends CI_Controller
 
     public function index()
     {
-         $data['layanan'] = $this->M_profilMasjid->list_layanan();
+        $data['layanan'] = $this->M_profilMasjid->list_layanan();
         $this->load->view('admin/profil_masjid/profil', $data);
+    }
+
+    public function tampilProfil($id)
+    {
+        $data['profil_masjid'] = $this->M_profilMasjid->getDataProfil($id);
+        $this->load->view('admin/profil_masjid', $data);
+    }
+
+    public function editSdm()
+    {
+        $id_sdm = $this->input->post('id_sdm');
+        $foto_sdm = $this->input->post('foto_sdm');
+        $jumlah_pengurus = $this->input->post('jumlah_pengurus');
+        $jumlah_remaja_masjid = $this->input->post('jumlah_remaja_masjid');
+        $jumlah_imam_utama = $this->input->post('jumlah_imam_utama');
+        $jumlah_imam_cadangan = $this->input->post('jumlah_imam_cadangan');
+        $jumlah_muadzin = $this->input->post('jumlah_muadzin');
+        $jumlah_khatib = $this->input->post('jumlah_khatib');
+        $data['sdm_masjid'] =$this->M_profilMasjid->edit_sdm($id_sdm, $foto_sdm, $jumlah_pengurus, $jumlah_remaja_masjid, $jumlah_imam_utama, $jumlah_imam_cadangan, $jumlah_muadzin, $jumlah_khatib)->row();
+        $this->session->set_flashdata('success','Item berhasil diedit');
+        redirect('admin/profil_masjid');
     }
 
     public function inputLayanan()

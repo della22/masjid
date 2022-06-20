@@ -47,6 +47,7 @@
 
               <div class="card mb-3">
                 <div class="card-body">
+                  <form action="" method="post">
                   <div class="x_title" style="margin-bottom: 30px;">
                     <h2>Profil Masjid</h2>
                     <div class="clearfix"></div>
@@ -54,7 +55,7 @@
                   </div>
 
                   <div class="col-md-5 col-sm-5">
-
+                    
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="foto_masjid">Foto : </label>
                       <div class="col-md-8 col-sm-8 ">
@@ -80,41 +81,39 @@
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="alamat_masjid">Alamat : </label>
                       <div class="col-md-10 col-sm-10 ">
-                      <textarea class="form-control" id="alamat_masjid" name="alamat_masjid" placeholder="Alamat" required></textarea>
+                      <textarea value="<?= $profil_masjid->alamat_profil?>" class="form-control" id="alamat_masjid" name="alamat_masjid" placeholder="Alamat" required></textarea>
                       </div>
                     </div>
-
                   </div>
 
                   <div class="col-md-6 col-sm-6">
                       <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align" for="notelp_masjid">No Telepon : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input class="form-control" type="text" name="notelp_masjid" placeholder="No. Telp" required/>
+                            <input value="<?= $profil_masjid->telp_profil?>" class="form-control" type="text" name="notelp_masjid" placeholder="No. Telp" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align" for="email_masjid">Email : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input class="form-control" type="text" name="email_masjid" placeholder="Email" required/>
+                            <input value="<?= $profil_masjid->email_profil?>" class="form-control" type="text" name="email_masjid" placeholder="Email" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align" for="norek_masjid">Norek (Bank) : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input class="form-control" type="text" name="norek_masjid" placeholder="Norek (Bank)" required/>
+                            <input value="<?= $profil_masjid->norek_profil?>" class="form-control" type="text" name="norek_masjid" placeholder="Norek (Bank)" required/>
                         </div>
                       </div>
 
                       <div class="item form-group">
                       <label class="col-form-label col-md-5 col-sm-5 label-align" for="deskripsi_masjid">Deskripsi : </label>
                       <div class="col-md-9 col-sm-9 ">
-                        <textarea class="form-control" id="deskripsi_masjid" name="deskripsi_masjid" placeholder="Deskripsi" required></textarea>
+                        <textarea value="<?= $profil_masjid->desk_profil?>" class="form-control" id="deskripsi_masjid" name="deskripsi_masjid" placeholder="Deskripsi" required></textarea>
                       </div>
                     </div>
-
                     
                   </div>
                   <div class="x_title" style="margin-bottom: 10px;">
@@ -122,7 +121,7 @@
                   </div>
                   <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#save" class="btn btn-success btn-xs"> Simpan</a></ul>
                   <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#cancel" class="btn btn-danger"> Batal</a></ul>
-
+                </form>
               </div><!-- /card Body-->
                 </div>
 
@@ -169,7 +168,7 @@
                       <div class="item form-group" >
                         <label class="col-form-label col-md-4 col-sm-4 label-align" for="jumlah_pengurus">Jumlah Remaja Masjid : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Pengurus" required/>
+                            <input class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Remaja Masjid" required/>
                         </div>
                       </div>
 
@@ -179,28 +178,28 @@
                   <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align" for="jumlah_pengurus">Jumlah Imam Utama : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Pengurus" required/>
+                            <input class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Imam Utama" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align" for="jumlah_pengurus">Jumlah Imam Cadangan : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Pengurus" required/>
+                            <input class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Imam Cadangan" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align" for="jumlah_pengurus">Jumlah Muadzin : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Pengurus" required/>
+                            <input class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Muadzin" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align" for="jumlah_pengurus">Jumlah Khatib : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Pengurus" required/>
+                            <input class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Khatib" required/>
                         </div>
                       </div>
 
@@ -244,7 +243,7 @@
                               <td><?=$data_layanan['pj_layanan'];?></td>
                               <td><?=$data_layanan['kontak_layanan'];?></td>
                               <td align="center">
-                                <a href=""  onclick="editData(event, '<?=$data_layanan['id_layanan'];?>', '<?=$data_layanan['nama_layanan'];?>','<?=$data_layanan['pj_layanan'];?>','<?=$data_layanan['kontak_layanan'];?>')"><i class="fa fa-edit"></i> Edit</a>
+                                <a href=""  onclick="editLayanan(event, '<?=$data_layanan['id_layanan'];?>', '<?=$data_layanan['nama_layanan'];?>','<?=$data_layanan['pj_layanan'];?>','<?=$data_layanan['kontak_layanan'];?>')"><i class="fa fa-edit"></i> Edit</a>
 
                                 <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/profil_masjid/hapusLayanan/<?=$data_layanan['id_layanan'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
                             </tr>
@@ -253,7 +252,6 @@
                           </tbody>
                         </table>
                       </div>
-
 
                 </div><!-- /card Body-->
                 </div>
@@ -405,7 +403,7 @@
         $('#deleteModal').modal();
       }
 
-      function editData(e,id,nama,pj,kontak){
+      function editLayanan(e,id,nama,pj,kontak){
         e.preventDefault();
         $("#id_layanan").val(id);
         $("#nama_layanan").val(nama);
@@ -413,6 +411,7 @@
         $("#kontak_layanan").val(kontak);
         $('#editModal').modal();
       }
+
     </script>
 
 
