@@ -1,5 +1,4 @@
 <?php
-
 class M_imakho extends CI_Model
 {
     function list_imakho()
@@ -64,7 +63,6 @@ class M_imakho extends CI_Model
              $this->db->join('ustadz b', 'a.nik_imakho = b.nik','left');
              $this->db->join('ustadz c', 'a.nik_muadzin = c.nik','left');
              return $this->db->get();
-        }
-        
+        }    
     }
 }

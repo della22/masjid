@@ -272,9 +272,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <div> <label>Contoh template excel untuk upload</label>
                       </div>
                       <div class="float-right">  
-                        <a href="#" class="btn btn-link btn-sm"><i class="fa fa-file-excel"></i> Sample .XLSX</a>
-                        <a href="#" class="btn btn-link btn-sm"><i class="fa fa-file-excel"></i> Sample .XLS</a>
-                        <a href="#" class="btn btn-link btn-sm" target="_blank" ><i class="fa fa-file-csv"></i> Sample .CSV</a>
+                        <a href="<?php print base_url('assets/uploads/sample-xlsx.xlsx') ?>" class="btn btn-link btn-sm"><i class="fa fa-file-excel"></i> Sample .XLSX</a>
+                        <a href="<?php print base_url('assets/uploads/sample-xls.xls') ?>" class="btn btn-link btn-sm"><i class="fa fa-file-excel"></i> Sample .XLS</a>
+                        <a href="<?php print base_url('assets/uploads/sample-csv.csv') ?>" class="btn btn-link btn-sm" target="_blank" ><i class="fa fa-file-csv"></i> Sample .CSV</a>
                       </div> 
                     </div>
                   </div>

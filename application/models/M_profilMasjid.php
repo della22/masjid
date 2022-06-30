@@ -8,26 +8,22 @@ class M_profilMasjid extends CI_Model
         return $this->db->get("layanan");
     }
 
-    public function getDataProfil($id)
+    public function getDataProfil()
     {
-        $this->db->where('id_profil', $id);
-        $query = $this->db->get('profil_masjid')->row();
+        $dataProfil = $this->db->query("SELECT * FROM profil_masjid WHERE id_profil = 1");
+        return $dataProfil;
     }
 
-    public function edit_sdm($id_sdm = null, $foto_sdm = null, $jumlah_pengurus = null, $jumlah_remaja_masjid = null,$jumlah_imam_utama = null, $jumlah_imam_cadangan = null, $jumlah_muadzin = null, $jumlah_khatib = null)
+    public function getDataSDM()
     {
-        $data = [
-            'id_sdm' => $id_sdm,
-            'foto_sdm' => $foto_sdm,
-            'jumlah_pengurus' => $jumlah_pengurus,
-            'jumlah_remaja_masjid' => $jumlah_remaja_masjid,
-            'jumlah_imam_utama' => $jumlah_imam_utama,
-            'jumlah_imam_cadangan' => $jumlah_imam_cadangan,
-            'jumlah_muadzin' => $jumlah_muadzin,
-            'jumlah_khatib' => $jumlah_khatib
-        ];
-        $this->db->where('id_sdm', $id_sdm);
-        $this->db->update('sdm_masjid', $data);
+        $dataSDM = $this->db->query("SELECT * FROM sdm_masjid WHERE id_sdm = 1");
+        return $dataSDM;
+    }
+
+    public function updateProfil($id, $upload_img, $alamat_profil,$telp_profil,$email_profil,$norek_profil,$desk_profil)
+    {
+        $edit = $this->db->query("UPDATE profil_masjid SET upload_img = '$upload_img', alamat_profil = '$alamat_profil', telp_profil = '$telp_profil', email_profil = '$email_profil', norek_profil = '$norek_profil', desk_profil = '$desk_profil' WHERE id_profil ='$id'");
+            return $edit;
     }
     
     public function input_layanan($nama_layanan = null, $pj_layanan = null, $kontak_layanan = null)

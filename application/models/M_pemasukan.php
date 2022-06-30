@@ -17,7 +17,7 @@ class M_pemasukan extends CI_Model
     }
     
 
-    public function input_pemasukan($tanggal_pemasukan = null, $nominal_pemasukan = null, $keterangan_pemasukan = null, $kategori_pemasukan)
+    public function input_pemasukan($tanggal_pemasukan = null, $nominal_pemasukan = null, $keterangan_pemasukan = null, $kategori_pemasukan = null)
     {
         $data = [
             'tanggal' => $tanggal_pemasukan,

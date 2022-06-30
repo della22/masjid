@@ -16,30 +16,40 @@ class Profil_masjid extends CI_Controller
     public function index()
     {
         $data['layanan'] = $this->M_profilMasjid->list_layanan();
+        $data['profil'] = $this->M_profilMasjid->getDataProfil()->row_array();
+        $data['sdm'] = $this->M_profilMasjid->getDataSDM()->row_array();
         $this->load->view('admin/profil_masjid/profil', $data);
+
     }
 
-    public function tampilProfil($id)
+    public function editProfil()
     {
-        $data['profil_masjid'] = $this->M_profilMasjid->getDataProfil($id);
-        $this->load->view('admin/profil_masjid', $data);
-    }
+        $alamat_profil = $this->input->post('alamat_profil');
+        $telp_profil = $this->input->post('telp_profil');
+        $email_profil = $this->input->post('email_profil');
+        $norek_profil = $this->input->post('norek_profil');
+        $desk_profil = $this->input->post('desk_profil');
+        $upload_img = $_FILES['upload_img'];
+        if($upload_img=''){}
+        else
+        {
+            $data['upload_path'] = './images';
+            $data['allowed_types'] = 'jpg|png|jpeg';
 
-    public function editSdm()
-    {
-        $id_sdm = $this->input->post('id_sdm');
-        $foto_sdm = $this->input->post('foto_sdm');
-        $jumlah_pengurus = $this->input->post('jumlah_pengurus');
-        $jumlah_remaja_masjid = $this->input->post('jumlah_remaja_masjid');
-        $jumlah_imam_utama = $this->input->post('jumlah_imam_utama');
-        $jumlah_imam_cadangan = $this->input->post('jumlah_imam_cadangan');
-        $jumlah_muadzin = $this->input->post('jumlah_muadzin');
-        $jumlah_khatib = $this->input->post('jumlah_khatib');
-        $data['sdm_masjid'] =$this->M_profilMasjid->edit_sdm($id_sdm, $foto_sdm, $jumlah_pengurus, $jumlah_remaja_masjid, $jumlah_imam_utama, $jumlah_imam_cadangan, $jumlah_muadzin, $jumlah_khatib)->row();
-        $this->session->set_flashdata('success','Item berhasil diedit');
-        redirect('admin/profil_masjid');
-    }
+            // $this->load->library('upload', $data);
+            // if(!$this->upload->do_upload('upload_img')){
+            //     echo "upload gagal"; die();
+            // }
+            // else{
+            //     $upload_img=$this->upload->data('file_name');
+            // }
+        }
+        var_dump($_POST);
+        // $this->M_profilMasjid->updateProfil(1, $upload_img, $alamat_profil,$telp_profil,$email_profil,$norek_profil,$desk_profil);
+        // $this->session->set_flashdata('success','Berhasil diupdate');
 
+        // redirect('admin/profil_masjid');
+    }
     public function inputLayanan()
     {
         $nama_layanan = $this->input->post('nama_layanan');

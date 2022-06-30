@@ -66,7 +66,6 @@ class M_keg extends CI_Model
             $this->db->where('MONTH(tanggal_keg)', $bulan);
             $this->db->where('YEAR(tanggal_keg)', $tahun);
             return $this->db->get();
-        }
-        
+        } 
     }
 }

@@ -18,33 +18,10 @@
           <div class="row">
           
             <div class="col-md-12 col-sm-12 ">
-              <?php if ($this->session->flashdata('success')) { ?>
-              <div class="alert alert-success" role="alert">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <?php echo $this->session->flashdata('success'); ?>
-              </div>
-            <?php } else if($this->session->flashdata('error')){ ?>  
-              <div class="alert alert-danger">  
-                <a href="#" class="close" data-dismiss="alert">&times;</a>  
-                <strong>Error!</strong> <?php echo $this->session->flashdata('error'); ?>  
-              </div>  
-            <?php } else if($this->session->flashdata('warning')){ ?>  
-              <div class="alert alert-warning">  
-                <a href="#" class="close" data-dismiss="alert">&times;</a>  
-                <strong>Warning!</strong> <?php echo $this->session->flashdata('warning'); ?>  
-              </div>  
-            <?php } else if($this->session->flashdata('info')){ ?>  
-              <div class="alert alert-info">  
-                <a href="#" class="close" data-dismiss="alert">&times;</a>  
-                <strong>Info!</strong> <?php echo $this->session->flashdata('info'); ?>  
-              </div>  
-            <?php } ?>
-
               <div class="x_panel">
                 <div class="x_title">
                   <h2>Data Pembayaran Arisan Kurban</h2>
                   <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#filterModal" class="btn btn-info"><i class="fa fa-filter"></i> Filter</a></ul>
-                  <!-- <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#tambahModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Pembayaran Daftar Ulang</a></ul> -->
                   <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#tambahModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Pembayaran Arisan Kurban</a></ul>
                   <div class="clearfix"></div>
                 </div>
@@ -53,6 +30,14 @@
 
                     <div class="col-sm-12">
                       <div class="card-box table-responsive">
+                        <?php if ($this->session->flashdata('success') == TRUE): ?>
+                          <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <?= $this->session->flashdata('success');?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                        <?php endif; ?>
                        <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                           <thead>
                             <tr>
@@ -66,17 +51,28 @@
                             </tr>
                           </thead>
                           <tbody>
+                          <?php $j = 1; ?>
+                          <?php foreach ($arisan_kurban->result_array() as $data_arisan):
+                          ?>
+                          <?php $status = array(
+                            '0' => 'Belum Lunas',
+                            '1' => 'Lunas'
+                          );
+                          ?>
                             <tr>
-                              <td align="center">1</td>
-                              <td width="10">2022</td>
-                              <td>Nama Saya Adalah Nama</td>
-                              <td align="right">1.000.000</td>
-                              <td align="center">Lunas</td>
+                              <td align="center"><?php echo $j ?></td>
+                              <td width="10"><?=$data_arisan['tahun_periode'];?></td>
+                              <td><?=$data_arisan['nama_jamaah'];?></td>
+                              <td align="right"><?=number_format($data_arisan['biaya'],0,',','.');?></td>
+                              <td align="center"><?=$data_arisan['status_arisan'];?></td>
                               <td align="center">
                                 <a href="<?php echo site_url('admin/arisan_kurban/detail') ?>" style="margin-right: 9px" ><i class="fa fa-money"></i> Detail </a>
-                                <a onclick="" href="#!" ><i class="fa fa-trash"></i> Hapus</a>
+                                <a href=""  onclick="editData(event, '<?=$data_arisan['id_arisan'];?>','<?=$data_arisan['nama_jamaah'];?>','<?=$data_arisan['tahun_periode'];?>','<?=$data_arisan['biaya'];?>')"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/arisan_kurban/hapus/<?=$data_arisan['id_arisan'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
                               </td>
                             </tr>
+                            <?php $j++; ?>
+                            <?php endforeach;?>
                           </tbody>
                         </table>
                       </div>
@@ -86,7 +82,6 @@
               </div>
             </div>
               <!-- /DataTables -->
-
 
           </div>
           <br />
@@ -108,11 +103,14 @@
             <form role="form" action="" method="post">
               <div class="form-group col-md-12 col-sm-12">
                 <label class="col-form-label col-md-4 col-sm-4 label-align">Tahun Periode Kurban : </label>
-                <div class="col-md-6 col-sm-6 ">
-                  <select class="select2_single form-control" name="tahun_ajaran" tabindex="-1">
-                    <option value=0>Semua</option>;
-                  </select>
-                </div>
+                <div class='col-md-6 col-sm-6'>
+                      <div class='input-group date' id='myDatepicker3'>
+                        <input type="text" class="form-control" placeholder="Tahun " name="tahun_periode" required/>
+                        <span class="input-group-addon" style="padding-top: 10px">
+                        <span class="fa fa-calendar-o"></span>
+                      </span>  
+                      </div>
+                    </div>
               </div>
 
               <div class="form-group col-md-12 col-sm-12">
@@ -136,6 +134,49 @@
       </div>
     </div>
 
+    <!-- Edit Modal -->
+        <div class="modal fade" id="editModal" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title"> Edit Arisan Kurban </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <form role="form" action="<?=base_url();?>/admin/arisan_kurban/edit" method="post">
+                  <div class="form-group col-md-12 col-sm-12">
+                    <input type="hidden" name="id_arisan_edit" id="id_arisan" value=""/>
+                    <label class="col-form-label col-md-4 col-sm-4 label-align">Tahun Periode : </label>
+                    <div class="col-md-7 col-sm-7 ">
+                      <input class="form-control" type="text" id="tahun_periode_edit" name="tahun_periode" placeholder="Tahun Periode" value=""/>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-12 col-sm-12">
+                     <input type="hidden" name="id_donatur_edit" id="id_donatur_" value=""/>
+                    <label class="col-form-label col-md-4 col-sm-4 label-align">Nama Donatur : </label>
+                    <div class='col-md-7 col-sm-7'>
+                       <input class="form-control" type="text" id="nama_donatur_edit" name="nama_donatur" placeholder="Nama Ddonatur" required/>    
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-12 col-sm-12">
+                    <label class="col-form-label col-md-4 col-sm-4 label-align">Biaya (Rp.)</label>
+                      <div class="col-md-7 col-sm-7 ">
+                        <input class="form-control" type="number" id="biaya_arisan_edit" name="biaya_arisan" placeholder="Biaya" required/>
+                      </div>
+                  </div>
+                  
+                  <br>
+                  <div class="modal-footer">  
+                    <button type="submit" class="btn btn-success">Edit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
     <!-- Tambah Modal -->
         <div class="modal fade" id="tambahModal" role="dialog">
           <div class="modal-dialog">
@@ -147,12 +188,12 @@
               </div>
               <div class="modal-body">
                 <div class="col-md-12 col-sm-12">  
-                <form action="" method="post" enctype="multipart/form-data" >
-                <div class="item form-group">
-                      <label class="col-form-label col-md-4 col-sm-4 label-align" for="tahun_arisan">Tahun Periode Kurban</label>
+                <form action="<?=base_url();?>/admin/arisan_kurban/proses" method="post" enctype="multipart/form-data" >
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-4 col-sm-4 label-align">Tahun Periode Kurban</label>
                       <div class='col-md-7 col-sm-7'>
-                      <div class='input-group date myDatepicker2' >
-                        <input type="text" class="form-control" placeholder="Tahun " name="tahun_arisan" required/>
+                      <div class='input-group date' id='myDatepicker3'>
+                        <input type="text" class="form-control" placeholder="Tahun " name="tahun_periode" required/>
                         <span class="input-group-addon" style="padding-top: 10px">
                         <span class="fa fa-calendar-o"></span>
                       </span>  
@@ -163,14 +204,15 @@
                     <div class="item form-group">
                       <label class="col-form-label col-md-4 col-sm-4 label-align" for="nama_donatur">Nama Donatur</label>
                       <div class="col-md-7 col-sm-7 ">
-                        <input class="form-control" type="text" name="nama_donatur" placeholder="Nama Donatur" required/>
+                        <input class="form-control" type="text" id="nama_donatur_tambah" name="nama_donatur" placeholder="Nama Donatur" required/>
+                        <input type="hidden" id="id_donatur" name="id_donatur" required/>
                       </div>
                     </div>
 
                     <div class="item form-group">
                       <label class="col-form-label col-md-4 col-sm-4 label-align" for="biaya_arisan">Biaya (Rp.)</label>
                       <div class="col-md-7 col-sm-7 ">
-                        <input class="form-control" type="text" name="biaya_arisan" placeholder="Biaya" required/>
+                        <input class="form-control" type="number" name="biaya" placeholder="Biaya" required/>
                       </div>
                     </div>
 
@@ -208,9 +250,6 @@
           </div>
         </div>
 
-
-
-
         <!-- footer content -->
         <?php $this->load->view("admin/_partials/footer.php") ?>
         <!-- /footer content -->
@@ -247,28 +286,10 @@
     <script src="<?php echo base_url('assets/pdfmake/build/pdfmake.min.js') ?>"></script>
     <script src="<?php echo base_url('assets/pdfmake/build/vfs_fonts.js') ?>"></script>
 
-    <!-- Datatable DSC -->
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $('#list_daftar_ulang').DataTable( {
-          "order": [[ 0, "desc" ]]
-        } );
-      } );
-
-    </script>
-
 
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url('js/custom.min.js') ?>"></script>
 
-    <!-- uang --> 
-    <script src="<?php echo base_url('https://cdn.rawgit.com/igorescobar/jQuery-Mask-Plugin/1ef022ab/dist/jquery.mask.min.js') ?>"></script>
-    <script type="text/javascript">
-    $(document).ready(function(){
-        // Format mata uang.
-        $( '.uang' ).mask('0.000.000.000', {reverse: true});
-    })
-    </script>
 
     <script>
       function deleteConfirm(url){
@@ -276,13 +297,35 @@
         $('#deleteModal').modal();
       }
 
-      // function bayarsppConfirm(url){
-      //   $('#btn-bayar').attr('href', url);
-      //   $('#bayarModal').modal();
-      // }
+      $(document).ready(function(){
+        $('#datatable2').dataTable();
+            $( "#nama_donatur_tambah").autocomplete({
+              source: "<?= base_url('admin/arisan_kurban/get_autocomplete/');?>",
+              appendTo: "#tambahModal",
+              select: function (event,ui){
+                $( "#id_donatur").val(ui.item.id_jamaah);
+              }
+            });
+            $( "#nama_donatur_edit").autocomplete({
+              source: "<?= base_url('admin/arisan_kurban/get_autocomplete/');?>",
+              appendTo: "#editModal",
+              select: function (event,ui){
+               $( "#id_donatur_edit").val(ui.item.id_jamaah);
+              }
+            });
+        });
+
+      function editData(e,id,nama_donatur,periode,biaya){
+        e.preventDefault();
+        $("#id_arisan_edit").val(id);
+        $("#tahun_periode_edit").val(periode);
+        $("#biaya_arisan_edit").val(biaya);
+        $("#nama_donatur_edit").val(nama_donatur);
+        $('#editModal').modal();
+      }
     </script>
 
-<!-- bootstrap-daterangepicker -->
+    <!-- bootstrap-daterangepicker -->
     <script src="<?php echo base_url('assets/moment/min/moment.min.js') ?>"></script>
     <script src="<?php echo base_url('assets/bootstrap-daterangepicker/daterangepicker.js') ?>"></script>
 
@@ -301,9 +344,7 @@
 
         $('#myDatepicker3').datetimepicker({
             format: 'YYYY'
-        });
-        
-        
+        });  
     </script>
 
   </body>

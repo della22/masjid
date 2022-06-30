@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class Phpspreadsheet extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
-	    $this->load->model('M_ustadz');
+	    $this->load->model('M_jamaah');
 	    $this->load->model('M_rekapitulasi');
 	    $this->load->helper('dates_helper');
 	}
@@ -95,7 +95,7 @@ class Phpspreadsheet extends CI_Controller {
 		$writer->save('php://output'); // download file
 	}
 
-	public function import_ustadz(){
+	public function import_jamaah(){
 		$file_mimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 		if(isset($_FILES['upload_file']['name']) && in_array($_FILES['upload_file']['type'], $file_mimes)) {
 			$arr_file = explode('.', $_FILES['upload_file']['name']);
@@ -108,27 +108,25 @@ class Phpspreadsheet extends CI_Controller {
 			$spreadsheet = $reader->load($_FILES['upload_file']['tmp_name']);
 			$sheetData = $spreadsheet->getActiveSheet()->toArray();
 			for($i = 1;$i < count($sheetData);$i++){
-				$nik = trim($sheetData[$i]['0']);
-				$nama_ustadz = $sheetData[$i]['1'];
-				$telepon_ustadz = $sheetData[$i]['2'];
-				$alamat_ustadz = $sheetData[$i]['3'];
+				$nama_jamaah = $sheetData[$i]['0'];
+				$telepon_jamaah = $sheetData[$i]['1'];
+				$alamat_jamaah = $sheetData[$i]['2'];
 
 				$data= array(
-					'nik' => $nik,
-					'nama_ustadz' => $nama_ustadz,
-					'telepon_ustadz' => $telepon_ustadz,
-					'alamat_ustadz' => $alamat_ustadz,
+					'nama_jamaah' => $nama_jamaah,
+					'telepon_jamaah' => $telepon_jamaah,
+					'alamat_jamaah' => $alamat_jamaah,
 
 				);
-				$cek_nik = $this->M_ustadz->get_nik($nik)->num_rows();
-				if ($cek_nik == 0) {
-					$this->M_ustadz->import_data($data);
+				$cek_id = $this->M_jamaah->get_id($id_jamaah)->num_rows();
+				if ($cek_id == 0) {
+					$this->M_jamaah->import_data($data);
 				}
 
 			}
 
 			$this->session->set_flashdata('success','Item berhasil diimport');
-	        redirect('admin/ustadz');
+	        redirect('admin/jamaah');
 			// code...
 		}
 	}

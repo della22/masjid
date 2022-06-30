@@ -29,7 +29,7 @@ class jamaah extends CI_Controller
             $data['jamaah'] = $this->M_jamaah->list_jamaah();
             $this->load->view('admin/jamaah/list_jamaah', $data);
         }else{
-             $this->M_jamaah->input_jamaah($nik, $nama_jamaah, $telepon_jamaah, $alamat_jamaah);
+             $this->M_jamaah->input_jamaah($nama_jamaah, $telepon_jamaah, $alamat_jamaah);
             $this->session->set_flashdata('success','Item berhasil ditambahkan');
             redirect('admin/jamaah');
         }

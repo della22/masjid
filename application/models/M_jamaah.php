@@ -23,10 +23,10 @@ class M_jamaah extends CI_Model
         $this->db->insert('jamaah', $data);
     }
 
-    public function get_nik($nik = null){
+    public function get_id($id_jamaah = null){
         $this->db->select("*");
         $this->db->from("jamaah");
-        $this->db->where('nik',$nik);
+        $this->db->where('id_jamaah',$id_jamaah);
         $query = $this->db->get();
         return $query;
     }

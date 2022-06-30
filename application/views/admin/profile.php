@@ -33,19 +33,32 @@
                   <div class="clearfix"></div>
 
                 </div>
-
-                <form action="#" method="post" enctype="multipart/form-data" >
+                  
+                <form action="" method="post" enctype="multipart/form-data" >
 
                   <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama_siswa">Username</label>
+                    <label class="col-form-label col-md-3 col-sm-3 label-align" >Username</label>
                     <div class="col-md-6 col-sm-6 ">
-                      <input class="form-control " type="text" id="nama_siswa" name="username" placeholder="username" value="admin"/>
+                      <input class="form-control" type="text" id="nama_siswa" name="username" placeholder="username" value="<?= $this->session->userdata('username')?>"/>
                     </div>
-
                   </div>
 
                   <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama_siswa"></label>
+                    <label class="col-form-label col-md-3 col-sm-3 label-align" >Email</label>
+                    <div class="col-md-6 col-sm-6 ">
+                      <input class="form-control " type="email" name="email" placeholder="Email" />
+                    </div>                      
+                  </div>
+
+                  <div class="item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3 label-align" >Telepon</label>
+                    <div class="col-md-6 col-sm-6 ">
+                      <input class="form-control " type="number" name="telepon" placeholder="Telepon" />
+                    </div>                      
+                  </div>
+
+                  <div class="item form-group">
+                    <label class="col-form-label col-md-3 col-sm-3 label-align"></label>
                     <div class="col-md-6 col-sm-6 ">
                       <label class="col-form-label col-md-12 col-sm-12">*Kosongkan Form Password Baru Jika Tidak Mengubah Password* </label>
                     </div>
@@ -60,7 +73,7 @@
 
 
                   <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama_siswa">Konfirmasi Password Baru*</label>
+                    <label class="col-form-label col-md-3 col-sm-3 label-align" >Konfirmasi Password Baru*</label>
                     <div class="col-md-6 col-sm-6 ">
                       <input class="form-control " type="password" name="password_baru_konfirm" placeholder="Konfirmasi Password Baru" data-validate-linked='password_baru' />
                     </div>
@@ -69,14 +82,13 @@
                   <br>
 
                   <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama_siswa">Password Lama</label>
+                    <label class="col-form-label col-md-3 col-sm-3 label-align" >Password Lama</label>
                     <div class="col-md-6 col-sm-6 ">
                       <input class="form-control " type="password" name="password" placeholder="Password Lama" required />
                     </div>
 
                   </div>
                   <br>
-
                   <div class="item form-group">
                     <div class="col-md-6 col-sm-6 offset-md-3">
 
@@ -85,6 +97,7 @@
                   </div>
 
                 </form>
+                
 
               </div>
 

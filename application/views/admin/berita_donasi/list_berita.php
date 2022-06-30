@@ -18,28 +18,6 @@
           <div class="row">
           
             <div class="col-md-12 col-sm-12 ">
-              <?php if ($this->session->flashdata('success')) { ?>
-              <div class="alert alert-success" role="alert">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <?php echo $this->session->flashdata('success'); ?>
-              </div>
-            <?php } else if($this->session->flashdata('error')){ ?>  
-              <div class="alert alert-danger">  
-                <a href="#" class="close" data-dismiss="alert">&times;</a>  
-                <strong>Error!</strong> <?php echo $this->session->flashdata('error'); ?>  
-              </div>  
-            <?php } else if($this->session->flashdata('warning')){ ?>  
-              <div class="alert alert-warning">  
-                <a href="#" class="close" data-dismiss="alert">&times;</a>  
-                <strong>Warning!</strong> <?php echo $this->session->flashdata('warning'); ?>  
-              </div>  
-            <?php } else if($this->session->flashdata('info')){ ?>  
-              <div class="alert alert-info">  
-                <a href="#" class="close" data-dismiss="alert">&times;</a>  
-                <strong>Info!</strong> <?php echo $this->session->flashdata('info'); ?>  
-              </div>  
-            <?php } ?>
-
               <div class="x_panel">
                 <div class="x_title">
                   <h2>Data Berita Donasi</h2>
@@ -53,6 +31,14 @@
 
                     <div class="col-sm-12">
                       <div class="card-box table-responsive">
+                        <?php if ($this->session->flashdata('success') == TRUE): ?>
+                          <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <?= $this->session->flashdata('success');?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                        <?php endif; ?>
                        <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                           <thead>
                             <tr>

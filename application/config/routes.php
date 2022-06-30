@@ -59,3 +59,5 @@ $route['masjid'] = 'Awal/masjid';
 $route['spreadsheet'] = 'PhpspreadsheetController';
 $route['spreadsheet/import'] = 'PhpspreadsheetController/import';
 $route['spreadsheet/export'] = 'PhpspreadsheetController/export';
+
+// $routes->get('admin/profile', 'Profil::index');

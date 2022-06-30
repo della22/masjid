@@ -17,37 +17,11 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-          
           <div class="row">
             <div class="col-md-12 col-sm-12 ">
-
-              <!-- form Tambah -->
-              
-            <?php if ($this->session->flashdata('success')) { ?>
-              <div class="alert alert-success" role="alert">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <?php echo $this->session->flashdata('success'); ?>
-              </div>
-            <?php } else if($this->session->flashdata('error')){ ?>  
-              <div class="alert alert-danger">  
-                <a href="#" class="close" data-dismiss="alert">&times;</a>  
-                <strong>Error!</strong> <?php echo $this->session->flashdata('error'); ?>  
-              </div>  
-            <?php } else if($this->session->flashdata('warning')){ ?>  
-              <div class="alert alert-warning">  
-                <a href="#" class="close" data-dismiss="alert">&times;</a>  
-                <strong>Warning!</strong> <?php echo $this->session->flashdata('warning'); ?>  
-              </div>  
-            <?php } else if($this->session->flashdata('info')){ ?>  
-              <div class="alert alert-info">  
-                <a href="#" class="close" data-dismiss="alert">&times;</a>  
-                <strong>Info!</strong> <?php echo $this->session->flashdata('info'); ?>  
-              </div>  
-            <?php } ?>
-
               <div class="card mb-3">
                 <div class="card-body">
-                  <form action="" method="post">
+                  <form action="<?=base_url();?>/admin/profil_masjid/editProfil" method="post" enctype="multipart/form-data">
                   <div class="x_title" style="margin-bottom: 30px;">
                     <h2>Profil Masjid</h2>
                     <div class="clearfix"></div>
@@ -57,31 +31,23 @@
                   <div class="col-md-5 col-sm-5">
                     
                     <div class="item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="foto_masjid">Foto : </label>
+                      <label class="col-form-label col-md-3 col-sm-3 label-align">Foto : </label>
                       <div class="col-md-8 col-sm-8 ">
-                        <img src="..." alt="..." class="img-thumbnail">
+                        <img src="<?=base_url('./images/'.$profil['upload_img']);?>" width="100px" class="img-thumbnail">
                       </div>
                     </div>
 
                     <div class="item form-group">
-                    <div class="col-form-label col-md-6 col-sm-6 label-align ">
-                        <input type="checkbox" aria-label="Checkbox for following text input">
-                        <label style="text-align: left;" >Hapus Foto</label>    
-                    </div>
-                    </div>
-
-                    <div class="item form-group">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Ganti Foto : </label>
-                        <div class="col-md-9 col-sm-9">
-                            <input type="file" class="custom-file-input" id="validatedCustomFile" name="upload_img">
-                            <label class="custom-file-label" for="validatedCustomFile">Pilih Gambar...</label>
+                        <div class="col-md-10 col-sm-10">
+                            <input type="file"  name="upload_img" class="form-control">
                         </div>
                     </div>
 
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="alamat_masjid">Alamat : </label>
                       <div class="col-md-10 col-sm-10 ">
-                      <textarea value="<?= $profil_masjid->alamat_profil?>" class="form-control" id="alamat_masjid" name="alamat_masjid" placeholder="Alamat" required></textarea>
+                      <textarea class="form-control" id="alamat_masjid" name="alamat_masjid" placeholder="Alamat" required><?=$profil['alamat_profil'];?></textarea>
                       </div>
                     </div>
                   </div>
@@ -90,28 +56,28 @@
                       <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align" for="notelp_masjid">No Telepon : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?= $profil_masjid->telp_profil?>" class="form-control" type="text" name="notelp_masjid" placeholder="No. Telp" required/>
+                            <input value="<?=$profil['telp_profil'];?>" class="form-control" type="text" name="notelp_masjid" placeholder="No. Telp" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align" for="email_masjid">Email : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?= $profil_masjid->email_profil?>" class="form-control" type="text" name="email_masjid" placeholder="Email" required/>
+                            <input value="<?=$profil['email_profil'];?>" class="form-control" type="text" name="email_masjid" placeholder="Email" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align" for="norek_masjid">Norek (Bank) : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?= $profil_masjid->norek_profil?>" class="form-control" type="text" name="norek_masjid" placeholder="Norek (Bank)" required/>
+                            <input value="<?=$profil['norek_profil'];?>" class="form-control" type="text" name="norek_masjid" placeholder="Norek (Bank)" required/>
                         </div>
                       </div>
 
                       <div class="item form-group">
                       <label class="col-form-label col-md-5 col-sm-5 label-align" for="deskripsi_masjid">Deskripsi : </label>
                       <div class="col-md-9 col-sm-9 ">
-                        <textarea value="<?= $profil_masjid->desk_profil?>" class="form-control" id="deskripsi_masjid" name="deskripsi_masjid" placeholder="Deskripsi" required></textarea>
+                        <textarea class="form-control" id="deskripsi_masjid" name="deskripsi_masjid" placeholder="Deskripsi" required><?=$profil['desk_profil'];?></textarea>
                       </div>
                     </div>
                     
@@ -119,8 +85,8 @@
                   <div class="x_title" style="margin-bottom: 10px;">
                   <div class="clearfix"></div>
                   </div>
-                  <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#save" class="btn btn-success btn-xs"> Simpan</a></ul>
-                  <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#cancel" class="btn btn-danger"> Batal</a></ul>
+                  <ul class="nav navbar-right panel_toolbox"><button type="submit" class="btn btn-success">Simpan</button></ul>
+                  <ul class="nav navbar-right panel_toolbox"><button type="cancel" class="btn btn-danger">Batal</button></ul>
                 </form>
               </div><!-- /card Body-->
                 </div>
@@ -138,37 +104,29 @@
                     <div class="item form-group">
                       <label class="col-form-label col-md-4 col-sm-4 label-align" for="foto_masjid">Foto : </label>
                       <div class="col-md-8 col-sm-8 ">
-                        <img src="..." alt="..." class="img-thumbnail">
+                        <img src="<?=base_url('./images/'.$sdm['upload_img']);?>" width="100px" class="img-thumbnail">
                       </div>
-                    </div>
-
-                    <div class="item form-group">
-                    <div class="col-form-label col-md-7 col-sm-7 label-align ">
-                        <input type="checkbox" aria-label="Checkbox for following text input">
-                        <label style="text-align: left;" >Hapus Foto</label>    
-                    </div>
                     </div>
 
                     <div class="item form-group">
                     <label class="col-form-label col-md-4 col-sm-4 label-align">Ganti Foto : </label>
                         <div class="col-md-9 col-sm-9">
-                            <input type="file" class="custom-file-input" id="validatedCustomFile" name="upload_img">
-                            <label class="custom-file-label" for="validatedCustomFile">Pilih Gambar...</label>
+                            <input type="file"  name="upload_img" class="form-control">
                         </div>
                     </div>
 
                     <div class="item form-group" >
-                        <label class="col-form-label col-md-4 col-sm-4 label-align" for="jumlah_pengurus">Jumlah Pengurus : </label>
+                        <label class="col-form-label col-md-4 col-sm-4 label-align">Jumlah Pengurus : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Pengurus" required/>
+                            <input value="<?=$sdm['jumlah_pengurus'];?>" class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Pengurus" required/>
                         </div>
                       </div>
 
                       
                       <div class="item form-group" >
-                        <label class="col-form-label col-md-4 col-sm-4 label-align" for="jumlah_pengurus">Jumlah Remaja Masjid : </label>
+                        <label class="col-form-label col-md-4 col-sm-4 label-align">Jumlah Remaja Masjid : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Remaja Masjid" required/>
+                            <input value="<?=$sdm['jumlah_remaja_masjid'];?>" class="form-control" type="text" name="jumlah_remaja_masjid" placeholder="Jumlah Remaja Masjid" required/>
                         </div>
                       </div>
 
@@ -176,30 +134,30 @@
 
                   <div class="col-md-6 col-sm-6">
                   <div class="item form-group" >
-                        <label class="col-form-label col-md-5 col-sm-5 label-align" for="jumlah_pengurus">Jumlah Imam Utama : </label>
+                        <label class="col-form-label col-md-5 col-sm-5 label-align">Jumlah Imam Utama : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Imam Utama" required/>
+                            <input value="<?=$sdm['jumlah_imam_utama'];?>" class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Imam Utama" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
-                        <label class="col-form-label col-md-5 col-sm-5 label-align" for="jumlah_pengurus">Jumlah Imam Cadangan : </label>
+                        <label class="col-form-label col-md-5 col-sm-5 label-align">Jumlah Imam Cadangan : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Imam Cadangan" required/>
+                            <input value="<?=$sdm['jumlah_imam_cadangan'];?>" class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Imam Cadangan" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
-                        <label class="col-form-label col-md-5 col-sm-5 label-align" for="jumlah_pengurus">Jumlah Muadzin : </label>
+                        <label class="col-form-label col-md-5 col-sm-5 label-align">Jumlah Muadzin : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Muadzin" required/>
+                            <input value="<?=$sdm['jumlah_muadzin'];?>" class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Muadzin" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
-                        <label class="col-form-label col-md-5 col-sm-5 label-align" for="jumlah_pengurus">Jumlah Khatib : </label>
+                        <label class="col-form-label col-md-5 col-sm-5 label-align">Jumlah Khatib : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Khatib" required/>
+                            <input value="<?=$sdm['jumlah_khatib'];?>" class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Khatib" required/>
                         </div>
                       </div>
 

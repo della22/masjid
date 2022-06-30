@@ -19,6 +19,7 @@ class Login extends CI_Controller
     public function aksi_login(){
         $username = $this->input->post('username');
         $password = $this->input->post('password');
+
         $where = array(
             'username' => $username,
             'password' => $password
