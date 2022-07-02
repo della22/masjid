@@ -41,43 +41,44 @@
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Ganti Foto : </label>
                         <div class="col-md-10 col-sm-10">
                             <input type="file"  name="upload_img" class="form-control">
+                            <input type="hidden" name="upload_image" value="<?=$profil['upload_img'];?>">
                         </div>
                     </div>
 
                     <div class="item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="alamat_masjid">Alamat : </label>
+                      <label class="col-form-label col-md-3 col-sm-3 label-align">Alamat : </label>
                       <div class="col-md-10 col-sm-10 ">
-                      <textarea class="form-control" id="alamat_masjid" name="alamat_masjid" placeholder="Alamat" required><?=$profil['alamat_profil'];?></textarea>
+                      <textarea class="form-control" name="alamat_profil" placeholder="Alamat" required><?=$profil['alamat_profil'];?></textarea>
                       </div>
                     </div>
                   </div>
 
                   <div class="col-md-6 col-sm-6">
                       <div class="item form-group" >
-                        <label class="col-form-label col-md-5 col-sm-5 label-align" for="notelp_masjid">No Telepon : </label>
+                        <label class="col-form-label col-md-5 col-sm-5 label-align">No Telepon : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?=$profil['telp_profil'];?>" class="form-control" type="text" name="notelp_masjid" placeholder="No. Telp" required/>
+                            <input value="<?=$profil['telp_profil'];?>" class="form-control" type="text" name="telp_profil" placeholder="No. Telp" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
-                        <label class="col-form-label col-md-5 col-sm-5 label-align" for="email_masjid">Email : </label>
+                        <label class="col-form-label col-md-5 col-sm-5 label-align">Email : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?=$profil['email_profil'];?>" class="form-control" type="text" name="email_masjid" placeholder="Email" required/>
+                            <input value="<?=$profil['email_profil'];?>" class="form-control" type="text" name="email_profil" placeholder="Email" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
-                        <label class="col-form-label col-md-5 col-sm-5 label-align" for="norek_masjid">Norek (Bank) : </label>
+                        <label class="col-form-label col-md-5 col-sm-5 label-align">Norek (Bank) : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?=$profil['norek_profil'];?>" class="form-control" type="text" name="norek_masjid" placeholder="Norek (Bank)" required/>
+                            <input value="<?=$profil['norek_profil'];?>" class="form-control" type="text" name="norek_profil" placeholder="Norek (Bank)" required/>
                         </div>
                       </div>
 
                       <div class="item form-group">
-                      <label class="col-form-label col-md-5 col-sm-5 label-align" for="deskripsi_masjid">Deskripsi : </label>
+                      <label class="col-form-label col-md-5 col-sm-5 label-align">Deskripsi : </label>
                       <div class="col-md-9 col-sm-9 ">
-                        <textarea class="form-control" id="deskripsi_masjid" name="deskripsi_masjid" placeholder="Deskripsi" required><?=$profil['desk_profil'];?></textarea>
+                        <textarea class="form-control" name="desk_profil" placeholder="Deskripsi" required><?=$profil['desk_profil'];?></textarea>
                       </div>
                     </div>
                     
@@ -86,13 +87,14 @@
                   <div class="clearfix"></div>
                   </div>
                   <ul class="nav navbar-right panel_toolbox"><button type="submit" class="btn btn-success">Simpan</button></ul>
-                  <ul class="nav navbar-right panel_toolbox"><button type="cancel" class="btn btn-danger">Batal</button></ul>
+                  <ul class="nav navbar-right panel_toolbox"><button type="reset" class="btn btn-danger">Batal</button></ul>
                 </form>
               </div><!-- /card Body-->
                 </div>
 
                 <div class="card mb-3">
                 <div class="card-body">
+                <form action="<?=base_url();?>/admin/profil_masjid/editSdm" method="post" enctype="multipart/form-data">
                   <div class="x_title" style="margin-bottom: 30px;">
                     <h2>SDM Masjid</h2>
                     <div class="clearfix"></div>
@@ -102,16 +104,17 @@
                   <div class="col-md-5 col-sm-5">
 
                     <div class="item form-group">
-                      <label class="col-form-label col-md-4 col-sm-4 label-align" for="foto_masjid">Foto : </label>
+                      <label class="col-form-label col-md-4 col-sm-4 label-align">Foto : </label>
                       <div class="col-md-8 col-sm-8 ">
-                        <img src="<?=base_url('./images/'.$sdm['upload_img']);?>" width="100px" class="img-thumbnail">
+                        <img src="<?=base_url('./images/'.$sdm['foto_bagan']);?>" width="100px" class="img-thumbnail">
                       </div>
                     </div>
 
                     <div class="item form-group">
                     <label class="col-form-label col-md-4 col-sm-4 label-align">Ganti Foto : </label>
                         <div class="col-md-9 col-sm-9">
-                            <input type="file"  name="upload_img" class="form-control">
+                            <input type="file"  name="foto_bagan" class="form-control">
+                            <input type="hidden" name="old_foto_bagan" value="<?=$sdm['foto_bagan'];?>">
                         </div>
                     </div>
 
@@ -136,28 +139,28 @@
                   <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align">Jumlah Imam Utama : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?=$sdm['jumlah_imam_utama'];?>" class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Imam Utama" required/>
+                            <input value="<?=$sdm['jumlah_imam_utama'];?>" class="form-control" type="text" name="jumlah_imam_utama" placeholder="Jumlah Imam Utama" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align">Jumlah Imam Cadangan : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?=$sdm['jumlah_imam_cadangan'];?>" class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Imam Cadangan" required/>
+                            <input value="<?=$sdm['jumlah_imam_cadangan'];?>" class="form-control" type="text" name="jumlah_imam_cadangan" placeholder="Jumlah Imam Cadangan" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align">Jumlah Muadzin : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?=$sdm['jumlah_muadzin'];?>" class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Muadzin" required/>
+                            <input value="<?=$sdm['jumlah_muadzin'];?>" class="form-control" type="text" name="jumlah_muadzin" placeholder="Jumlah Muadzin" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align">Jumlah Khatib : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?=$sdm['jumlah_khatib'];?>" class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Khatib" required/>
+                            <input value="<?=$sdm['jumlah_khatib'];?>" class="form-control" type="text" name="jumlah_khatib" placeholder="Jumlah Khatib" required/>
                         </div>
                       </div>
 
@@ -166,9 +169,9 @@
                   <div class="x_title" style="margin-bottom: 10px;">
                   <div class="clearfix"></div>
                   </div>
-                  <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#save" class="btn btn-success btn-xs"> Simpan</a></ul>
-                  <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#cancel" class="btn btn-danger"> Batal</a></ul>
-
+                  <ul class="nav navbar-right panel_toolbox"><button type="submit" class="btn btn-success">Simpan</button></ul>
+                  <ul class="nav navbar-right panel_toolbox"><button type="reset" class="btn btn-danger">Batal</button></ul>
+                </form>
                 </div><!-- /card Body-->
                 </div>
 
