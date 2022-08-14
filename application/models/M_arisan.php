@@ -11,6 +11,15 @@ class M_arisan extends CI_Model
         return $this->db->get();
     }
 
+    function list_cicilan()
+    {
+        $this->db->select('*');
+        $this->db->from('arisan_kurban');
+        $this->db->join('cicil_arisan_kurban', 'cicil_arisan_kurban.id_arisan = arisan_kurban.id_arisan');
+        $this->db->order_by('id_cicil_arisan', 'DESC');
+        return $this->db->get();
+    }
+
     public function input_arisan($id_donatur = null, $tahun_periode = null, $biaya = null, $terbayar = null, $status_arisan = null)
     {
         $data = [
@@ -42,11 +51,18 @@ class M_arisan extends CI_Model
         $this->db->delete('arisan_kurban');
     }
 
-    public function getByNoarisan($no)
+    public function getByArisan($no)
     {
         $this->db->select("*");
         $this->db->where("id_arisan", $no);
         return $this->db->get("arisan_kurban")->row();
+    }
+
+    public function getByNoCicil($no)
+    {
+        $this->db->select("*");
+        $this->db->where("id_cicil_arisan", $no);
+        return $this->db->get("cicil_arisan_kurban")->row();
     }
 
     public function search_donatur($title){
@@ -54,6 +70,33 @@ class M_arisan extends CI_Model
         $this->db->order_by('id_jamaah', 'ASC');
         $this->db->limit(10);
         return $this->db->get('jamaah')->result();
+    }
+
+    public function input_cicilan($id_arisan = null, $tanggal_cicil = null, $nominal_cicil = null)
+    {
+        $data = [
+            'id_arisan' => $id_arisan,
+            'tanggal_cicil' => $tanggal_cicil,
+            'nominal_cicil' => $nominal_cicil
+        ];
+        $this->db->insert('cicil_arisan_kurban', $data);
+    }
+
+    public function edit_cicilan($id_cicil_arisan = null, $id_arisan = null, $tanggal_cicil = null, $nominal_cicil = null)
+    {
+        $data = [
+            'id_cicil_arisan' => $id_cicil_arisan,
+            'id_arisan' => $id_arisan,
+            'tanggal_cicil' => $tanggal_cicil,
+            'nominal_cicil' => $nominal_cicil
+        ];
+        $this->db->where('id_cicil_arisan', $id_arisan);
+        $this->db->update('cicil_arisan_kurban', $data);
+    }
+
+    public function hapus_cicilan($id_cicil_arisan = null){
+        $this->db->where('id_cicil_arisan', $id_cicil_arisan);
+        $this->db->delete('cicil_arisan_kurban');
     }
 
     // public function filter($tanggalawal = null, $tanggalakhir = null)

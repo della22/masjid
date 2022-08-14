@@ -22,7 +22,7 @@
                 <div class="x_title">
                   <h2>Data Berita Donasi</h2>
                   <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#filterModal" class="btn btn-info"><i class="fa fa-filter"></i> Filter</a></ul>
-                  <!-- <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#tambahModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Pembayaran Daftar Ulang</a></ul> -->
+
                   <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#tambahModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Berita Donasi</a></ul>
                   <div class="clearfix"></div>
                 </div>
@@ -42,27 +42,29 @@
                        <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                           <thead>
                             <tr>
-                              <!-- <th>No.</th> -->
-                              <th>No. </th>
+                              <th>No</th>
                               <th>Jangka Waktu</th>
                               <th>Judul Berita</th>
-                              <th>Terkumpul (Rp.)</th>
                               <th>Status</th>
                               <th>Aksi</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr>
-                              <td width="10" align="center">1</td>
-                              <td width="145">01/05/2022 - 29/05/2022</td>
-                              <td>Ini adalah judul berita</td>
-                              <td align="right">1.000.000</td>
-                              <td align="center">Berlangsung</td>
-                              <td align="center">
+                              <?php $j = 1; ?>
+                              <?php foreach ($berita->result_array() as $data_berita):
+                              ?>
+                              <td width="10" align="center"><?php echo $j ?></td>
+                              <td width="145"><?=$data_berita['jangka_waktu'];?></td>
+                              <td><?=$data_berita['judul_berita'];?></td>
+                              <td align="center"><?=$data_berita['status_berita'];?></td>
+                              <td width="150" align="center">
                                 <a href="<?php echo site_url('admin/berita_donasi/detail') ?>" style="margin-right: 9px" ><i class="fa fa-money"></i> Detail </a>
-                                <a onclick="" href="#!" ><i class="fa fa-trash"></i> Hapus</a>
+                                <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/berita_donasi/hapus/<?=$data_berita['id_berita'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
                               </td>
                             </tr>
+                             <?php $j++; ?>
+                            <?php endforeach; ?>
                           </tbody>
                         </table>
                       </div>
@@ -72,7 +74,6 @@
               </div>
             </div>
               <!-- /DataTables -->
-
 
           </div>
           <br />
@@ -104,24 +105,6 @@
                 </div>
               </div>
 
-              <div class="form-group col-md-12 col-sm-12">
-                <label class="col-form-label col-md-4 col-sm-4 label-align">Bulan Donasi : </label>
-                <div class="col-md-6 col-sm-6 ">
-                  <select class="select2_single form-control" name="tahun_ajaran" tabindex="-1">
-                    <option value=0>Semua</option>;
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-group col-md-12 col-sm-12">
-                <label class="col-form-label col-md-4 col-sm-4 label-align">Tahun Donasi : </label>
-                <div class="col-md-6 col-sm-6 ">
-                  <select class="select2_single form-control" name="tahun_ajaran" tabindex="-1">
-                    <option value=0>Semua</option>;
-                  </select>
-                </div>
-              </div>
-
               <br>
               <div class="modal-footer">  
                 <button type="submit" class="btn btn-success">Filter</button>
@@ -143,54 +126,53 @@
               </div>
               <div class="modal-body">
                 <div class="col-md-12 col-sm-12">  
-                <form action="" method="post" enctype="multipart/form-data" >
+                <form action="<?=base_url();?>/admin/berita_donasi/proses" method="post" enctype="multipart/form-data" >
 
                 <div class="item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="judul_berita">Judul Berita</label>
-                      <div class="col-md-8 col-sm-8 ">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align">Judul Berita : </label>
+                      <div class="col-md-9 col-sm-9 ">
                         <input class="form-control" type="text" name="judul_berita" placeholder="Judul Berita" required/>
                       </div>
                     </div>
 
                 <div class="item form-group">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Jangka Waktu : </label>
-                      <div class='col-md-4 col-sm-4'>
+                      <div class='col-md-5 col-sm-5'>
                         <div class="form-group">
                           <label for="input_to">Dari</label>
-                          <input type="time" id="waktu_mulai" name="waktu_mulai" class="form-control">
+                            <div class='input-group date myDatepicker2' >
+                            <input type="text" class="form-control" placeholder="Dari " name="tanggalawal" required/>
+                              <span class="input-group-addon" style="padding-top: 10px">
+                                <span class="fa fa-calendar-o"></span>
+                              </span>  
+                            </div>
                         </div>
                       </div>
-                      <div class='col-md-4 col-sm-4'>
+                      <div class='col-md-5 col-sm-5'>
                         <div class="form-group">
                           <label for="input_to">Sampai</label>
-                          <input type="time" id="waktu_selesai" name="waktu_selesai" class="form-control">  
+                          <div class='input-group date myDatepicker2' >
+                            <input type="text" class="form-control" placeholder="Sampai " name="tanggalakhir" required/>
+                              <span class="input-group-addon" style="padding-top: 10px">
+                                <span class="fa fa-calendar-o"></span>
+                              </span>  
+                            </div> 
                       </div>
                     </div>
                   </div>
 
-                <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">Kategori : </label>
-                    <div class="col-md-8 col-sm-8 ">
-                    <select class="select2_single form-control" name="kategori_donasi" tabindex="-1">
-                        <option value=1>A</option>;
-                        <option value=2>B</option>;
-                        <option value=3>C</option>;  
-                    </select>
-                    </div>
-              </div>
-
               <div class="item form-group">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Deskripsi : </label>
-                    <div class="col-md-8 col-sm-8 ">
+                    <div class="col-md-9 col-sm-9 ">
                        <textarea class="form-control" id="deskripsi_berita" name="deskripsi_berita" placeholder="Deskripsi" required></textarea>
                     </div>
                 </div>
 
                 <div class="item form-group">
                 <label class="col-form-label col-md-3 col-sm-3 label-align">Gambar : </label>
-                      <div class="col-md-8 col-sm-8">
-                        <input type="file" class="custom-file-input" id="validatedCustomFile" name="upload_img">
-                        <label class="custom-file-label" for="validatedCustomFile">Pilih Gambar...</label>
+                      <div class="col-md-9 col-sm-9">
+                        <input type="file"  name="upload_img" class="form-control">
+                        <input type="hidden" name="upload_image" value="">
                       </div>
                 </div>
             </div>         

@@ -27,6 +27,33 @@
               <div class="card-header">
 
               </div>
+
+              <?php if ($this->session->flashdata('error') == TRUE): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <?= $this->session->flashdata('error');?>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              <?php endif; ?>
+
+              <?php if ($this->session->flashdata('success') == TRUE): ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <?= $this->session->flashdata('success');?>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              <?php endif; ?>
+
+              <?php if ($this->session->flashdata('msg') == 'success'): ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert"> Berhasil Diedit
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              <?php endif; ?>
+
               <div class="card-body">
                 <div class="x_title">
                   <h2 class="col-md-12 col-sm-12" style="text-align: center;">Edit Profile Admin</h2>
@@ -34,27 +61,13 @@
 
                 </div>
                   
-                <form action="" method="post" enctype="multipart/form-data" >
+                <form action=" <?= base_url('admin/profile/changeProfil');?>" method="post" enctype="multipart/form-data" >
 
                   <div class="item form-group">
                     <label class="col-form-label col-md-3 col-sm-3 label-align" >Username</label>
                     <div class="col-md-6 col-sm-6 ">
-                      <input class="form-control" type="text" id="nama_siswa" name="username" placeholder="username" value="<?= $this->session->userdata('username')?>"/>
+                      <input class="form-control" type="text" id="username" name="username" placeholder="username" value="<?= $ubah['username'];?>"/>
                     </div>
-                  </div>
-
-                  <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align" >Email</label>
-                    <div class="col-md-6 col-sm-6 ">
-                      <input class="form-control " type="email" name="email" placeholder="Email" />
-                    </div>                      
-                  </div>
-
-                  <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align" >Telepon</label>
-                    <div class="col-md-6 col-sm-6 ">
-                      <input class="form-control " type="number" name="telepon" placeholder="Telepon" />
-                    </div>                      
                   </div>
 
                   <div class="item form-group">
@@ -75,7 +88,7 @@
                   <div class="item form-group">
                     <label class="col-form-label col-md-3 col-sm-3 label-align" >Konfirmasi Password Baru*</label>
                     <div class="col-md-6 col-sm-6 ">
-                      <input class="form-control " type="password" name="password_baru_konfirm" placeholder="Konfirmasi Password Baru" data-validate-linked='password_baru' />
+                      <input class="form-control " type="password" name="password_konfirm" placeholder="Konfirmasi Password Baru" data-validate-linked='password_baru' />
                     </div>
 
                   </div>
@@ -84,7 +97,7 @@
                   <div class="item form-group">
                     <label class="col-form-label col-md-3 col-sm-3 label-align" >Password Lama</label>
                     <div class="col-md-6 col-sm-6 ">
-                      <input class="form-control " type="password" name="password" placeholder="Password Lama" required />
+                      <input class="form-control " type="password" name="password_lama" placeholder="Password Lama" required />
                     </div>
 
                   </div>

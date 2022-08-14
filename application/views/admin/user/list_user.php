@@ -46,7 +46,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tr>
                               <th width="5%">No.</th>
                               <th>Nama</th>
-                              <th>Email</th>
                               <th>Telepon</th>
                               <th>Username</th>
                               <th>Password</th>
@@ -60,14 +59,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             ?>
                             <tr>
                               <td align="center"><?php echo $j ?></td>
-                              <td width="200"><?=$data_user['nama_user'];?></td>
-                              <td width="200"><?=$data_user['email'];?></td>
-                              <td width="100"><?=$data_user['telepon'];?></td>
+                              <td width="200"><?=$data_user['nama_jamaah'];?></td>
+                              <td width="100"><?=$data_user['telepon_jamaah'];?></td>
                               <td width="150"><?=$data_user['username'];?></td>
                               <td width="150"><?=$data_user['password'];?></td>
                               <td width="100"><?=$data_user['role'];?></td>
                               <td width="150" align="center">
-                                <a href=""  onclick="editData(event, '<?=$data_user['id_user'];?>', '<?=$data_user['nama_user'];?>', '<?=$data_user['email'];?>', '<?=$data_user['telepon'];?>','<?=$data_user['username'];?>','<?=$data_user['password'];?>','<?=$data_user['role'];?>')"><i class="fa fa-edit"></i> Edit</a>
+                                <a href=""  onclick="editData(event, '<?=$data_user['id_user'];?>', '<?=$data_user['id_jamaah'];?>', '<?=$data_user['nama_jamaah'];?>', '<?=$data_user['telepon_jamaah'];?>','<?=$data_user['username'];?>','<?=$data_user['password'];?>','<?=$data_user['role'];?>')"><i class="fa fa-edit"></i> Edit</a>
                                 <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/user/hapus/<?=$data_user['id_user'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
                             </tr>
                             <?php $j++; ?>
@@ -130,20 +128,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Nama: </label>
                     <div class="col-md-8 col-sm-8 ">
-                      <input class="form-control" type="text" id="nama_user_edit" name="nama_user" placeholder="Nama" />
-                      <input type="hidden" name="id_user" id="id_user" value="" />
-                    </div>
-                  </div>
-                  <div class="form-group col-md-12 col-sm-12">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">Email: </label>
-                    <div class="col-md-8 col-sm-8 ">
-                      <input class="form-control" type="text" id="email_edit" name="email" placeholder="Email" />
+                      <input class="form-control" type="text" id="nama_jamaah_edit" name="nama_jamaah" placeholder="Nama" />
+                      <input type="hidden" name="id_jamaah" id="id_jamaah_edit" value="" />
+                      <input type="hidden" name="id_user" id="id_user" value=""/>
                     </div>
                   </div>
                   <div class="form-group col-md-12 col-sm-12">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Telepon: </label>
                     <div class="col-md-8 col-sm-8 ">
-                      <input class="form-control" type="number" id="telepon_edit" name="telepon" placeholder="Telepon" />
+                      <input class="form-control" type="number" id="telepon_jamaah_edit" name="telepon_jamaah" placeholder="Telepon" readonly />
                     </div>
                   </div>
                   <div class="form-group col-md-12 col-sm-12">
@@ -173,10 +166,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 }else{
                                   echo '<option value="Bendahara">Bendahara</option>';
                                 }
-                            if($user->role == "Super Admin"){ 
-                                  echo '<option value="Super Admin" selected="true">Super Admin</option>';
+                            if($user->role == "Admin"){ 
+                                  echo '<option value="Admin" selected="true">Admin</option>';
                                 }else{
-                                  echo '<option value="Super Admin">Super Admin</option>';
+                                  echo '<option value="Admin">Admin</option>';
                                 }
                             ?>
 
@@ -211,21 +204,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama_user">Nama</label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" id="nama_user_tambah" name="nama_user" placeholder="Nama" required/>
-                      </div>
-                    </div>
-
-                    <div class="item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="email_user">Email</label>
-                      <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" id="email_tambah" name="email" placeholder="Email" required/>
+                        <input class="form-control" type="text" id="nama_jamaah_tambah" name="nama_jamaah" placeholder="Nama" required/>
+                        <input type="hidden" id="id_jamaah" name="id_jamaah" required/>
                       </div>
                     </div>
 
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="telepon_user">Telepon</label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="number" id="telepon_tambah" name="telepon" placeholder="Email" required/>
+                        <input class="form-control" type="number" id="telepon_jamaah" name="telepon_jamaah" placeholder="Telepon" readonly required/>
                       </div>
                     </div>
                     
@@ -258,10 +245,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 }else{
                                   echo '<option value="Bendahara">Bendahara</option>';
                                 }
-                            if($user->role == "Super Admin"){ 
-                                  echo '<option value="Super Admin" selected="true">Super Admin</option>';
+                            if($user->role == "Admin"){ 
+                                  echo '<option value="Admin" selected="true">Admin</option>';
                                 }else{
-                                  echo '<option value="Super Admin">Super Admin</option>';
+                                  echo '<option value="Admin">Admin</option>';
                                 }
                             ?>
 
@@ -325,33 +312,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('#deleteModal').modal();
       }
 
-      // $(document).ready(function(){
-      //   $('#datatable2').dataTable();
-      //       $( "#jabatan_user_tambah").autocomplete({
-      //         source: "<?= base_url('admin/user/get_autocomplete/');?>",
-      //         appendTo: "#tambahModal",
-      //         select: function (event,ui){
-      //           console.log(ui.item)
-      //           $( "#id_jamaah").val(ui.item.id_jamaah);
-      //           $( "#nama_user_tambah").val(ui.item.nama_user);
-      //         }
-      //       });
-      //       $( "#jabatan_user_edit").autocomplete({
-      //         source: "<?= base_url('admin/user/get_autocomplete/');?>",
-      //         appendTo: "#editModal",
-      //         select: function (event,ui){
-      //           $( "#id_jamaah_edit").val(ui.item.id_jamaah);
-      //           $( "#nama_user_edit").val(ui.item.nama_user);
-      //         }
-      //       });
-      //   });
+      $(document).ready(function(){
+        $('#datatable2').dataTable();
+            $( "#nama_jamaah_tambah").autocomplete({
+              source: "<?= base_url('admin/user/get_autocomplete/');?>",
+              appendTo: "#tambahModal",
+              select: function (event,ui){
+                console.log(ui.item)
+                $( "#id_jamaah").val(ui.item.id_jamaah);
+                $( "#telepon_jamaah").val(ui.item.telepon);
+              }
+            });
+            $( "#nama_jamaah_edit").autocomplete({
+              source: "<?= base_url('admin/user/get_autocomplete/');?>",
+              appendTo: "#editModal",
+              select: function (event,ui){
+                $( "#id_jamaah_edit").val(ui.item.id_jamaah);
+                $( "#telepon_jamaah_edit").val(ui.item.telepon);
+              }
+            });
+        });
 
-      function editData(e,id,nama,email,telepon,username,password,role){
+      function editData(e,id,id_jamaah,nama,telepon,username,password,role){
         e.preventDefault();
         $("#id_user").val(id);
-        $("#nama_user_edit").val(nama);
-        $("#email_edit").val(email);
-        $("#telepon_edit").val(telepon);
+        $("#id_jamaah_edit").val(id_jamaah);
+        $("#nama_jamaah_edit").val(nama);
+        $("#telepon_jamaah_edit").val(telepon);
         $("#username_edit").val(username);
         $("#password_edit").val(password);
         $("#role_edit").val(role);

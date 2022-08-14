@@ -253,21 +253,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="form-group">
                     <label for="input_from">Dari</label>
                     <div class='input-group date myDatepicker2' >
-                          <input type="text" class="form-control" placeholder="Dari " name="tanggalawal" required/>
-                          <span class="input-group-addon" style="padding-top: 10px">
-                            <span class="fa fa-calendar-o"></span>
-                          </span>  
-                    </div>
+                            <input type="text" class="form-control" placeholder="Dari " name="tanggalawal" required/>
+                              <span class="input-group-addon" style="padding-top: 10px">
+                                <span class="fa fa-calendar-o"></span>
+                              </span>  
+                            </div>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="input_to">Sampai</label>
                   <div class='input-group date myDatepicker2' >
-                          <input type="text" class="form-control" placeholder="Sampai " name="tanggalakhir" required/>
-                          <span class="input-group-addon" style="padding-top: 10px">
-                            <span class="fa fa-calendar-o"></span>
-                          </span>  
+                    <input type="text" class="form-control" placeholder="Sampai " name="tanggalakhir" required/>
+                      <span class="input-group-addon" style="padding-top: 10px">
+                        <span class="fa fa-calendar-o"></span>
+                      </span>  
                     </div>
                 </div>
               </div>

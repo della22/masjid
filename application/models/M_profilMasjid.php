@@ -20,13 +20,13 @@ class M_profilMasjid extends CI_Model
         return $dataSDM;
     }
 
-    public function updateProfil($id, $upload_img, $alamat_profil,$telp_profil,$email_profil,$norek_profil,$desk_profil)
+    public function updateProfil($id,$upload_img,$alamat_profil,$telp_profil,$email_profil,$norek_profil,$desk_profil)
     {
         $edit = $this->db->query("UPDATE profil_masjid SET upload_img = '$upload_img', alamat_profil = '$alamat_profil', telp_profil = '$telp_profil', email_profil = '$email_profil', norek_profil = '$norek_profil', desk_profil = '$desk_profil' WHERE id_profil ='$id'");
             return $edit;
     }
 
-    public function updateSdm($id, $foto_bagan, $jumlah_pengurus,$jumlah_remaja_masjid,$jumlah_imam_utama,$jumlah_imam_cadangan,$jumlah_muadzin,$jumlah_khatib)
+    public function updateSdm($id,$foto_bagan,$jumlah_pengurus,$jumlah_remaja_masjid,$jumlah_imam_utama,$jumlah_imam_cadangan,$jumlah_muadzin,$jumlah_khatib)
     {
         $edit = $this->db->query("UPDATE sdm_masjid SET foto_bagan = '$foto_bagan', jumlah_pengurus = '$jumlah_pengurus', jumlah_remaja_masjid = '$jumlah_remaja_masjid', jumlah_imam_utama = '$jumlah_imam_utama', jumlah_imam_cadangan = '$jumlah_imam_cadangan', jumlah_muadzin = '$jumlah_muadzin', jumlah_khatib = '$jumlah_khatib'  WHERE id_sdm ='$id'");
             return $edit;

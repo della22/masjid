@@ -90,7 +90,7 @@ class Pemasukan extends CI_Controller
         $pdf->SetFont('','',14);
         $pdf->Cell(60,10,'Uang Sejumlah  : ',0,0,'R');
         $pdf->SetFont('','',14);
-        $pdf->Cell(16,10,terbilang($data->nominal). 'Rupiah',0,1,'L');
+        $pdf->Cell(16,10,terbilang($data->nominal). ' Rupiah',0,1,'L');
 
         $pdf->Cell(20);
         $pdf->SetFont('','',14);

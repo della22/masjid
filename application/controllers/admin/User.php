@@ -21,13 +21,11 @@ class User extends CI_Controller
 
     public function proses()
     {
-        $email = $this->input->post('email');
-        $telepon = $this->input->post('telepon');
-        $nama_user = $this->input->post('nama_user');
+        $id_jamaah = $this->input->post('id_jamaah');
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         $role = $this->input->post('role');
-        $this->M_user->input_user($nama_user, $email, $telepon, $username, $password, $role);
+        $this->M_user->input_user($id_jamaah, $username, $password, $role);
         $this->session->set_flashdata('success','Item berhasil ditambahkan');
         redirect('admin/user');
     }
@@ -35,14 +33,12 @@ class User extends CI_Controller
     public function edit()
     {
         $id_user = $this->input->post('id_user');
-        $nama_user = $this->input->post('nama_user');
-        $email = $this->input->post('email');
-        $telepon = $this->input->post('telepon');
+        $id_jamaah = $this->input->post('id_jamaah');
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         $role = $this->input->post('role');
 
-        $this->M_user->edit_user($id_user, $nama_user, $email, $telepon, $username, $password, $role);
+        $this->M_user->edit_user($id_user, $id_jamaah, $username, $password, $role);
         $this->session->set_flashdata('success','Item berhasil diedit');
         redirect('admin/user');
     }
@@ -53,18 +49,19 @@ class User extends CI_Controller
         redirect('admin/user');
     }
 
-    //  function get_autocomplete(){
-    //     if (isset($_GET['term'])) {
-    //         $result = $this->M_user->search_user($_GET['term']);
-    //         if (count($result) > 0) {
-    //         foreach ($result as $row)
-    //             $arr_result[] = array(
-    //                 'label' => $row->nama_jamaah.' - '.$row->jabatan_pengurus,
-    //                 'nama_user' => $row->nama_jamaah,
-    //                 'id_jamaah'   => $row->id_jamaah,
-    //             );
-    //             echo json_encode($arr_result);
-    //         }
-    //     }
-    // }
+     function get_autocomplete(){
+        if (isset($_GET['term'])) {
+            $result = $this->M_user->search_user($_GET['term']);
+            if (count($result) > 0) {
+            foreach ($result as $row)
+                $arr_result[] = array(
+                    'label' => $row->nama_jamaah,
+                    'nama' => $row->nama_jamaah,
+                    'telepon' => $row->telepon_jamaah,
+                    'id_jamaah'   => $row->id_jamaah,
+                );
+                echo json_encode($arr_result);
+            }
+        }
+    }
 }

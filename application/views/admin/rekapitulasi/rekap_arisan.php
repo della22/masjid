@@ -48,7 +48,7 @@
             <div class="card mb-3">
               <div class="card-body">
                 <div class="x_title" style="margin-bottom: 30px;">
-                  <h2>Rekap Pembayaran Daftar Ulang </h2>
+                  <h2>Rekap Cicilan Arisan Kurban </h2>
                   <div class="clearfix"></div>
 
                 </div>

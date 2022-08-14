@@ -66,8 +66,8 @@
                               <td align="right"><?=number_format($data_arisan['biaya'],0,',','.');?></td>
                               <td align="center"><?=$data_arisan['status_arisan'];?></td>
                               <td align="center">
-                                <a href="<?php echo site_url('admin/arisan_kurban/detail') ?>" style="margin-right: 9px" ><i class="fa fa-money"></i> Detail </a>
-                                <a href=""  onclick="editData(event, '<?=$data_arisan['id_arisan'];?>','<?=$data_arisan['nama_jamaah'];?>','<?=$data_arisan['tahun_periode'];?>','<?=$data_arisan['biaya'];?>')"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="<?php echo site_url('admin/arisan_kurban/cicilan') ?>" style="margin-right: 9px" ><i class="fa fa-money"></i> Detail </a>
+                                <a href=""  onclick="editData(event, '<?=$data_arisan['id_arisan'];?>', '<?=$data_arisan['id_donatur'];?>','<?=$data_arisan['nama_jamaah'];?>','<?=$data_arisan['tahun_periode'];?>','<?=$data_arisan['biaya'];?>')"><i class="fa fa-edit"></i> Edit</a>
                                 <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/arisan_kurban/hapus/<?=$data_arisan['id_arisan'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
                               </td>
                             </tr>
@@ -116,7 +116,7 @@
               <div class="form-group col-md-12 col-sm-12">
                 <label class="col-form-label col-md-4 col-sm-4 label-align">Status Pembayaran : </label>
                 <div class="col-md-6 col-sm-6 ">
-                  <select class="select2_single form-control" name="status_daftar_ulang" tabindex="-1">
+                  <select class="select2_single form-control" name="status_arisan" tabindex="-1">
                     <option value="">Semua Status</option>;
                     <option value=1>Lunas</option>;
                     <option value=0>Belum Lunas</option>;  
@@ -146,17 +146,17 @@
               <div class="modal-body">
                 <form role="form" action="<?=base_url();?>/admin/arisan_kurban/edit" method="post">
                   <div class="form-group col-md-12 col-sm-12">
-                    <input type="hidden" name="id_arisan_edit" id="id_arisan" value=""/>
+                    <input type="hidden" name="id_arisan" id="id_arisan" value=""/>
                     <label class="col-form-label col-md-4 col-sm-4 label-align">Tahun Periode : </label>
                     <div class="col-md-7 col-sm-7 ">
                       <input class="form-control" type="text" id="tahun_periode_edit" name="tahun_periode" placeholder="Tahun Periode" value=""/>
                     </div>
                   </div>
                   <div class="form-group col-md-12 col-sm-12">
-                     <input type="hidden" name="id_donatur_edit" id="id_donatur_" value=""/>
                     <label class="col-form-label col-md-4 col-sm-4 label-align">Nama Donatur : </label>
                     <div class='col-md-7 col-sm-7'>
-                       <input class="form-control" type="text" id="nama_donatur_edit" name="nama_donatur" placeholder="Nama Ddonatur" required/>    
+                       <input class="form-control" type="text" id="nama_donatur_edit" name="nama_donatur" placeholder="Nama Donatur" required/>    
+                       <input type="hidden" name="id_donatur" id="id_donatur_edit" value="" />
                     </div>
                   </div>
 
@@ -192,17 +192,17 @@
                     <div class="item form-group">
                       <label class="col-form-label col-md-4 col-sm-4 label-align">Tahun Periode Kurban</label>
                       <div class='col-md-7 col-sm-7'>
-                      <div class='input-group date' id='myDatepicker3'>
-                        <input type="text" class="form-control" placeholder="Tahun " name="tahun_periode" required/>
-                        <span class="input-group-addon" style="padding-top: 10px">
-                        <span class="fa fa-calendar-o"></span>
-                      </span>  
+                        <div class='input-group date' id='myDatepicker3'>
+                          <input class="form-control" type="text" placeholder="Tahun " name="tahun_periode" required/>
+                          <span class="input-group-addon" style="padding-top: 10px">
+                            <span class="fa fa-calendar-o"></span>
+                          </span>  
+                        </div>
                       </div>
-                    </div>
                     </div>
                     
                     <div class="item form-group">
-                      <label class="col-form-label col-md-4 col-sm-4 label-align" for="nama_donatur">Nama Donatur</label>
+                      <label class="col-form-label col-md-4 col-sm-4 label-align" >Nama Donatur</label>
                       <div class="col-md-7 col-sm-7 ">
                         <input class="form-control" type="text" id="nama_donatur_tambah" name="nama_donatur" placeholder="Nama Donatur" required/>
                         <input type="hidden" id="id_donatur" name="id_donatur" required/>
@@ -210,20 +210,18 @@
                     </div>
 
                     <div class="item form-group">
-                      <label class="col-form-label col-md-4 col-sm-4 label-align" for="biaya_arisan">Biaya (Rp.)</label>
+                      <label class="col-form-label col-md-4 col-sm-4 label-align" >Biaya (Rp.)</label>
                       <div class="col-md-7 col-sm-7 ">
-                        <input class="form-control" type="number" name="biaya" placeholder="Biaya" required/>
+                        <input class="form-control" type="number" id="biaya" name="biaya" placeholder="Biaya" required/>
                       </div>
                     </div>
-
+                  </form>
                 </div>         
               </div>
 
                 <div class="modal-footer">  
                   <button type="submit" class="btn btn-success">Tambah</button>
                 </div>
-
-            </form>
             </div>
           </div>
         </div>
@@ -303,24 +301,25 @@
               source: "<?= base_url('admin/arisan_kurban/get_autocomplete/');?>",
               appendTo: "#tambahModal",
               select: function (event,ui){
-                $( "#id_donatur").val(ui.item.id_jamaah);
+                $( "#id_donatur").val(ui.item.id_donatur);
               }
             });
             $( "#nama_donatur_edit").autocomplete({
               source: "<?= base_url('admin/arisan_kurban/get_autocomplete/');?>",
               appendTo: "#editModal",
               select: function (event,ui){
-               $( "#id_donatur_edit").val(ui.item.id_jamaah);
+               $( "#id_donatur_edit").val(ui.item.id_donatur);
               }
             });
         });
 
-      function editData(e,id,nama_donatur,periode,biaya){
+      function editData(e,id,id_donatur,nama_donatur,periode,biaya){
         e.preventDefault();
-        $("#id_arisan_edit").val(id);
+        $("#id_arisan").val(id);
+        $("#id_donatur_edit").val(id_donatur);
+        $("#nama_donatur_edit").val(nama_donatur);
         $("#tahun_periode_edit").val(periode);
         $("#biaya_arisan_edit").val(biaya);
-        $("#nama_donatur_edit").val(nama_donatur);
         $('#editModal').modal();
       }
     </script>

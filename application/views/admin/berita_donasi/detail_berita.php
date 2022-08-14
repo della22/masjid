@@ -45,30 +45,30 @@
                           </div>
                         <?php endif; ?>
                     <div class="item form-group">
-                      <label class="col-form-label col-md-5 col-sm-5 label-align" for="nama_siswa">Jangka Waktu : </label>
+                      <label class="col-form-label col-md-5 col-sm-5 label-align" >Jangka Waktu : </label>
                       <div class="col-md-6 col-sm-6 ">
-                        <label class="col-form-label" style="text-align: left;">001/05/2022 - 29/05/2022</label>
+                        <label class="col-form-label" style="text-align: left;">01/05/2022 - 29/05/2022</label>
                       </div>
                     </div>
 
                     <div class="item form-group">
-                      <label class="col-form-label col-md-5 col-sm-5 label-align" for="NIS">Judul Berita : </label>
+                      <label class="col-form-label col-md-5 col-sm-5 label-align" >Judul Berita : </label>
                       <div class="col-md-6 col-sm-6 ">
                         <label class="col-form-label" style="text-align: left;">Ini judul</label>
                       </div>
                     </div>
 
                     <div class="item form-group">
-                      <label class="col-form-label col-md-5 col-sm-5 label-align" for="kelas">Deskripsi : </label>
+                      <label class="col-form-label col-md-5 col-sm-5 label-align" >Deskripsi : </label>
                       <div class="col-md-6 col-sm-6 ">
                         <label class="col-form-label" style="text-align: left;">Ini deskripsi</label>
                       </div>
                     </div>
 
                     <div class="item form-group">
-                      <label class="col-form-label col-md-5 col-sm-5 label-align" for="kelas">Kategori : </label>
+                      <label class="col-form-label col-md-5 col-sm-5 label-align" >Status : </label>
                       <div class="col-md-6 col-sm-6 ">
-                        <label class="col-form-label" style="text-align: left;">Kategori A</label>
+                        <label class="col-form-label" style="text-align: left;">Ini status</label>
                       </div>
                     </div>
 
@@ -76,23 +76,9 @@
 
                   <div class="col-md-6 col-sm-6">
                       <div class="item" >
-                        <label class="col-form-label col-md-5 col-sm-5 label-align">Dana yang terkumpul : </label>
-                        <div class="col-md-6 col-sm-6 ">
-                          <label class="col-form-label" style="text-align: left;" >Rp. 1.000.000</label>    
-                        </div>
-                      </div>
-
-                      <div class="item" >
-                        <label class="col-form-label col-md-5 col-sm-5 label-align">Status : </label>
-                        <div class="col-md-6 col-sm-6 ">
-                          <label class="col-form-label" style="text-align: left;" >Lunas</label>    
-                        </div>
-                      </div>
-
-                      <div class="item" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align">Gambar : </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <label class="col-form-label" style="text-align: left;" ></label>    
+                          <img src="" width="100px" class="img-thumbnail">
                         </div>
                       </div>
 
@@ -101,23 +87,7 @@
                 </div><!-- /card Body-->
                 </div>
 
-                <div class="card mb-3">
-                <div class="card-body">
-                  <div class="x_title" style="margin-bottom: 30px;">
-                    <h2>Dokumentasi Penyaluran Donasi</h2>
-                    <ul class="nav navbar-right panel_toolbox"><a href="#"  data-toggle="modal" data-target="#dokumentasiModal" class="btn btn-info btn-xs"><i class="fa fa-plus"></i> Tambah Dokumentasi</a></ul>
-                    <div class="clearfix"></div>
-                     
-                  </div>
 
-                  <div class="col-md-6 col-sm-6">
-
-                  <div class="item">
-                      <label class="col-form-label col-md-5 col-sm-5 label-align">Gambar ini isinya : </label>
-                      <div class="col-md-6 col-sm-6 ">
-                        <label class="col-form-label" style="text-align: left;">Gambar</label>
-                      </div>
-                    </div>
 
                    
 
@@ -144,7 +114,7 @@
 
       <!-- End Modal -->
 
-      <!-- Tambah Modal -->
+      <!-- Edit Modal -->
       <div class="modal fade" id="editModal" role="dialog">
           <div class="modal-dialog">
             <!-- Modal content-->
@@ -158,49 +128,48 @@
                 <form action="" method="post" enctype="multipart/form-data" >
 
                 <div class="item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="judul_berita">Judul Berita</label>
-                      <div class="col-md-8 col-sm-8 ">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align" >Judul Berita</label>
+                      <div class="col-md-9 col-sm-9 ">
                         <input class="form-control" type="text" name="judul_berita" placeholder="Judul Berita" required/>
                       </div>
                     </div>
 
                 <div class="item form-group">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Jangka Waktu : </label>
-                      <div class='col-md-4 col-sm-4'>
+                      <div class='col-md-5 col-sm-5'>
                         <div class="form-group">
                           <label for="input_to">Dari</label>
-                          <input type="time" id="waktu_mulai" name="waktu_mulai" class="form-control">
+                          <div class='input-group date myDatepicker2' >
+                            <input type="text" class="form-control" placeholder="Dari " name="tanggalawal" required/>
+                              <span class="input-group-addon" style="padding-top: 10px">
+                                <span class="fa fa-calendar-o"></span>
+                              </span>  
+                            </div>
                         </div>
                       </div>
-                      <div class='col-md-4 col-sm-4'>
+                      <div class='col-md-5 col-sm-5'>
                         <div class="form-group">
                           <label for="input_to">Sampai</label>
-                          <input type="time" id="waktu_selesai" name="waktu_selesai" class="form-control">  
+                          <div class='input-group date myDatepicker2' >
+                            <input type="text" class="form-control" placeholder="Sampai " name="tanggalakhir" required/>
+                              <span class="input-group-addon" style="padding-top: 10px">
+                                <span class="fa fa-calendar-o"></span>
+                              </span>  
+                            </div> 
                       </div>
                     </div>
                   </div>
 
-                <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">Kategori : </label>
-                    <div class="col-md-8 col-sm-8 ">
-                    <select class="select2_single form-control" name="kategori_donasi" tabindex="-1">
-                        <option value=1>A</option>;
-                        <option value=2>B</option>;
-                        <option value=3>C</option>;  
-                    </select>
-                    </div>
-              </div>
-
               <div class="item form-group">
                     <label class="col-form-label col-md-3 col-sm-3 label-align">Deskripsi : </label>
-                    <div class="col-md-8 col-sm-8 ">
+                    <div class="col-md-9 col-sm-9 ">
                        <textarea class="form-control" id="deskripsi_berita" name="deskripsi_berita" placeholder="Deskripsi" required></textarea>
                     </div>
                 </div>
 
                 <div class="item form-group">
                 <label class="col-form-label col-md-3 col-sm-3 label-align">Gambar : </label>
-                      <div class="col-md-8 col-sm-8">
+                      <div class="col-md-9 col-sm-9">
                         <input type="file" class="custom-file-input" id="validatedCustomFile" name="upload_img">
                         <label class="custom-file-label" for="validatedCustomFile">Pilih Gambar...</label>
                       </div>

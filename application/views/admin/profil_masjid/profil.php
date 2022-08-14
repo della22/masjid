@@ -20,16 +20,26 @@
           <div class="row">
             <div class="col-md-12 col-sm-12 ">
               <div class="card mb-3">
-                <div class="card-body">
-                  <form action="<?=base_url();?>/admin/profil_masjid/editProfil" method="post" enctype="multipart/form-data">
-                  <div class="x_title" style="margin-bottom: 30px;">
-                    <h2>Profil Masjid</h2>
-                    <div class="clearfix"></div>
+                <?php echo form_error('email_profil', '<div class="alert alert-danger alert-dismissible fade show" role="alert">','<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button></div>'); ?>
+
+                <?php if ($this->session->flashdata('success') == TRUE): ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <?= $this->session->flashdata('success');?>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <?php endif; ?>
+                  <div class="card-body">
+                    <form action="<?=base_url();?>/admin/profil_masjid/editProfil" method="post" enctype="multipart/form-data">
+                    <div class="x_title" style="margin-bottom: 30px;">
+                      <h2>Profil Masjid</h2>
+                      <div class="clearfix"></div>
                      
                   </div>
-
-                  <div class="col-md-5 col-sm-5">
-                    
+                  <div class="col-md-5 col-sm-5"> 
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align">Foto : </label>
                       <div class="col-md-8 col-sm-8 ">
@@ -57,14 +67,14 @@
                       <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align">No Telepon : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?=$profil['telp_profil'];?>" class="form-control" type="text" name="telp_profil" placeholder="No. Telp" required/>
+                            <input value="<?=$profil['telp_profil'];?>" class="form-control" type="number" name="telp_profil" placeholder="No. Telp" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align">Email : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?=$profil['email_profil'];?>" class="form-control" type="text" name="email_profil" placeholder="Email" required/>
+                            <input value="<?=$profil['email_profil'];?>" class="form-control" type="email" name="email_profil" placeholder="Email" required/>
                         </div>
                       </div>
 
@@ -121,7 +131,7 @@
                     <div class="item form-group" >
                         <label class="col-form-label col-md-4 col-sm-4 label-align">Jumlah Pengurus : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?=$sdm['jumlah_pengurus'];?>" class="form-control" type="text" name="jumlah_pengurus" placeholder="Jumlah Pengurus" required/>
+                            <input value="<?=$sdm['jumlah_pengurus'];?>" class="form-control" type="number" name="jumlah_pengurus" placeholder="Jumlah Pengurus" required/>
                         </div>
                       </div>
 
@@ -129,7 +139,7 @@
                       <div class="item form-group" >
                         <label class="col-form-label col-md-4 col-sm-4 label-align">Jumlah Remaja Masjid : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?=$sdm['jumlah_remaja_masjid'];?>" class="form-control" type="text" name="jumlah_remaja_masjid" placeholder="Jumlah Remaja Masjid" required/>
+                            <input value="<?=$sdm['jumlah_remaja_masjid'];?>" class="form-control" type="number" name="jumlah_remaja_masjid" placeholder="Jumlah Remaja Masjid" required/>
                         </div>
                       </div>
 
@@ -139,28 +149,28 @@
                   <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align">Jumlah Imam Utama : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?=$sdm['jumlah_imam_utama'];?>" class="form-control" type="text" name="jumlah_imam_utama" placeholder="Jumlah Imam Utama" required/>
+                            <input value="<?=$sdm['jumlah_imam_utama'];?>" class="form-control" type="number" name="jumlah_imam_utama" placeholder="Jumlah Imam Utama" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align">Jumlah Imam Cadangan : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?=$sdm['jumlah_imam_cadangan'];?>" class="form-control" type="text" name="jumlah_imam_cadangan" placeholder="Jumlah Imam Cadangan" required/>
+                            <input value="<?=$sdm['jumlah_imam_cadangan'];?>" class="form-control" type="number" name="jumlah_imam_cadangan" placeholder="Jumlah Imam Cadangan" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align">Jumlah Muadzin : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?=$sdm['jumlah_muadzin'];?>" class="form-control" type="text" name="jumlah_muadzin" placeholder="Jumlah Muadzin" required/>
+                            <input value="<?=$sdm['jumlah_muadzin'];?>" class="form-control" type="number" name="jumlah_muadzin" placeholder="Jumlah Muadzin" required/>
                         </div>
                       </div>
 
                       <div class="item form-group" >
                         <label class="col-form-label col-md-5 col-sm-5 label-align">Jumlah Khatib : </label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input value="<?=$sdm['jumlah_khatib'];?>" class="form-control" type="text" name="jumlah_khatib" placeholder="Jumlah Khatib" required/>
+                            <input value="<?=$sdm['jumlah_khatib'];?>" class="form-control" type="number" name="jumlah_khatib" placeholder="Jumlah Khatib" required/>
                         </div>
                       </div>
 
