@@ -21,19 +21,19 @@
           <div class="tile_count">
             <div class="col-md-2 col-sm-4 tile_stats_count" style="text-align: center;">
               <a href="#">
-              <span class="count_top"><i class="fa fa-child"></i> Total Donatur</span>
+              <span class="count_top"><i class="fa fa-money"></i> Donasi Berlangsung </span>
               <div class="count" style="text-align: center;">10</div>
               </a>
             </div>
              <div class="col-md-2 col-sm-4 tile_stats_count" style="text-align: center;">
               <a href="#">
-              <span class="count_top"><i class="fa fa-users"></i> Total Pengurus</span>
+              <span class="count_top"><i class="fa fa-child"></i> Donatur Arisan Kurban </span>
               <div class="count">7</div>
               </a>
             </div>
             <div class="col-md-4 col-sm-3 tile_stats_count" style="text-align: center;">
               <a href="#">
-              <span class="count_top"><i class="fa fa-money"></i> Total Tunggakan Arisan Kurban Maret 2022</span>
+              <span class="count_top"><i class="fa fa-user"></i> Tunggakan Arisan Kurban Bulan Ini</span>
               <div class="count" style="text-align: center;">10</div>
               </a>
             </div>
