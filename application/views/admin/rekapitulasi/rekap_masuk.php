@@ -172,8 +172,8 @@
                       <thead>
                         <tr>
                           <th style="width: 20px; text-align: center;">No.</th>
-                          <th>Kategori</th>
-                          <th style="width: 120px; text-align: center;">Jumlah Transaksi</th>
+                          <th text-align: center;">Kategori</th>
+                          <th style="width: 150px; text-align: center;">Jumlah Transaksi</th>
                           <th style="width: 30%; text-align: center;">Total Nominal(Rp.)</th>
                         </tr>
                       </thead>
@@ -182,8 +182,7 @@
                             <td align="center">1</td>
                             <td>Kategori</td>
                             <td align="center">5</td>
-                            <td align="right" style="padding-right: 90px">
-                              Rp. 10.000.000
+                            <td align="right" style="padding-right: 90px">10.000.000
                             </td>
                           </tr> 
 
@@ -200,7 +199,7 @@
                       <thead>
                         <tr>
                           <th style="width: 20px; text-align: center;">No.</th>
-                          <th style="width: 200px;">Kategori</th>
+                          <th>Kategori</th>
                           <th style="text-align: center;">Tanggal</th>
                           <th style="text-align: center;">Nominal(Rp.)</th>
                           <th>Keterangan</th>
@@ -211,8 +210,7 @@
                             <td align="center">1</td>
                             <td>Kategori</td>
                             <td align="center">5</td>
-                            <td align="right" style="padding-right: 90px">
-                              Rp. 10.000.000
+                            <td align="right" style="padding-right: 90px">10.000.000
                             </td>
                             <td>Keterangan</td>
                           </tr> 

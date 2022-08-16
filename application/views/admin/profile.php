@@ -66,7 +66,7 @@
                   <div class="item form-group">
                     <label class="col-form-label col-md-3 col-sm-3 label-align" >Username</label>
                     <div class="col-md-6 col-sm-6 ">
-                      <input class="form-control" type="text" id="username" name="username" placeholder="username" value="<?= $ubah['username'];?>"/>
+                      <input class="form-control" type="text" id="username" name="username" placeholder="username" value=""/>
                     </div>
                   </div>
 

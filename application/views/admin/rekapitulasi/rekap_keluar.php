@@ -182,8 +182,7 @@
                             <td align="center">1</td>
                             <td>Kategori</td>
                             <td align="center">5</td>
-                            <td align="right" style="padding-right: 90px">
-                              Rp. 10.000.000
+                            <td align="right" style="padding-right: 90px">10.000.000
                             </td>
                           </tr> 
 
@@ -211,8 +210,7 @@
                             <td align="center">1</td>
                             <td>Kategori</td>
                             <td align="center">5</td>
-                            <td align="right" style="padding-right: 90px">
-                              Rp. 10.000.000
+                            <td align="right" style="padding-right: 90px">10.000.000
                             </td>
                             <td>Keterangan</td>
                           </tr> 

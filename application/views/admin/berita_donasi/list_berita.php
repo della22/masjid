@@ -51,20 +51,17 @@
                           </thead>
                           <tbody>
                             <tr>
-                              <?php $j = 1; ?>
-                              <?php foreach ($berita->result_array() as $data_berita):
-                              ?>
-                              <td width="10" align="center"><?php echo $j ?></td>
-                              <td width="145"><?=$data_berita['jangka_waktu'];?></td>
-                              <td><?=$data_berita['judul_berita'];?></td>
-                              <td align="center"><?=$data_berita['status_berita'];?></td>
+                             
+                              <td width="10" align="center">1</td>
+                              <td width="145">01/08/2022 - 22/08/2022</td>
+                              <td>Judul</td>
+                              <td align="center">Berlangsung</td>
                               <td width="150" align="center">
                                 <a href="<?php echo site_url('admin/berita_donasi/detail') ?>" style="margin-right: 9px" ><i class="fa fa-money"></i> Detail </a>
-                                <a href="" onclick="deleteConfirm(event,'<?=base_url();?>/admin/berita_donasi/hapus/<?=$data_berita['id_berita'];?>')"><i class="fa fa-trash"></i> Hapus</a></td>
+                                <a href="" onclick=""><i class="fa fa-trash"></i> Hapus</a></td>
                               </td>
                             </tr>
-                             <?php $j++; ?>
-                            <?php endforeach; ?>
+                            
                           </tbody>
                         </table>
                       </div>
@@ -99,8 +96,9 @@
                 <div class="col-md-6 col-sm-6 ">
                   <select class="select2_single form-control" name="status_daftar_ulang" tabindex="-1">
                     <option value="">Semua Status</option>;
-                    <option value=1>Lunas</option>;
-                    <option value=0>Belum Lunas</option>;  
+                    <option value=1>Belum Mulai</option>;
+                    <option value=0>Berlangsung</option>;  
+                    <option value=0>Selesai</option>;  
                   </select>
                 </div>
               </div>

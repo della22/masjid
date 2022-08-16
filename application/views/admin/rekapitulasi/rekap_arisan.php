@@ -60,8 +60,8 @@
                       <label class="col-form-label col-md-1 col-sm-1 label-align" for="nama_siswa">Tahun : </label>
                       <div class="col-md-2 col-sm-2 ">
                         <div class="form-group">
-                          <div class='input-group date' id='myDatepicker4'>
-                            <input type="text" class="form-control" placeholder="Tahun" name="tahun" value="" required />
+                          <div class='input-group date' id='myDatepicker3'>
+                            <input type='text' class="form-control" placeholder="Tahun" name="tahun" required value="" />
                             <span class="input-group-addon" style="padding-top: 10px">
                               <span class="fa fa-calendar-o"></span>
                             </span>
@@ -170,7 +170,7 @@
                           <tr>
                             <td width=10>1</td>
                             <td>Nama</td>
-                            <td>08xxxxxxxx</td>
+                            <td>081212121</td>
                             <td align="center">
                               <a href="<?php echo site_url('admin/arisan_kurban/detail') ?>" style="margin-right: 9px" ><i class="fa fa-money"></i> Detail </a>
                             </td>
@@ -194,7 +194,7 @@
                         <tr>
                             <td width=10>1</td>
                             <td>Nama</td>
-                            <td>08xxxxxxxx</td>
+                            <td>0812121212</td>
                             <td align="center">
                               <a href="<?php echo site_url('admin/arisan_kurban/detail') ?>" style="margin-right: 9px" ><i class="fa fa-money"></i> Detail </a>
                             </td>
@@ -228,9 +228,9 @@
                     <tr>
                       <th>No</th>
                       <th>Nama</th>
-                      <th>Target</th>
-                      <th>Terbayar</th>
-                      <th>Hutang</th>
+                      <th>Target (Rp)</th>
+                      <th>Terbayar (Rp)</th>
+                      <th>Kekurangan (Rp)</th>
                     </tr>
 
                     <tr>
@@ -239,9 +239,9 @@
                         <tr>
                             <td width=10>1</td>
                             <td>Nama Saya Panjang Sekali</td>
-                          <td align="right">Rp. 100.000.000</td>
-                          <td align="right">Rp. 40.000.000</td>
-                          <td align="right">Rp. 60.000.000</td>
+                          <td align="right">100.000.000</td>
+                          <td align="right">40.000.000</td>
+                          <td align="right">60.000.000</td>
                       </tr> 
                     </tbody>
                   </table>
