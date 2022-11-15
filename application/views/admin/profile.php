@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <?php $this->load->view("admin/_partials/head.php") ?>
 
-  <link rel="stylesheet" href="<?php echo base_url().'css/jquery-ui.css'?>">
+  <link rel="stylesheet" href="<?php echo base_url() . 'css/jquery-ui.css' ?>">
 </head>
 
 <body class="nav-md">
@@ -21,32 +22,32 @@
         <div class="row">
           <div class="col-md-12 col-sm-12 ">
 
-            <!-- form Tambah --> 
+            <!-- form Tambah -->
 
             <div class="card mb-3">
               <div class="card-header">
 
               </div>
 
-              <?php if ($this->session->flashdata('error') == TRUE): ?>
+              <?php if ($this->session->flashdata('error') == TRUE) : ?>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                  <?= $this->session->flashdata('error');?>
+                  <?= $this->session->flashdata('error'); ?>
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
               <?php endif; ?>
 
-              <?php if ($this->session->flashdata('success') == TRUE): ?>
+              <?php if ($this->session->flashdata('success') == TRUE) : ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                  <?= $this->session->flashdata('success');?>
+                  <?= $this->session->flashdata('success'); ?>
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
               <?php endif; ?>
 
-              <?php if ($this->session->flashdata('msg') == 'success'): ?>
+              <?php if ($this->session->flashdata('msg') == 'success') : ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert"> Berhasil Diedit
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -60,13 +61,13 @@
                   <div class="clearfix"></div>
 
                 </div>
-                  
-                <form action=" <?= base_url('admin/profile/changeProfil');?>" method="post" enctype="multipart/form-data" >
+                <form action=" <?= base_url('admin/profile/changeProfil'); ?>" method="post" enctype="multipart/form-data">
 
                   <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align" >Username</label>
+                    <label class="col-form-label col-md-3 col-sm-3 label-align">Username</label>
                     <div class="col-md-6 col-sm-6 ">
-                      <input class="form-control" type="text" id="username" name="username" placeholder="username" value=""/>
+                      <input type="hidden" name="id_user" value="<?= $ubah->id_user; ?>" />
+                      <input class="form-control" type="text" id="username" name="username" placeholder="username" value="<?= $ubah->username; ?>" />
                     </div>
                   </div>
 
@@ -78,26 +79,26 @@
 
                   </div>
                   <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align" >Password Baru*</label>
+                    <label class="col-form-label col-md-3 col-sm-3 label-align">Password Baru*</label>
                     <div class="col-md-6 col-sm-6 ">
-                      <input class="form-control " type="password" name="password_baru" placeholder="Password Baru" />
-                    </div>                      
+                      <input class="form-control " type="password" name="password_baru" placeholder="Password Baru" value="" />
+                    </div>
                   </div>
 
 
                   <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align" >Konfirmasi Password Baru*</label>
+                    <label class="col-form-label col-md-3 col-sm-3 label-align">Konfirmasi Password Baru*</label>
                     <div class="col-md-6 col-sm-6 ">
-                      <input class="form-control " type="password" name="password_konfirm" placeholder="Konfirmasi Password Baru" data-validate-linked='password_baru' />
+                      <input class="form-control " type="password" value="" name="password_konfirm" placeholder="Konfirmasi Password Baru" data-validate-linked='password_baru' />
                     </div>
 
                   </div>
                   <br>
 
                   <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align" >Password Lama</label>
+                    <label class="col-form-label col-md-3 col-sm-3 label-align">Password Lama</label>
                     <div class="col-md-6 col-sm-6 ">
-                      <input class="form-control " type="password" name="password_lama" placeholder="Password Lama" required />
+                      <input class="form-control " type="password" name="password_lama" placeholder="Password Lama" value="" required />
                     </div>
 
                   </div>
@@ -110,7 +111,7 @@
                   </div>
 
                 </form>
-                
+
 
               </div>
 
@@ -150,7 +151,7 @@
   <script src="<?php echo base_url('assets/nprogress/nprogress.js') ?>"></script>
 
 
-  <script src="<?php echo base_url().'js/jquery-ui.js'?>" type="text/javascript"></script>
+  <script src="<?php echo base_url() . 'js/jquery-ui.js' ?>" type="text/javascript"></script>
 
 
   <!-- Custom Theme Scripts -->
@@ -159,4 +160,5 @@
 
 
 </body>
+
 </html>

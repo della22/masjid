@@ -30,7 +30,7 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <img src="<?php echo base_url('images/logo.png') ?>" height="150" width="150"  /> 
+            <img src="<?php echo base_url('images/logomasjid.png') ?>" height="150" width="150"  /> 
             <?php if ($this->session->flashdata('success') == TRUE): ?>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                   <?= $this->session->flashdata('success');?>

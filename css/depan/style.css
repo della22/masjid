@@ -1,0 +1,413 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Russo+One&display=swap");
+:root {
+  --green: #409e5a;
+  --green_hover: #308d49;
+  --white: #ffffff;
+  --white_hover: #dedede;
+  --black: #404040;
+  --black_hover: #000;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.navbar-brand {
+  font-family: "Russo One", sans-serif;
+  font-size: 1rem;
+  color: var(--black) !important;
+}
+.navbar {
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+.logo {
+  height: 44px;
+  margin-right: 4px;
+}
+
+.bg-white {
+  background-color: var(--white);
+}
+.bg-green {
+  background-color: var(--green);
+}
+.font-russo {
+  font-family: "Russo One", sans-serif;
+}
+.btn-green {
+  color: #fff;
+  background-color: var(--green);
+  border: 0;
+}
+.btn-green:hover {
+  background-color: var(--green_hover);
+}
+
+.btn-white {
+  color: var(--black);
+  background-color: var(--white);
+  border: 0;
+}
+.btn-white:hover {
+  background-color: var(--white_hover);
+  color: var(--green);
+}
+.btn-green:hover {
+  background-color: var(--green_hover);
+}
+.nav-link {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+.main_title {
+  font-size: 32px;
+  color: var(--green);
+  font-weight: 600;
+}
+.black-2 {
+  color: var(--black);
+}
+
+/* HERO */
+#hero,
+#hero_profil {
+  border-radius: 32px;
+  position: relative;
+  margin-top: 120px;
+}
+#hero:after,
+#hero_profil:after {
+  content: "";
+  display: block;
+  height: 99px;
+  position: absolute;
+  bottom: -2px;
+  left: -20px;
+  right: -20px;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg width='1040' height='98' viewBox='0 0 1040 98' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M398 11.5C264 -26.1 63.1667 39.8333 -20.5 77.5V100H1059V50C993.167 33.6667 849.1 6.3 799.5 27.5C737.5 54 565.5 58.5 398 11.5Z' fill='white' fill-opacity='0.24'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+}
+#hero_profil {
+  margin-bottom: 200px;
+  padding-top: 40px;
+}
+.image_profil {
+  width: 80%;
+  object-fit: cover;
+  height: 300px;
+  margin: 20px auto -80px auto;
+  border-radius: 24px;
+  position: relative;
+  z-index: 40;
+}
+.hero_welcome {
+  padding: 64px;
+}
+
+.image_hero {
+  width: 320px;
+  height: 320px;
+  object-fit: cover;
+  border-top-right-radius: 80px;
+  border-bottom-left-radius: 120px;
+  z-index: 10;
+  position: relative;
+  z-index: 20;
+}
+
+.image_sidebar {
+  position: relative;
+  z-index: 10px;
+}
+
+.image_sidebar:after {
+  content: "";
+  display: block;
+  width: 320px;
+  height: 320px;
+  position: absolute;
+  top: -18px;
+  right: -18px;
+  border-top-right-radius: 97px;
+  border-bottom-left-radius: 127px;
+  border: 3px solid white;
+  z-index: 2;
+}
+.image_sidebar:before {
+  content: "";
+  display: block;
+  width: 320px;
+  height: 320px;
+  position: absolute;
+  bottom: -18px;
+  left: -18px;
+  border-top-right-radius: 97px;
+  border-bottom-left-radius: 127px;
+  border: 3px solid white;
+  z-index: 3;
+}
+/* PROFIL */
+.head_profil {
+  color: var(--white);
+  font-size: 36px;
+  padding: 24px 0;
+}
+/* CARD KEUANGAN */
+.info_cash {
+  margin-top: 80px;
+}
+.card_duit {
+  border: 2px solid #dfdfdf;
+  padding: 20px 0;
+  border-radius: 16px;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.04);
+}
+
+.card_duit h2 {
+  font-size: 1rem;
+  font-weight: normal;
+  color: var(--black);
+  margin-top: 4px;
+}
+
+.card_duit h4 {
+  font-size: 32px;
+  color: var(--green);
+  font-weight: 600;
+}
+.card_duit.middle_card {
+  background-color: var(--green);
+  color: var(--white);
+  border-color: #377248;
+}
+.card_duit.middle_card h2,
+.card_duit.middle_card h4 {
+  color: var(--white);
+}
+
+/* JADWAL SHOLAT */
+.jadwal_sholat {
+  margin-top: 80px;
+  margin-bottom: 50px;
+  background-color: rgba(64, 158, 90, 0.8);
+  padding: 44px;
+  border-radius: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.jadwal_sholat:after {
+  content: "";
+  display: block;
+  width: 487px;
+  height: 125px;
+  position: absolute;
+  top: -12px;
+  right: -24px;
+  background-image: url("data:image/svg+xml,%3Csvg width='488' height='125' viewBox='0 0 488 123' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M487.5 121C271.5 133 72.5 53.6667 0 12.5V-3H487.5V121Z' fill='white' fill-opacity='0.24'/%3E%3C/svg%3E");
+}
+.jadwal_sholat:before {
+  content: "";
+  display: block;
+  width: 433px;
+  height: 110px;
+  position: absolute;
+  bottom: -12px;
+  right: -24px;
+  background-image: url("data:image/svg+xml,%3Csvg width='433' height='111' viewBox='0 0 433 111' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M433 1.50001C327.8 -9.69999 100.5 69.5 0 110.5H433V1.50001Z' fill='%23171717' fill-opacity='0.11'/%3E%3C/svg%3E");
+}
+.jadwal_image img {
+  width: 269px;
+}
+.jadwal_sholat h3 {
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+.jadwal_sholat .card_jadwal {
+  background-color: var(--white);
+  padding: 12px 0;
+  text-align: center;
+  border-radius: 12px;
+}
+.jadwal_sholat .card_jadwal .head_jadwal {
+  font-size: 16px;
+  font-weight: regular;
+  color: var(--black);
+}
+.jadwal_sholat .card_jadwal p {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--green);
+  margin: 0;
+  padding: 0;
+}
+
+/* CONTENT Main */
+
+.main_content {
+  margin-top: 80px;
+  margin-bottom: 40px;
+}
+.table th {
+  background-color: var(--green);
+  text-align: center;
+  color: var(--white);
+}
+.table td {
+  font-size: 14px;
+}
+table td.bold {
+  font-size: 20px;
+  font-weight: 600;
+}
+.table-striped tbody tr:nth-of-type(2n + 1) {
+  background-color: rgba(60, 196, 94, 0.116);
+}
+
+.card_green {
+  background-color: var(--green);
+  padding: 18px;
+  border-radius: 12px;
+  color: var(--white);
+}
+.p-14 {
+  font-size: 14px;
+}
+.p-13 {
+  font-size: 13px;
+}
+.text-green {
+  color: var(--green);
+}
+/* BERITA DONASI */
+.card_donasi {
+  background-color: var(--white);
+  border: 2px solid var(--green);
+  border-radius: 16px;
+  padding: 12px;
+  text-align: center;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.04);
+}
+.card_donasi figure {
+  overflow: hidden;
+}
+.card_donasi img {
+  height: 150px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.card_donasi h3 {
+  font-size: 1.2rem;
+}
+
+/* ARISAN */
+.nav-pills {
+  justify-content: center;
+  padding: 4px;
+}
+.panel_arisan {
+  border-radius: 4px;
+  color: var(--black);
+}
+.arisan_list {
+  list-style: number;
+  list-style-position: inside;
+  margin: 0;
+  padding: 0 16px 12px;
+}
+.arisan_list li {
+  padding: 12px 4px;
+  border-bottom: 1px solid #61cf7e;
+  font-size: 13px;
+}
+.arisan_list li:last-child {
+  border: 0;
+}
+.nav-pills .nav-item {
+  text-align: center;
+}
+.nav-pills .nav-item .nav-link {
+  color: var(--black);
+  background-color: transparent;
+  border: 0;
+  outline: none;
+  width: 100%;
+  font-size: 15px;
+}
+.nav-pills .nav-item .nav-link.active {
+  background-color: var(--green);
+  color: var(--white);
+}
+.title_arisan {
+  font-size: 20px;
+}
+
+/* FOOTER */
+#footer {
+  margin-top: 60px;
+  padding-top: 72px;
+  background-color: var(--green);
+  color: var(--white);
+}
+
+#footer h5 {
+  font-size: 28px;
+  font-weight: 600;
+  position: relative;
+  padding: 12px 0;
+}
+#footer .footer_content {
+  margin-bottom: 64px;
+}
+#footer h5:after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background-color: var(--white);
+  border-radius: 4px;
+}
+#footer ul {
+  list-style-position: outside;
+  margin: 24px 0 0;
+  padding: 0;
+}
+#footer ul li {
+  padding: 12px 0;
+  margin: 0 0 0 8px;
+}
+#footer ul li a {
+  color: var(--white);
+}
+
+#footer ol {
+  list-style: none;
+  list-style-position: inside;
+  margin: 24px 0 0;
+  padding: 0;
+}
+#footer ol li {
+  display: flex;
+  padding: 12px 0;
+  gap: 12px;
+}
+
+.powered {
+  background-color: #3b8d52;
+}
+
+.tambahan {
+  font-size: 32px;
+  padding: 16px 0;
+  background-color: var(--green);
+  color: var(--white);
+  border-radius: 32px;
+}

@@ -274,7 +274,7 @@
                     <div class="form-group col-md-12 col-sm-12">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="kontak_layanan">Kontak : </label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" name="kontak_layanan" id="kontak_layanan"placeholder="No. Telepon" required/>
+                        <input class="form-control" type="number" name="kontak_layanan" id="kontak_layanan"placeholder="No. Telepon" required/>
                       </div>
                     </div>
                     <br>
@@ -339,7 +339,7 @@
                     <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="kontak_layanan">Kontak : </label>
                       <div class="col-md-8 col-sm-8 ">
-                        <input class="form-control" type="text" name="kontak_layanan" id="kontak_layanan" placeholder="No. Telepon" required/>
+                        <input class="form-control" type="number" name="kontak_layanan" id="kontak_layanan" placeholder="No. Telepon" required/>
                       </div>
                     </div>
                     <br>

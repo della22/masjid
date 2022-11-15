@@ -1,0 +1,84 @@
+@media screen and (max-width: 960px) {
+  #hero {
+    overflow: hidden;
+  }
+  .hero_welcome {
+    padding: 24px;
+    padding-bottom: 40px;
+    padding-top: 60px;
+  }
+  .hero_welcome h1 {
+    font-size: 32px;
+  }
+  .mt-gambar_hero {
+    margin-top: 70px;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center;
+    display: block;
+  }
+  .gap-cash {
+    gap: 16px;
+  }
+  .image_hero {
+    width: 280px;
+    height: 280px;
+    border-top-right-radius: 40px;
+    border-bottom-left-radius: 80px;
+  }
+
+  .image_sidebar:after {
+    width: 280px;
+    height: 280px;
+    top: -18px;
+    right: -18px;
+    border-top-right-radius: 48px;
+    border-bottom-left-radius: 90px;
+  }
+
+  .image_sidebar:before {
+    width: 280px;
+    height: 280px;
+    bottom: -18px;
+    left: -18px;
+    border-top-right-radius: 48px;
+    border-bottom-left-radius: 90px;
+  }
+  #hero:after {
+    bottom: -60px;
+  }
+  .jadwal_image {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .table_main,
+  .berita_donasi {
+    margin: 0 !important;
+  }
+  .main_title {
+    font-size: 28px;
+  }
+
+  .footer_content {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+  .tambahan {
+    font-size: 12px !important;
+  }
+  .head_profil {
+    font-size: 26px;
+  }
+}
+
+@media screen and (min-width: 961px) {
+  .table_masjid {
+    width: 100%;
+    display: table !important;
+  }
+}
+@media screen and (min-width: 760px) {
+  .gap-cash {
+    gap: 0px !important;
+  }
+}

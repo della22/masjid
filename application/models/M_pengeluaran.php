@@ -6,11 +6,11 @@ class M_pengeluaran extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('pengeluaran');
-        $this->db->join('kategori_pengeluaran', 'pengeluaran.id_kategori = kategori_pengeluaran.id_kategori_keluar' );
+        $this->db->join('kategori_pengeluaran', 'pengeluaran.id_kategori = kategori_pengeluaran.id_kategori_keluar');
         $this->db->order_by('id', 'DESC');
         return $this->db->get();
     }
-    
+
     function list_kategori_pengeluaran()
     {
         return $this->db->get("kategori_pengeluaran");
@@ -23,7 +23,8 @@ class M_pengeluaran extends CI_Model
             'tanggal' => $tanggal_pengeluaran,
             'nominal' => $nominal_pengeluaran,
             'keterangan' => $keterangan_pengeluaran,
-            'id_kategori' => $kategori_pengeluaran
+            'id_kategori' => $kategori_pengeluaran,
+            'jenis' => 'pengeluaran'
         ];
         $this->db->insert('pengeluaran', $data);
     }
@@ -41,7 +42,8 @@ class M_pengeluaran extends CI_Model
         $this->db->update('pengeluaran', $data);
     }
 
-    public function hapus_pengeluaran($id_pengeluaran = null){
+    public function hapus_pengeluaran($id_pengeluaran = null)
+    {
         $this->db->where('id', $id_pengeluaran);
         $this->db->delete('pengeluaran');
     }
@@ -62,28 +64,28 @@ class M_pengeluaran extends CI_Model
 
     public function filter($tanggalawal = null, $tanggalakhir = null)
     {
-        
+
         $this->db->select('*');
         $this->db->from('pengeluaran');
-        $this->db->join('kategori_pengeluaran', 'pengeluaran.id_kategori = kategori_pengeluaran.id_kategori_keluar' );
+        $this->db->join('kategori_pengeluaran', 'pengeluaran.id_kategori = kategori_pengeluaran.id_kategori_keluar');
         $this->db->where("tanggal BETWEEN '$tanggalawal' AND '$tanggalakhir'");
         $this->db->order_by('tanggal', 'ASC');
         return $this->db->get();
     }
 
-public function getKategori()
+    public function getKategori()
     {
         $this->db->select("*");
         $this->db->order_by('id_kategori_keluar', 'ASC');
         return $this->db->get("kategori_pengeluaran")->result();
     }
-    
+
     public function input_kategori($nama_kategori_keluar = null)
     {
         $data = [
             'nama_kategori_keluar' => $nama_kategori_keluar
         ];
-        
+
         $this->db->insert('kategori_pengeluaran', $data);
     }
 
@@ -96,10 +98,14 @@ public function getKategori()
         $this->db->update('kategori_pengeluaran', $data);
     }
 
-    public function hapus_kategori($id_kategori_keluar = null){
+    public function hapus_kategori($id_kategori_keluar = null)
+    {
         $this->db->where('id_kategori_keluar', $id_kategori_keluar);
         $this->db->delete('kategori_pengeluaran');
     }
-
-
+    public function pengeluaran_6_bulan()
+    {
+        $query = $this->db->query('SELECT date_format(tanggal, "%Y-%m") as tgl, sum(nominal) as jumlah FROM `pengeluaran` WHERE DATE(tanggal) >= (DATE(NOW()) - INTERVAL 6 MONTH) group by date_format(tanggal, "%M")');
+        return $query;
+    }
 }

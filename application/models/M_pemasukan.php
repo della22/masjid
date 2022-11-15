@@ -6,16 +6,16 @@ class M_pemasukan extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('pemasukan');
-        $this->db->join('kategori_pemasukan', 'pemasukan.id_kategori = kategori_pemasukan.id_kategori_masuk' );
+        $this->db->join('kategori_pemasukan', 'pemasukan.id_kategori = kategori_pemasukan.id_kategori_masuk');
         $this->db->order_by('id', 'DESC');
         return $this->db->get();
     }
-    
+
     function list_kategori_pemasukan()
     {
         return $this->db->get("kategori_pemasukan");
     }
-    
+
 
     public function input_pemasukan($tanggal_pemasukan = null, $nominal_pemasukan = null, $keterangan_pemasukan = null, $kategori_pemasukan = null)
     {
@@ -23,9 +23,10 @@ class M_pemasukan extends CI_Model
             'tanggal' => $tanggal_pemasukan,
             'nominal' => $nominal_pemasukan,
             'keterangan' => $keterangan_pemasukan,
-            'id_kategori' => $kategori_pemasukan
+            'id_kategori' => $kategori_pemasukan,
+            'jenis' => 'pemasukan'
         ];
-        
+
         $this->db->insert('pemasukan', $data);
     }
 
@@ -42,7 +43,8 @@ class M_pemasukan extends CI_Model
         $this->db->update('pemasukan', $data);
     }
 
-    public function hapus_pemasukan($id_pemasukan = null){
+    public function hapus_pemasukan($id_pemasukan = null)
+    {
         $this->db->where('id', $id_pemasukan);
         $this->db->delete('pemasukan');
     }
@@ -63,10 +65,10 @@ class M_pemasukan extends CI_Model
 
     public function filter($tanggalawal = null, $tanggalakhir = null)
     {
-        
+
         $this->db->select('*');
         $this->db->from('pemasukan');
-        $this->db->join('kategori_pemasukan', 'pemasukan.id_kategori = kategori_pemasukan.id_kategori_masuk' );
+        $this->db->join('kategori_pemasukan', 'pemasukan.id_kategori = kategori_pemasukan.id_kategori_masuk');
         $this->db->where("tanggal BETWEEN '$tanggalawal' AND '$tanggalakhir'");
         $this->db->order_by('tanggal', 'ASC');
         return $this->db->get();
@@ -78,13 +80,13 @@ class M_pemasukan extends CI_Model
         $this->db->order_by('id_kategori_masuk', 'ASC');
         return $this->db->get("kategori_pemasukkan")->result();
     }
-    
+
     public function input_kategori($nama_kategori_masuk = null)
     {
         $data = [
             'nama_kategori_masuk' => $nama_kategori_masuk
         ];
-        
+
         $this->db->insert('kategori_pemasukan', $data);
     }
 
@@ -97,8 +99,15 @@ class M_pemasukan extends CI_Model
         $this->db->update('kategori_pemasukan', $data);
     }
 
-    public function hapus_kategori($id_kategori_masuk = null){
+    public function hapus_kategori($id_kategori_masuk = null)
+    {
         $this->db->where('id_kategori_masuk', $id_kategori_masuk);
         $this->db->delete('kategori_pemasukan');
+    }
+
+    public function pemasukan_6_bulan()
+    {
+        $query = $this->db->query('SELECT date_format(tanggal, "%Y-%m") as tgl, sum(nominal) as jumlah FROM `pemasukan` WHERE DATE(tanggal) >= (DATE(NOW()) - INTERVAL 6 MONTH) group by date_format(tanggal, "%M")');
+        return $query;
     }
 }

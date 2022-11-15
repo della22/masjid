@@ -1,6 +1,6 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Sarpras extends CI_Controller
 {
@@ -8,7 +8,13 @@ class Sarpras extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_sarpras');
-        if($this->session->userdata('status') != "login"){
+        if ($this->session->userdata('status') == "login") {
+            if ($this->session->userdata('role') != "Admin") {
+                if ($this->session->userdata('role') != "Sekretaris") {
+                    redirect(base_url("login"));
+                }
+            }
+        } else {
             redirect(base_url("login"));
         }
     }
@@ -26,7 +32,7 @@ class Sarpras extends CI_Controller
         $kondisi_item = $this->input->post('kondisi_item');
         $keterangan_item = $this->input->post('keterangan_item');;
         $this->M_sarpras->input_sarpras($nama_item, $jumlah_item, $kondisi_item, $keterangan_item);
-        $this->session->set_flashdata('success','Item berhasil ditambahkan');
+        $this->session->set_flashdata('success', 'Item berhasil ditambahkan');
         redirect('admin/sarpras');
     }
 
@@ -38,20 +44,22 @@ class Sarpras extends CI_Controller
         $kondisi_item = $this->input->post('kondisi_item');
         $keterangan_item = $this->input->post('keterangan_item');
         $this->M_sarpras->edit_sarpras($id_sarpras, $nama_item, $jumlah_item, $kondisi_item, $keterangan_item);
-        $this->session->set_flashdata('success','Item berhasil diedit');
+        $this->session->set_flashdata('success', 'Item berhasil diedit');
         redirect('admin/sarpras');
     }
 
-    public function hapus($id = null){
+    public function hapus($id = null)
+    {
         $this->M_sarpras->hapus_sarpras($id);
-        $this->session->set_flashdata('success','Item berhasil dihapus');
+        $this->session->set_flashdata('success', 'Item berhasil dihapus');
         redirect('admin/sarpras');
     }
 
-    public function cetak(){
+    public function cetak()
+    {
         // panggil library yang kita buat sebelumnya yang bernama pdfgenerator
         $this->load->library('pdfgenerator');
-        
+
         // title dari pdf
         $data['title_pdf'] = 'Laporan Sarpras Masjid';
         $data['sarpras'] = $this->M_sarpras->list_sarpras();
@@ -62,10 +70,10 @@ class Sarpras extends CI_Controller
         $paper = 'A4';
         //orientasi paper potrait / landscape
         $orientation = "portrait";
-        
-        $html = $this->load->view('admin/sarpras/laporan_sarpras_pdf',$data, true);     
-        
+
+        $html = $this->load->view('admin/sarpras/laporan_sarpras_pdf', $data, true);
+
         // run dompdf
-        $this->pdfgenerator->generate($html, $file_pdf,$paper,$orientation);
+        $this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
     }
 }
