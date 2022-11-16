@@ -350,20 +350,21 @@
       // PENCARIAN SELECT2
       $('.js-example-basic-single').select2({
         placeholder: 'Ambil Jamaah'
-      });;
+      });
 
       $('#datatable2').dataTable();
       $("#nama_donatur_tambah").autocomplete({
         source: "<?= base_url('admin/arisan_kurban/get_autocomplete/'); ?>",
         appendTo: "#tambahModal",
-        select: function(event, ui) {
+        select: function(event,ui) {
+          console.log(ui.item)
           $("#id_donatur").val(ui.item.id_donatur);
         }
       });
       $("#nama_donatur_edit").autocomplete({
         source: "<?= base_url('admin/arisan_kurban/get_autocomplete/'); ?>",
         appendTo: "#editModal",
-        select: function(event, ui) {
+        select: function(event,ui) {
           $("#id_donatur_edit").val(ui.item.id_donatur);
         }
       });

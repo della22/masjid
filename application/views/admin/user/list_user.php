@@ -314,7 +314,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
       $(document).ready(function(){
         $('#datatable2').dataTable();
-            $( "#nama_jamaah_tambah").autocomplete({
+            $("#nama_jamaah_tambah").autocomplete({
               source: "<?= base_url('admin/user/get_autocomplete/');?>",
               appendTo: "#tambahModal",
               select: function (event,ui){
@@ -323,7 +323,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $( "#telepon_jamaah").val(ui.item.telepon);
               }
             });
-            $( "#nama_jamaah_edit").autocomplete({
+            $("#nama_jamaah_edit").autocomplete({
               source: "<?= base_url('admin/user/get_autocomplete/');?>",
               appendTo: "#editModal",
               select: function (event,ui){

@@ -305,7 +305,7 @@ class Arisan_Kurban extends CI_Controller
                     $arr_result[] = array(
                         'label' => $row->nama_jamaah,
                         'nama' => $row->nama_jamaah,
-                        'id_donatur'   => $row->id_jamaah,
+                        'id_donatur' => $row->id_jamaah,
                     );
                 echo json_encode($arr_result);
             }

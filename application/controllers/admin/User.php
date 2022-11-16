@@ -44,7 +44,7 @@ class User extends CI_Controller
                         'label' => $row->nama_jamaah,
                         'nama' => $row->nama_jamaah,
                         'telepon' => $row->telepon_jamaah,
-                        'id_jamaah'   => $row->id_jamaah,
+                        'id_jamaah' => $row->id_jamaah,
                     );
                 echo json_encode($arr_result);
             }
