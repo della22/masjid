@@ -252,9 +252,7 @@
                         <option value="W4">fewaf</option>
                         <option value="W5">fewaf</option>
                         <option value="W56">fewaf</option>
-
                       </select>-->
-
                     </div>
                   </div>
 
@@ -349,15 +347,11 @@
 
 
     $(document).ready(function() {
-<<<<<<< HEAD
-       // PENCARIAN SELECT2
-       $('.js-example-basic-single').select2({
-=======
       // PENCARIAN SELECT2
       $('.js-example-basic-single').select2({
->>>>>>> 4ecb09268c49326d0edfccb3d1bca45ea0e01305
         placeholder: 'Ambil Jamaah'
       });;
+
       $('#datatable2').dataTable();
       $("#nama_donatur_tambah").autocomplete({
         source: "<?= base_url('admin/arisan_kurban/get_autocomplete/'); ?>",
