@@ -107,14 +107,15 @@
                     <div class="top_tiles">
                       <?php
                       (int) $terbayar_total = 0;
-                      (int) $belumbayar_total = 0;
+                     // (int) $belumbayar_total = 0;
                       (int) $target_total = 0;
+
                       foreach ($arisan_periode->result_array() as $periode_list) {
                         $kekurangan = (int) $periode_list['biaya'] - (int) $periode_list['terbayar'];
                         $terbayar_total += (int) $periode_list['terbayar'];
                         $target_total += (int) $periode_list['biaya'];
-                        $belumbayar_total += (int) $target_total - $terbayar_total;
                       }
+                      $belumbayar_total = (int) $target_total - $terbayar_total;
                       ?>
                       <div class="col-md-4 col-sm-4  tile">
                         <span>Terbayar</span>
