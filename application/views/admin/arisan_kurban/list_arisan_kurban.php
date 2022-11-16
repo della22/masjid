@@ -338,7 +338,7 @@
 
   <script src="<?php echo base_url() . 'js/jquery-ui.js' ?>" type="text/javascript"></script>
 
-  <script>
+  <script type="text/javascript">
     function deleteConfirm(e, url) {
       e.preventDefault();
       $('#btn-delete').attr('href', url);
@@ -347,17 +347,11 @@
 
 
     $(document).ready(function() {
-      // PENCARIAN SELECT2
-      $('.js-example-basic-single').select2({
-        placeholder: 'Ambil Jamaah'
-      });
-
       $('#datatable2').dataTable();
       $("#nama_donatur_tambah").autocomplete({
         source: "<?= base_url('admin/arisan_kurban/get_autocomplete/'); ?>",
         appendTo: "#tambahModal",
         select: function(event,ui) {
-          console.log(ui.item)
           $("#id_donatur").val(ui.item.id_donatur);
         }
       });
@@ -367,6 +361,10 @@
         select: function(event,ui) {
           $("#id_donatur_edit").val(ui.item.id_donatur);
         }
+      });
+      // PENCARIAN SELECT2
+      $('.js-example-basic-single').select2({
+        placeholder: 'Ambil Jamaah'
       });
     });
 
@@ -402,6 +400,9 @@
     });
 
   </script>
+  <script src="<?php echo base_url('js/custom.min.js') ?>"></script>
+
+  
 
 </body>
 
