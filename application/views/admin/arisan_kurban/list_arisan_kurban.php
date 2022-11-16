@@ -238,15 +238,12 @@
                   <div class="item form-group">
                     <label class="col-form-label col-md-4 col-sm-4 label-align">Nama Donatur</label>
                     <div class="col-md-7 col-sm-7 ">
-<<<<<<< HEAD
                       <input class="form-control" type="text" id="nama_donatur_tambah" value="" name="nama_donatur" placeholder="Nama Donatur" required />
                       <input type="hidden" id="id_donatur" name="id_donatur" required /> 
                       <!--<select class="js-example-basic-single" style="width: 100%;border-radius:none" name="id_donatur">
-=======
-                      <!-- <input class="form-control" type="text" id="nama_donatur_tambah" value="" name="nama_donatur" placeholder="Nama Donatur" required />
-                      <input type="hidden" id="id_donatur" name="id_donatur" required /> -->
+                      <input class="form-control" type="text" id="nama_donatur_tambah" value="" name="nama_donatur" placeholder="Nama Donatur" required />
+                      <input type="hidden" id="id_donatur" name="id_donatur" required /> 
                       <select class="js-example-basic-single" style="width: 100%;border-radius:none" name="id_donatur">
->>>>>>> 4ecb09268c49326d0edfccb3d1bca45ea0e01305
                         <option value=""></option>
                         <option value="AL">Alabama</option>
                         <option value="WY">Wyoming</option>
@@ -255,11 +252,9 @@
                         <option value="W4">fewaf</option>
                         <option value="W5">fewaf</option>
                         <option value="W56">fewaf</option>
-<<<<<<< HEAD
+
                       </select>-->
-=======
-                      </select>
->>>>>>> 4ecb09268c49326d0edfccb3d1bca45ea0e01305
+
                     </div>
                   </div>
 
