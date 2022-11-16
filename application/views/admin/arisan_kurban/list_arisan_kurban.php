@@ -348,24 +348,24 @@
 
     $(document).ready(function() {
       $('#datatable2').dataTable();
-      $("#nama_donatur_tambah").autocomplete({
-        source: "<?= base_url('admin/arisan_kurban/get_autocomplete/'); ?>",
-        appendTo: "#tambahModal",
-        select: function(event,ui) {
-          $("#id_donatur").val(ui.item.id_donatur);
-        }
-      });
-      $("#nama_donatur_edit").autocomplete({
-        source: "<?= base_url('admin/arisan_kurban/get_autocomplete/'); ?>",
-        appendTo: "#editModal",
-        select: function(event,ui) {
-          $("#id_donatur_edit").val(ui.item.id_donatur);
-        }
-      });
-      // PENCARIAN SELECT2
-      $('.js-example-basic-single').select2({
-        placeholder: 'Ambil Jamaah'
-      });
+        $("#nama_donatur_tambah").autocomplete({
+          source: "<?= base_url('admin/arisan_kurban/get_autocomplete/'); ?>",
+          appendTo: "#tambahModal",
+          select: function(event,ui) {
+            $("#id_donatur").val(ui.item.id_donatur);
+          }
+        });
+        $("#nama_donatur_edit").autocomplete({
+          source: "<?= base_url('admin/arisan_kurban/get_autocomplete/'); ?>",
+          appendTo: "#editModal",
+          select: function(event,ui) {
+            $("#id_donatur_edit").val(ui.item.id_donatur);
+          }
+        });
+        // PENCARIAN SELECT2
+        $('.js-example-basic-single').select2({
+          placeholder: 'Ambil Jamaah'
+        });
     });
 
     function editData(e, id, id_donatur, nama_donatur, periode, biaya) {
@@ -401,9 +401,5 @@
 
   </script>
   <script src="<?php echo base_url('js/custom.min.js') ?>"></script>
-
-  
-
 </body>
-
 </html>
