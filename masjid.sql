@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Nov 2022 pada 16.31
+-- Waktu pembuatan: 17 Nov 2022 pada 15.53
 -- Versi server: 10.4.22-MariaDB
 -- Versi PHP: 7.4.26
 
@@ -55,7 +55,8 @@ INSERT INTO `arisan_kurban` (`id_arisan`, `id_donatur`, `tahun_periode`, `biaya`
 (15, 13, '2023', 3300000, 1800000, '0'),
 (16, 17, '2023', 3300000, 1800000, '0'),
 (17, 12, '2023', 3300000, 1800000, '0'),
-(18, 20, '2023', 3300000, 1500000, '0');
+(18, 20, '2023', 3300000, 1500000, '0'),
+(32, 29, '2023', 3300000, 1500000, '0');
 
 -- --------------------------------------------------------
 
@@ -78,13 +79,13 @@ CREATE TABLE `berita_donasi` (
 --
 
 INSERT INTO `berita_donasi` (`id_berita`, `judul_berita`, `tanggal_mulai`, `tanggal_selesai`, `deskripsi_berita`, `gambar_berita`, `status`) VALUES
-(5, 'Santunan Yatim Piatu', '2022-11-13', '2023-11-13', 'Deskripsi', 'Santunan_Yatim_PiatuWhatsApp_Image_2022-11-13_at_17_45_49.jpeg', NULL),
+(5, 'Santunan Yatim Piatu', '2022-11-13', '2023-11-13', 'Kegiatan ini dilakukan apabila dari jamaah masjid ada yang ingin melakukan sedekah kepada anak yatim piatu. Pihak masjid mengundang anak yatim piatu sesuai dengan jumlah yang ditentukan oleh pemberi bantuan. Pemberian bantuan ini biasanya dilakukan beriringan dengan kegiatan peringatan hari besar Islam', 'Santunan_Yatim_PiatuWhatsApp_Image_2022-11-15_at_18_28_09.jpeg', NULL),
 (7, 'Arisan Kurban', '2022-06-01', '2023-04-20', 'Arisan qurban ini dilakukan untuk membantu para jamaah masjid yang ingin berqurban dengan cara para jamaah masjid mendaftar untuk berqurban pada idul Adha dengan besaran sesuai dengan harga sapi atau kambing pada saat dibeli nanti. Jamaah peserta arisan qurban memberikan atau membayar uang arisan pada setiap bulannya sesuai dengan kemauan dan kemampuan masing masing dan iuran ini harus sudah lunas satu bulan sebelum Idul Adha. Uang arisan ini dikelola oleh satu orang pengurus masjid yang sudah ditunjuk untuk bertanggung jawab sampai dengan pembelian hewan qurban nanti.', 'Arisan_KurbanWhatsApp_Image_2022-11-15_at_19_05_111.jpeg', NULL),
 (9, 'Jumat Berkah', '2022-11-13', '2023-11-13', 'Kegiatan ini merupakan kegiatan rutin yang dilakukan pada hari jumat yaitu makan bersama dengan jamaah setelah selesai shalat jumat. Kegiatan ini adalah inisiatif para jamaah masjid yang mau sedekah makanan pada hari jumat kepada para jamaah masjid. Makanan ini diberikan secara sukarela dan biasanya bagi jamaah yang mau bersedekah makanan memberitahu kepada penanggung jawab kegiatan ini agar penanggung jawab dapat mengatur jadwalnya sehingga makanan tidak menumpuk pada hari jumat tertentu tetapi akan kosong pada hari jumat lainnya.', 'Jumat_BerkahWhatsApp_Image_2022-11-13_at_17_45_49.jpeg', NULL),
-(10, 'Buka Puasa Bersama', '2022-11-14', '2023-04-20', 'Pada saat bulan Ramadhan para jamaah masjid ada yang melakukan buka bersama di masjid. Masing masing jamaah biasanya membawa makanan dari rumah masing masing. Ada sebagian yang membawa minuman dan ada yang membawa makanan untuk berbuka. Banyak juga masyarakat disekitar masjid setiap hari menjelang berbuka secara rutin mengantarkan makanan ataupun minuman kepada para jamaah masjid yang berbuka puasa dimasjid. Kegiatan ini terbuka bagi siapa saja dan tidak ada keharusan membawa makanan atau minuman bagi jamaah yang akan berbuka puasa dimasjid.', 'Buka_Puasa_Bersamamvc.jpg', NULL),
+(10, 'Buka Puasa Bersama', '2022-11-14', '2023-04-20', 'Pada saat bulan Ramadhan para jamaah masjid ada yang melakukan buka bersama di masjid. Masing masing jamaah biasanya membawa makanan dari rumah masing masing. Ada sebagian yang membawa minuman dan ada yang membawa makanan untuk berbuka. Banyak juga masyarakat disekitar masjid setiap hari menjelang berbuka secara rutin mengantarkan makanan ataupun minuman kepada para jamaah masjid yang berbuka puasa dimasjid. Kegiatan ini terbuka bagi siapa saja dan tidak ada keharusan membawa makanan atau minuman bagi jamaah yang akan berbuka puasa dimasjid.', 'Buka_Puasa_BersamaWhatsApp_Image_2022-11-15_at_18_28_17.jpeg', NULL),
 (11, 'Pembagian Sembako', '2022-11-14', '2022-12-31', 'Pembagian sembako dilakukan kepada keluarga yang berada dari keluarga yang kurang mampu dan juga anak yatim, piatu, yatim piatu, lansia. Sembako ini disiapkan oleh pengurus masjid yang sudah ditunjuk untuk mengelola bantuan yang bersumber dari para jamaah. Bantuan dari jamaah ada yang berupa uang dan ada juga berupa bahan bahan sembako. Bantuan yang dikumpulkan dalam bentuk uang akan dibelikan bahan bahan sembako oleh pengurus masjid. Pemberian sembako diberikan kepada masyarakat atau panti panti  baik panti asuhan maupun panti jompo.', 'Pembagian_SembakoIMG-20220204-WA0010.jpg', NULL),
-(12, 'Zakat Fitrah', '2023-04-11', '2023-04-21', 'Zakat fitrah dilakukan mulai hari ke 21 pada bulan suci Ramadhan yang dilakukan dimasjid setelah selesai sholat tarawih. Panitia zakat fitrah adalah mereka yang sudah ditunjuk oleh keputusan pengurus masjid untuk mengelola zakat fitrah dari sejak penerimaan zakat fitrah yang diserahkan oleh wajib zakat sampai dengan pembagian zakat fitrah kepada yang berhak menerima. Zakat fitrah diserahkan dalam bentuk beras dan juga uang tunai. Pembagian zakat fitrah dilakukan dengan sistem para mustahiq diberikan kupon untuk dibawa pada saat pembagian. Mereka akan menerima zakat fitrah dengan mendapatkan beras dan uang dengan jumlah sesuai dengan jumlah semua zakat fitrah yang dikumpulkan dan akan dibagikan sama bagi seluruh mustahiq tanpa kecuali. Para panitia pada masjid ini tidak menerima pembagian zakat fitrah sesuai dengan aturan yang berlaku.', 'Zakat_Fitrah_Zakat_Malerror_tinta.png', NULL),
-(13, 'Zakat Mal', '2022-11-15', '2022-11-15', 'Zakat mal dilakukan dengan menyampaikan zakat mal dari orang yang berkewajiban untuk mengeluarkan zakat mal dari harta kekayaan yang dimilikinya. Para pengurus masjid yang telah ditunjuk untuk mengelola dan bertanggung jawab pada kegiatan ini akan mengundang para penerima yang berhak. Pemberian bantuan yang bersumber dari zakat mal ini diberikan kepada keluarga yang kurang mampu. Pemberian bantuan ini biasanya diberikan kepada masyarakat dengan cara mendatangi langsung masyarakat penerima dari rumah ke rumah.', 'Zakat_Malpnghut_grand-mosque-of-the-sultan-riau-castle.png', NULL);
+(12, 'Zakat Fitrah', '2023-04-11', '2023-04-21', 'Zakat fitrah dilakukan mulai hari ke 21 pada bulan suci Ramadhan yang dilakukan dimasjid setelah selesai sholat tarawih. Panitia zakat fitrah adalah mereka yang sudah ditunjuk oleh keputusan pengurus masjid untuk mengelola zakat fitrah dari sejak penerimaan zakat fitrah yang diserahkan oleh wajib zakat sampai dengan pembagian zakat fitrah kepada yang berhak menerima. Zakat fitrah diserahkan dalam bentuk beras dan juga uang tunai. Pembagian zakat fitrah dilakukan dengan sistem para mustahiq diberikan kupon untuk dibawa pada saat pembagian. Mereka akan menerima zakat fitrah dengan mendapatkan beras dan uang dengan jumlah sesuai dengan jumlah semua zakat fitrah yang dikumpulkan dan akan dibagikan sama bagi seluruh mustahiq tanpa kecuali. Para panitia pada masjid ini tidak menerima pembagian zakat fitrah sesuai dengan aturan yang berlaku.', 'Zakat_FitrahPicsart_22-11-17_19-44-46-479.jpg', NULL),
+(13, 'Zakat Mal', '2022-11-15', '2022-11-15', 'Zakat mal dilakukan dengan menyampaikan zakat mal dari orang yang berkewajiban untuk mengeluarkan zakat mal dari harta kekayaan yang dimilikinya. Para pengurus masjid yang telah ditunjuk untuk mengelola dan bertanggung jawab pada kegiatan ini akan mengundang para penerima yang berhak. Pemberian bantuan yang bersumber dari zakat mal ini diberikan kepada keluarga yang kurang mampu. Pemberian bantuan ini biasanya diberikan kepada masyarakat dengan cara mendatangi langsung masyarakat penerima dari rumah ke rumah.', 'Zakat_MalPicsart_22-11-17_19-42-37-277.jpg', NULL);
 
 -- --------------------------------------------------------
 
@@ -196,7 +197,13 @@ INSERT INTO `cicil_arisan_kurban` (`id_cicil_arisan`, `id_arisan`, `tanggal_cici
 (93, 4, '2022-09-01', 300000),
 (94, 4, '2022-10-01', 300000),
 (95, 4, '2022-11-01', 300000),
-(96, 17, '2022-09-01', 300000);
+(96, 17, '2022-09-01', 300000),
+(101, 27, '2022-11-17', 100000),
+(102, 32, '2022-06-01', 300000),
+(103, 32, '2022-07-01', 300000),
+(104, 32, '2022-08-01', 300000),
+(105, 32, '2022-09-01', 300000),
+(106, 32, '2022-10-01', 300000);
 
 -- --------------------------------------------------------
 
@@ -221,17 +228,21 @@ INSERT INTO `jamaah` (`id_jamaah`, `nama_jamaah`, `telepon_jamaah`, `alamat_jama
 (10, 'H Muchsin', '081278447809', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
 (11, 'Zulkipli ', '085368100795', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
 (12, 'H. Yusuf', '08127170776', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(13, 'Edi', '0', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
+(13, 'Edi', '085267381402', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
 (14, 'Zulfikar', '081373641082', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek	'),
-(15, 'H. M Nurazazi ', '0', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
+(15, 'H. M Nurazazi ', '081367381152', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
 (16, 'Syamsudin', '0', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(17, 'Febri', '0', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
+(17, 'Febri', '081273237515', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
 (18, 'Iskandar', '0', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
 (19, 'Tarmizi ', '081364749838', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(20, 'Edison', '0', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
+(20, 'Edison', '08127537301', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
 (21, 'Jarno', '0', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
 (22, 'Ali Akbar', '0', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(23, 'Hajar', '085369487422', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek');
+(23, 'Hajar', '085369487422', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
+(27, 'Hamid', '085838185435', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
+(28, 'Fauzan', '081958065305', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
+(29, 'Bujang Sarmili', '081298286950', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
+(30, 'Eman', '081373316546', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek');
 
 -- --------------------------------------------------------
 
@@ -281,24 +292,25 @@ INSERT INTO `kategori_pengeluaran` (`id_kategori_keluar`, `nama_kategori_keluar`
 CREATE TABLE `layanan` (
   `id_layanan` int(50) NOT NULL,
   `nama_layanan` varchar(100) NOT NULL,
-  `pj_layanan` varchar(100) NOT NULL,
-  `kontak_layanan` varchar(13) NOT NULL
+  `pj_layanan` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `layanan`
 --
 
-INSERT INTO `layanan` (`id_layanan`, `nama_layanan`, `pj_layanan`, `kontak_layanan`) VALUES
-(3, 'Shalat Berjamaah', 'Hajar', '085369487425'),
-(4, 'Santunan Anak Yatim Piatu', 'H. Muchsin', '081278447809'),
-(5, 'Pemakaman', 'Herwandi', '081377655505'),
-(6, 'Taman Pendidikan Al-Qur\'an', 'Hajar', '085369487425'),
-(7, 'Amil Zakat', 'Hamid', '085838185435'),
-(8, 'Arisan Kurban', 'Tarmizi', '081364749838'),
-(9, 'Jum\'at Berkah', 'Tarmizi', '081364749838'),
-(10, 'Majelis Taklim', 'Hajar', '085369487425'),
-(11, 'Kegiatan Sosial', 'Pamuji', '081368459191');
+INSERT INTO `layanan` (`id_layanan`, `nama_layanan`, `pj_layanan`) VALUES
+(3, 'Shalat Berjamaah', '23'),
+(4, 'Santunan Anak Yatim Piatu', '10'),
+(5, 'Pemakaman', '8'),
+(6, 'Taman Pendidikan Al-Qur\'an', '23'),
+(7, 'Amil Zakat', '27'),
+(8, 'Arisan Kurban', '19'),
+(9, 'Jum\'at Berkah', '19'),
+(10, 'Majelis Taklim', '23'),
+(11, 'Kegiatan Sosial', '9'),
+(13, 'a', 'Ali Akbar'),
+(14, 'test', 'H Muchsin');
 
 -- --------------------------------------------------------
 
@@ -384,6 +396,7 @@ CREATE TABLE `profil_masjid` (
   `alamat_profil` text NOT NULL,
   `telp_profil` varchar(13) NOT NULL,
   `email_profil` varchar(50) NOT NULL,
+  `bank_an` varchar(20) NOT NULL,
   `norek_profil` varchar(100) NOT NULL,
   `desk_profil` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -392,8 +405,8 @@ CREATE TABLE `profil_masjid` (
 -- Dumping data untuk tabel `profil_masjid`
 --
 
-INSERT INTO `profil_masjid` (`id_profil`, `upload_img`, `alamat_profil`, `telp_profil`, `email_profil`, `norek_profil`, `desk_profil`) VALUES
-(1, 'gambar_profil2.png', 'Jalan Selangkat RT 006 / RW 002 Kelurahan Selindung Baru Kecamatan Gabek Kota Pangkalpinang, 33117', '081278447809', 'yayasannurulimanpkp@gmail.com', '167601001413537 (BRI)', 'Masjid Nurul Iman adalah sebuah masjid yang dibangun pada tahun 1992 yang terletak di Jalan Selangat, RT 006/RW 002 Kelurahan Selindung Baru Kecamatan Gabek Kota Pangkalpinang Provinsi Kepulauan Bangka Belitung. Masjid ini memiliki daya tampung jamaah sebanyak 300 jamaah, memiliki 65 pengurus, 1 orang imam tetap dan 3 orang imam cadangan, jumlah khatib sebanyak 12 orang, jumlah muadzin sebanyak 12 orang, dan jumlah remaja masjid sebanyak 15 orang. Adapun program yang diadakan oleh masjid ini meliputi shalat berjamaah, majelis taklim, jum’at berkah, arisan kurban, Taman Pendidikan Al-Qur’an, kegiatan hari besar islam, pemakaman, dan kegiatan sosial lainnya. Sejak berdirinya sampai dengan sekarang sudah banyak perubahan dan perbaikan yang dilakukan baik dari kondisi fisik bangunan masjid, sarana prasarana maupun pengelolaan masjid.');
+INSERT INTO `profil_masjid` (`id_profil`, `upload_img`, `alamat_profil`, `telp_profil`, `email_profil`, `bank_an`, `norek_profil`, `desk_profil`) VALUES
+(1, '20c8e1b75970a4ca8fa07caa186a8c7e.jpeg', 'Jalan Selangkat RT 006 / RW 002 Kelurahan Selindung Baru Kecamatan Gabek Kota Pangkalpinang, 33117', '081278447809', 'yayasannurulimanpkp@gmail.com', 'Yayasan Nurul Iman', '167601001413537 (BRI)', 'Masjid Nurul Iman adalah sebuah masjid yang dibangun pada tahun 1992 yang terletak di Jalan Selangat, RT 006/RW 002 Kelurahan Selindung Baru Kecamatan Gabek Kota Pangkalpinang Provinsi Kepulauan Bangka Belitung. Masjid ini memiliki daya tampung jamaah sebanyak 300 jamaah, memiliki 65 pengurus, 1 orang imam tetap dan 3 orang imam cadangan, jumlah khatib sebanyak 12 orang, jumlah muadzin sebanyak 12 orang, dan jumlah remaja masjid sebanyak 15 orang. Adapun program yang diadakan oleh masjid ini meliputi shalat berjamaah, majelis taklim, jum’at berkah, arisan kurban, Taman Pendidikan Al-Qur’an, kegiatan hari besar islam, pemakaman, dan kegiatan sosial lainnya. Sejak berdirinya sampai dengan sekarang sudah banyak perubahan dan perbaikan yang dilakukan baik dari kondisi fisik bangunan masjid, sarana prasarana maupun pengelolaan masjid.');
 
 -- --------------------------------------------------------
 
@@ -417,7 +430,7 @@ CREATE TABLE `sdm_masjid` (
 --
 
 INSERT INTO `sdm_masjid` (`id_sdm`, `foto_bagan`, `jumlah_pengurus`, `jumlah_remaja_masjid`, `jumlah_imam_utama`, `jumlah_imam_cadangan`, `jumlah_muadzin`, `jumlah_khatib`) VALUES
-(1, 'bagan_pengurus1.jpg', 65, 15, 1, 3, 12, 12);
+(1, '6eac2717a62ece2da8ac4965f55e6904.jpg', 65, 15, 1, 3, 12, 12);
 
 -- --------------------------------------------------------
 
@@ -526,25 +539,25 @@ ALTER TABLE `user_profile`
 -- AUTO_INCREMENT untuk tabel `arisan_kurban`
 --
 ALTER TABLE `arisan_kurban`
-  MODIFY `id_arisan` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_arisan` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT untuk tabel `berita_donasi`
 --
 ALTER TABLE `berita_donasi`
-  MODIFY `id_berita` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_berita` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `cicil_arisan_kurban`
 --
 ALTER TABLE `cicil_arisan_kurban`
-  MODIFY `id_cicil_arisan` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id_cicil_arisan` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT untuk tabel `jamaah`
 --
 ALTER TABLE `jamaah`
-  MODIFY `id_jamaah` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_jamaah` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori_pemasukan`
@@ -562,7 +575,7 @@ ALTER TABLE `kategori_pengeluaran`
 -- AUTO_INCREMENT untuk tabel `layanan`
 --
 ALTER TABLE `layanan`
-  MODIFY `id_layanan` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_layanan` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `pemasukan`
@@ -592,7 +605,7 @@ ALTER TABLE `sdm_masjid`
 -- AUTO_INCREMENT untuk tabel `user_profile`
 --
 ALTER TABLE `user_profile`
-  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
