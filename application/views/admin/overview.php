@@ -213,7 +213,7 @@
   <script src="<?php echo base_url('assets/amcharts5/themes/Animated.js') ?>"></script>
   <!-- Chart code -->
   <script>
-    $.ajax('<?= base_url('admin/pemasukan/apiKategoriChart'); ?>', {
+    $.ajax('<?= base_url('admin/overview/apiKategoriChartPemasukan'); ?>', {
       type: 'get',
       data: {
         bulan: <?= $bulan; ?>,
@@ -228,7 +228,7 @@
       }
     });
 
-    $.ajax('<?= base_url('admin/pengeluaran/apiKategoriChart'); ?>', {
+    $.ajax('<?= base_url('admin/overview/apiKategoriChartPengeluaran'); ?>', {
       type: 'get',
       data: {
         bulan: <?= $bulan; ?>,
@@ -242,7 +242,7 @@
         console.log('Error: ' + errorMessage);
       }
     });
-    $.ajax('<?= base_url('admin/arisan_kurban/apiArisanBulanIni'); ?>', {
+    $.ajax('<?= base_url('admin/overview/apiArisanBulanIni'); ?>', {
       type: 'get',
       data: {
         bulan: <?= $bulan; ?>,
@@ -324,7 +324,7 @@
         var legend = chart.children.push(am5.Legend.new(root, {
           centerX: am5.percent(50),
           x: am5.percent(50),
-          marginTop: 15,
+          marginTop: 5,
           marginBottom: 15
         }));
 

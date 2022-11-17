@@ -216,7 +216,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <div class="item form-group">
                 <label class="col-form-label col-md-4 col-sm-4 label-align" for="nominal_pengeluaran">Nominal(Rp.)</label>
                 <div class="col-md-8 col-sm-8 ">
-                  <input class="form-control" type="number" name="nominal_pengeluaran" placeholder="Nominal" required />
+                  <input class="form-control" type="tel" pattern="[0-9]*" value="" name="nominal_pengeluaran" placeholder="Nominal" required />
                 </div>
               </div>
 
@@ -350,12 +350,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
   <!-- Initialize datetimepicker -->
   <script type="text/javascript">
+    // Hanya memperbolehkan angka
+    $("input[name='nominal_pengeluaran']").on('input', function(e) {
+      $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    });
+
     $('.myDatepicker2').datetimepicker({
-      format: 'YYYY-MM-DD'
+      format: 'YYYY-MM-DD',
+      defaultDate: new Date()
     });
 
     $('#myDatepicker3').datetimepicker({
       format: 'YYYY'
+      defaultDate: new Date()
     });
   </script>
 

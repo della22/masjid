@@ -223,7 +223,7 @@
                             <tr>
                                 <td>a.n&nbsp;</td>
                                 <td>:&nbsp;</td>
-                                <td class="bold">Yayasan Nurul Iman</td>
+                                <td class="bold"><?= $profil['bank_an']; ?></td>
                             </tr>
                             <tr>
                                 <td>norek&nbsp;</td>

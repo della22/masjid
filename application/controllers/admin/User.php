@@ -8,6 +8,7 @@ class User extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_user');
+        $this->load->model('M_jamaah');
         if ($this->session->userdata('status') == "login") {
             if ($this->session->userdata('role') != "Admin") {
                 redirect(base_url("login"));
@@ -20,6 +21,7 @@ class User extends CI_Controller
     public function index()
     {
         $data['user_profile'] = $this->M_user->list_user();
+        $data['jamaah'] = $this->M_jamaah->list_jamaah();
         $this->load->view('admin/user/list_user', $data);
     }
 

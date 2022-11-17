@@ -8,6 +8,7 @@ class Arisan_Kurban extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_arisan');
+        $this->load->model('M_jamaah');
         $this->load->helper('rupiah_helper');
         $this->load->helper('dates_helper');
         if ($this->session->userdata('status') == "login") {
@@ -42,6 +43,7 @@ class Arisan_Kurban extends CI_Controller
             $data['arisan_kurban'] = $this->M_arisan->list_arisan();
         }
         $data['cicilan_bulan_arisan'] = $this->M_arisan->list_cicilan_bulan_ini($bulan, $tahun);
+        $data['jamaah'] = $this->M_jamaah->list_jamaah();
         $data['tahun'] = $tahun;
         $this->load->view('admin/arisan_kurban/list_arisan_kurban', $data);
     }
@@ -58,19 +60,20 @@ class Arisan_Kurban extends CI_Controller
 
     public function proses()
     {
-
         $id_donatur = $this->input->post('id_donatur');
         $tahun_periode = $this->input->post('tahun_periode');
         $biaya = $this->input->post('biaya');
         $terbayar = 0;
         $status_arisan = 0;
-        if ($this->M_arisan->input_arisan($id_donatur, $tahun_periode, $biaya, $terbayar, $status_arisan)) {
-            $this->session->set_flashdata('success', 'Item berhasil ditambahkan');
-            redirect('admin/arisan_kurban');
-        } else {
-            $this->session->set_flashdata('error', 'Item gagal ditambahkan');
-            redirect('admin/arisan_kurban');
-        }
+        $this->M_arisan->input_arisan($id_donatur, $tahun_periode, $biaya, $terbayar, $status_arisan);
+        $this->session->set_flashdata('success', 'Item berhasil ditambahkan');
+        redirect('admin/arisan_kurban');
+        //if ($this->M_arisan->input_arisan($id_donatur, $tahun_periode, $biaya, $terbayar, $status_arisan)) {
+        //    $this->session->set_flashdata('success', 'Item berhasil ditambahkan');
+         //   redirect('admin/arisan_kurban');
+        //} else {
+        //    $this->session->set_flashdata('error', 'Item gagal ditambahkan');
+        //    redirect('admin/arisan_kurban');
     }
 
     public function edit()

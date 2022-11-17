@@ -180,7 +180,6 @@
             <div class="modal-body">
               <form role="form" action="<?= base_url(); ?>/admin/arisan_kurban/edit" method="post">
                 <div class="form-group col-md-12 col-sm-12">
-                  <input type="hidden" name="id_arisan" id="id_arisan" value="" />
                   <label class="col-form-label col-md-4 col-sm-4 label-align">Tahun Periode : </label>
                   <div class="col-md-7 col-sm-7 ">
                     <input class="form-control" type="text" id="tahun_periode_edit" name="tahun_periode" placeholder="Tahun Periode" value="" />
@@ -189,8 +188,14 @@
                 <div class="form-group col-md-12 col-sm-12">
                   <label class="col-form-label col-md-4 col-sm-4 label-align">Nama Donatur : </label>
                   <div class='col-md-7 col-sm-7'>
-                    <input class="form-control" type="text" id="nama_donatur_edit" name="nama_donatur" placeholder="Nama Donatur" required />
-                    <input type="hidden" name="id_donatur" id="id_donatur_edit" value="" />
+                  <select class="js-example-basic-single-edit" style="width: 100%;border-radius:none" name="id_donatur">
+                      <option value=""></option>
+                        <?php foreach ($jamaah->result_array() as $data_jamaah) :
+                        ?>
+                          <option value="<?= $data_jamaah['id_jamaah']; ?>"><?= $data_jamaah['nama_jamaah']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <input type="hidden" name="id_arisan" id="id_arisan" value="" />
                   </div>
                 </div>
 
@@ -238,21 +243,15 @@
                   <div class="item form-group">
                     <label class="col-form-label col-md-4 col-sm-4 label-align">Nama Donatur</label>
                     <div class="col-md-7 col-sm-7 ">
-                      <input class="form-control" type="text" id="nama_donatur_tambah" value="" name="nama_donatur" placeholder="Nama Donatur" required />
-                      <input type="hidden" id="id_donatur" name="id_donatur" required /> 
-                      <!--<select class="js-example-basic-single" style="width: 100%;border-radius:none" name="id_donatur">
-                      <input class="form-control" type="text" id="nama_donatur_tambah" value="" name="nama_donatur" placeholder="Nama Donatur" required />
-                      <input type="hidden" id="id_donatur" name="id_donatur" required /> 
+                      <!-- <input class="form-control" type="text" id="nama_donatur_tambah" value="" name="nama_donatur" placeholder="Nama Donatur" required />
+                      <input type="hidden" id="id_donatur" name="id_donatur" required /> -->
                       <select class="js-example-basic-single" style="width: 100%;border-radius:none" name="id_donatur">
                         <option value=""></option>
-                        <option value="AL">Alabama</option>
-                        <option value="WY">Wyoming</option>
-                        <option value="W">fewaf</option>
-                        <option value="W3">fewaf</option>
-                        <option value="W4">fewaf</option>
-                        <option value="W5">fewaf</option>
-                        <option value="W56">fewaf</option>
-                      </select>-->
+                        <?php foreach ($jamaah->result_array() as $data_jamaah) :
+                        ?>
+                          <option value="<?= $data_jamaah['id_jamaah']; ?>"><?= $data_jamaah['nama_jamaah']; ?></option>
+                        <?php endforeach; ?>
+                      </select>
                     </div>
                   </div>
 
@@ -334,11 +333,12 @@
 
 
   <!-- Custom Theme Scripts -->
-  <script src="<?php echo base_url('js/custom.min.js') ?>"></script>
+  <script src="<?php echo base_url('js/jquery-ui.js') ?>" type="text/javascript"></script>
+  <!-- <script src="<?php echo base_url('js/custom.min.js') ?>"></script> -->
 
-  <script src="<?php echo base_url() . 'js/jquery-ui.js' ?>" type="text/javascript"></script>
 
-  <script type="text/javascript">
+
+  <script>
     function deleteConfirm(e, url) {
       e.preventDefault();
       $('#btn-delete').attr('href', url);
@@ -347,29 +347,32 @@
 
 
     $(document).ready(function() {
+      // PENCARIAN SELECT2
+      $('.js-example-basic-single').select2({
+        placeholder: 'Cari Donatur'
+      });
       $('#datatable2').dataTable();
-        $("#nama_donatur_tambah").autocomplete({
-          source: "<?= base_url('admin/arisan_kurban/get_autocomplete/'); ?>",
-          appendTo: "#tambahModal",
-          select: function(event,ui) {
-            $("#id_donatur").val(ui.item.id_donatur);
-          }
-        });
-        $("#nama_donatur_edit").autocomplete({
-          source: "<?= base_url('admin/arisan_kurban/get_autocomplete/'); ?>",
-          appendTo: "#editModal",
-          select: function(event,ui) {
-            $("#id_donatur_edit").val(ui.item.id_donatur);
-          }
-        });
-        // PENCARIAN SELECT2
-        $('.js-example-basic-single').select2({
-          placeholder: 'Ambil Jamaah'
-        });
+      $("#nama_donatur_tambah").autocomplete({
+        source: "<?= base_url('admin/arisan_kurban/get_autocomplete/'); ?>",
+        appendTo: "#tambahModal",
+        select: function(event, ui) {
+          $("#id_donatur").val(ui.item.id_donatur);
+        }
+      });
+      $("#nama_donatur_edit").autocomplete({
+        source: "<?= base_url('admin/arisan_kurban/get_autocomplete/'); ?>",
+        appendTo: "#editModal",
+        select: function(event, ui) {
+          $("#id_donatur_edit").val(ui.item.id_donatur);
+        }
+      });
     });
 
     function editData(e, id, id_donatur, nama_donatur, periode, biaya) {
       e.preventDefault();
+      $('.js-example-basic-single-edit').select2({
+        placeholder: nama_donatur
+      });
       $("#id_arisan").val(id);
       $("#id_donatur_edit").val(id_donatur);
       $("#nama_donatur_edit").val(nama_donatur);
@@ -398,8 +401,13 @@
     $('#myDatepicker4').datetimepicker({
       format: 'YYYY'
     });
-
+    // $("body").delegate("#myDatepicker3", "click", function() {
+    //   $(this).datetimepicker({
+    //     format: 'YYYY'
+    //   });
+    // });
   </script>
-  <script src="<?php echo base_url('js/custom.min.js') ?>"></script>
+  <script src="http://localhost/masjid/js/custom.min.js"></script>
 </body>
+
 </html>

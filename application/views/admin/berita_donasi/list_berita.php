@@ -319,11 +319,13 @@
   <!-- Initialize datetimepicker -->
   <script type="text/javascript">
     $('.myDatepicker2').datetimepicker({
-      format: 'YYYY/MM/DD'
+      format: 'YYYY/MM/DD',
+      defaultDate: new Date()
     });
 
     $('#myDatepicker3').datetimepicker({
-      format: 'YYYY'
+      format: 'YYYY',
+      defaultDate: new Date()
     });
   </script>
 

@@ -443,11 +443,8 @@
           radius: 16,
           maxWidth: 110,
           oversizedBehavior: "wrap",
-<<<<<<< HEAD
           fontSize: 16,
-=======
           fontSize: 12,
->>>>>>> 4ecb09268c49326d0edfccb3d1bca45ea0e01305
           textAlign: "left",
           fill: am5.color(0x333333),
           text: "[bold]{category}[/]"

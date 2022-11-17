@@ -20,7 +20,7 @@
         <div id="hero_profil" class="container bg-green">
             <div class="d-flex flex-column text-center justify-content-center align-items-center">
                 <h1 class="font-russo head_profil">Profil Masjid Nurul Iman</h1>
-                <img src="<?= base_url('images/') . $profil['upload_img']; ?>" alt="" class="image_profil" />
+                <img src="<?= base_url('./images/' . $profil['upload_img']); ?>" alt="" class="image_profil" />
             </div>
         </div>
     </header>

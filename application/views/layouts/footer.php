@@ -5,19 +5,6 @@
                 <h5>Layanan</h5>
                 <div class="row">
                     <?php
-<<<<<<< HEAD
-                        $hitung_layanan = count($layanan->result_array());
-                        if ($hitung_layanan >= 2) {
-                            $jumlah_per = $hitung_layanan / 2;
-                        } else {
-                            $jumlah_per = $hitung_layanan;
-                        }
-                        $data = $layanan->result_array();
-                    ?>
-                    <div class="col-6">
-                        <ul>
-                        <?php
-=======
                     $hitung_layanan = count($layanan->result_array());
                     if ($hitung_layanan >= 2) {
                         $jumlah_per = $hitung_layanan / 2;
@@ -29,7 +16,6 @@
                     <div class="col-6">
                         <ul>
                             <?php
->>>>>>> 4ecb09268c49326d0edfccb3d1bca45ea0e01305
                             $no = 1;
                             foreach ($data as $index => $layanan) :
                                 if ($index <= $jumlah_per - 1) :
@@ -41,11 +27,7 @@
                     </div>
                     <div class="col-6">
                         <ul>
-<<<<<<< HEAD
-                        <?php
-=======
                             <?php
->>>>>>> 4ecb09268c49326d0edfccb3d1bca45ea0e01305
                             $no2 = 1;
                             foreach ($data as $index2 => $layanan2) :
                                 if ($index2 > $jumlah_per - 1) :

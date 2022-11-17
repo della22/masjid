@@ -7,7 +7,7 @@
     
     <title><?php echo SITE_NAME . ": " . ucfirst($this->uri->segment(1)) . " - " . ucfirst($this->uri->segment(2)) ?></title>
 
-    <link rel="icon" href="<?php echo base_url('images/logo.png') ?>" type="image/ico" />
+    <link rel="icon" href="<?php echo base_url('images/logomasjid.jpg') ?>" type="image/ico" />
 
     <title><?php echo SITE_NAME . ": " . ucfirst($this->uri->segment(1)) . " - " . ucfirst($this->uri->segment(2)) ?></title>
     <!-- Bootstrap -->
@@ -58,3 +58,4 @@
     <link href="<?php echo base_url('assets/pnotify/dist/pnotify.buttons.css') ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/pnotify/dist/pnotify.nonblock.css') ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/select2/css/select2.min.css') ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/select2/css/custom.css') ?>" rel="stylesheet">
