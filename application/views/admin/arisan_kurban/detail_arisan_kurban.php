@@ -34,7 +34,8 @@
                   $total_dibayar += $data_cicil['nominal_cicil'];
                 }
 
-                $kekurangan = $arisan_kurban['biaya'] - $total_dibayar;
+                $kekurangan_cal = $arisan_kurban['biaya'] - $total_dibayar;
+                $kekurangan = ($kekurangan_cal > 0) ? $kekurangan_cal : $kekurangan_cal * -1
                 ?>
                 <div class="x_title" style="margin-bottom: 30px;">
                   <h2>Riwayat Pembayaran / Cicilan Arisan Kurban</h2>
@@ -66,8 +67,8 @@
                   </div>
 
                   <div class="item" style="margin-bottom: 10px;">
-                    <label class="col-form-label col-md-5 col-sm-5 label-align">Kekurangan : </label>
-                    <div class="col-md-6 col-sm-6 ">
+                     <label class="col-form-label col-md-5 col-sm-5 label-align"><?= $kekurangan_cal > 0 ? 'Kekurangan' : 'Kelebihan'; ?> : </label>
+                   <div class="col-md-6 col-sm-6 ">
                       <label class="col-form-label" style="text-align: left;"><strong>Rp. <?= rupiah($kekurangan); ?></strong></label>
                     </div>
                   </div>
@@ -213,7 +214,8 @@
               <label class="col-form-label col-md-4 col-sm-4 label-align">Nominal (Rp.) : </label>
               <div class="col-md-8 col-sm-8 ">
                 <input type="hidden" name="id_arisan" value='<?= $arisan_kurban['id_arisan']; ?>' />
-                <input class="form-control form-control-sm col-md-8 col-sm-8" type="number" min=0 name="nominal_cicil" placeholder="Nominal Cicilan" required value=0 />
+                <input class="form-control form-control-sm col-md-8 col-sm-8 inputan_angka" type="tel" pattern="[0-9]*" value="" name="nominal_cicil" placeholder="Nominal Cicilan" required value=0 />
+              
               </div>
             </div>
             <div class="form-group">
@@ -306,12 +308,18 @@
 
   <!-- Initialize datetimepicker -->
   <script type="text/javascript">
+    $(".inputan_angka").on('input', function(e) {
+      $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    });
+    
     $('.myDatepicker2').datetimepicker({
-      format: 'YYYY-MM-DD'
+      format: 'YYYY-MM-DD',
+      defaultDate: new Date()
     });
 
     $('#myDatepicker3').datetimepicker({
-      format: 'YYYY'
+      format: 'YYYY',
+      defaultDate: new Date()
     });
   </script>
 

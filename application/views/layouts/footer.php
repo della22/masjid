@@ -18,7 +18,7 @@
                             <?php
                             $no = 1;
                             foreach ($data as $index => $layanan) :
-                                if ($index <= $jumlah_per - 1) :
+                                if ($index <= ceil($jumlah_per) - 1) :
                             ?>
                                     <li><?= $layanan['nama_layanan']; ?></li>
                             <?php endif;
@@ -30,7 +30,7 @@
                             <?php
                             $no2 = 1;
                             foreach ($data as $index2 => $layanan2) :
-                                if ($index2 > $jumlah_per - 1) :
+                                 if ($index2 > ceil($jumlah_per) - 1) :
                             ?>
                                     <li><?= $layanan2['nama_layanan']; ?></li>
                             <?php endif;
