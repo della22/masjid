@@ -21,17 +21,16 @@
             <div class="row hero_welcome">
                 <div class="col-md-6 text-white hero_welcome_title">
                     <h1 class="font-russo">Selamat Datang di Masjid Nurul Iman</h1>
-                    <p class="mt-1">
-                        Sejak berdirinya sampai dengan sekarang sudah 
-                        banyak perubahan dan perbaikan yang dilakukan 
-                        baik dari kondisi fisik bangunan masjid, sarana 
-                        prasarana maupun pengelolaan masjid.
+                    <p class="mt-4">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
+                        aliquam, purus sit amet luctus venenatis, lectus magna fringilla
+                        urna, porttitor
                     </p>
-                    <a href="#keuangan" class="btn btn-white py-3 px-3 mt-1">Rincian Keuangan</a>
+                    <a href="#keuangan" class="btn btn-white py-3 px-4 mt-3">Rincian Keuangan</a>
                 </div>
                 <div class="col-md-6 d-flex justify-content-end mt-gambar_hero">
                     <div class="image_sidebar">
-                    <img src="<?= base_url('images/') . $profil['upload_img']; ?>" alt="" class="image_hero"/>
+                        <img src="<?= base_url('assets/depan/masjid.jpg'); ?>" alt="" class="image_hero" />
                     </div>
                 </div>
             </div>
@@ -196,7 +195,7 @@
                                             <div class="tanggal_donasi p-13 text-green mt-0 mb-2">
                                                 <?= dates($berita['tanggal_mulai']); ?> - <?= dates($berita['tanggal_selesai']); ?>
                                             </div>
-                                            <p align="justify" class="p-13 text-secondary">
+                                            <p class="p-13 text-secondary">
                                                 <?= $berita['deskripsi_berita']; ?>
                                             </p>
                                         </div>
@@ -219,7 +218,7 @@
                         <p class="mb-2 p-14">
                             Dapat melaui transfer ke rekening berikut:
                         </p>
-                        <table class="mb-2 p-13">
+                        <table class="mb-2">
                             <tr>
                                 <td>a.n&nbsp;</td>
                                 <td>:&nbsp;</td>
@@ -232,7 +231,7 @@
                             </tr>
                         </table>
                         <p class="p-14">
-                            Jangan lupa konfirmasi melalui whatsapp dengan mengirim bukti
+                            Jangan lupa konfirmasi melalui whatapps dengan mengirim bukti
                             transfer dan untuk disalurkan kemana kirim ke nomor
                             <?= $profil['telp_profil']; ?>
                         </p>
@@ -242,76 +241,22 @@
                 <!-- ARISAN -->
                 <div class="main_content">
                     <div class="card_green">
-                        <h3 class="title_arisan mb-4">Data Arisan Kurban <?= $bulan_terbilang; ?> <?= $tahun; ?></h3>
+                        <h3 class="title_arisan mb-4">Data Arisan Kurban Periode <?= $periode_terbaru; ?></h3>
                         <div class="bg-white panel_arisan">
-                            <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab" role="tablist">
-                                <li class="nav-item" role="arisan">
-                                    <button class="nav-link active py-2" id="pills-lunas-tab" data-toggle="pill" data-target="#pills-lunas" type="button" role="tab" aria-controls="pills-lunas" aria-selected="true">
-                                        Lunas
-                                    </button>
-                                </li>
-                                <li class="nav-item" role="arisan">
-                                    <button class="nav-link py-2" id="pills-belumlunas-tab" data-toggle="pill" data-target="#pills-belumlunas" type="button" role="tab" aria-controls="pills-belumlunas" aria-selected="false">
-                                        Belum
-                                    </button>
-                                </li>
-                            </ul>
+
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-lunas" role="tabpanel" aria-labelledby="pills-lunas-tab">
-                                    <ul class="arisan_list" id="list_arisan_lunas">
+                                    <ul class="arisan_list" id="list_arisan_lunas" style="overflow: scroll;max-height:320px;overflow-x: hidden;">
                                         <?php $j = 1;
                                         // var_dump($cicilan_bulan_arisan->result_array());
 
                                         foreach ($arisan_kurban->result_array() as $data_arisan) {
-                                            $perbulan_harus = $data_arisan['biaya'] / 12;
-                                            // MELAKUKAN PERHITUNGAN JUMLAH PEMBAYARAN BULAN INI
-                                            $total_bulan_ini = 0;
-                                            foreach ($cicilan_bulan_arisan->result_array() as $cicilan_bulan_ini) {
-
-                                                if ($data_arisan['id_arisan'] == $cicilan_bulan_ini['id_arisan']) {
-
-                                                    $total_bulan_ini += $cicilan_bulan_ini['nominal_cicil'];
-                                                }
-                                            }
-
-                                            if ($data_arisan['status_arisan'] == 0) {
-
-                                                if ((int) $total_bulan_ini >= (int) $perbulan_harus) {
-
-                                                    echo '<li>' . $data_arisan['nama_jamaah'] . '</li>';
-                                                }
-                                            }
+                                            echo '<li>' . $data_arisan['nama_jamaah'] . '</li>';
                                         }
                                         ?>
                                     </ul>
                                 </div>
-                                <div class="tab-pane fade" id="pills-belumlunas" role="tabpanel" aria-labelledby="pills-belumlunas-tab">
-                                    <ul class="arisan_list" id="list_arisan_belum_lunas">
-                                        <?php $j = 1;
 
-                                        foreach ($arisan_kurban->result_array() as $data_arisan) {
-                                            $perbulan_harus = $data_arisan['biaya'] / 12;
-                                            // MELAKUKAN PERHITUNGAN JUMLAH PEMBAYARAN BULAN INI
-                                            $total_bulan_ini = 0;
-                                            foreach ($cicilan_bulan_arisan->result_array() as $cicilan_bulan_ini) {
-
-                                                if ($data_arisan['id_arisan'] == $cicilan_bulan_ini['id_arisan']) {
-
-                                                    $total_bulan_ini += $cicilan_bulan_ini['nominal_cicil'];
-                                                }
-                                            }
-
-                                            if ($data_arisan['status_arisan'] == 0) {
-
-                                                if ((int) $total_bulan_ini < (int) $perbulan_harus) {
-
-                                                    echo '<li>' . $data_arisan['nama_jamaah'] . '</li>';
-                                                }
-                                            }
-                                        }
-                                        ?>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>

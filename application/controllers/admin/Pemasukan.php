@@ -11,6 +11,14 @@ class Pemasukan extends CI_Controller
         $this->load->model('M_rekapitulasi');
         $this->load->helper('rupiah_helper');
         $this->load->helper('dates_helper');
+        // CHECK LOGIN
+        if ($this->session->userdata('status') != "login") {
+            redirect(base_url("login"));
+        }
+    }
+
+    public function auth_cek_role()
+    {
         if ($this->session->userdata('status') == "login") {
             if ($this->session->userdata('role') != "Admin") {
                 if ($this->session->userdata('role') != "Bendahara") {
@@ -24,23 +32,40 @@ class Pemasukan extends CI_Controller
 
     public function index()
     {
-        if ($this->input->post('tanggalawal') && $this->input->post('tanggalakhir')) {
-            $tanggalawal = $this->input->post('tanggalawal');
-            $tanggalakhir = $this->input->post('tanggalakhir');
-            $data['pemasukan'] = $this->M_pemasukan->filter($tanggalawal, $tanggalakhir);
-            $data['kategori_pemasukan'] = $this->M_pemasukan->list_kategori_pemasukan();
-            $data['filter'] = $this->input->post('tanggalawal') . ' sampai ' . $this->input->post('tanggalakhir');
+        $kategori = (int) $this->input->post('kategori');
+        $iskategori = $this->input->post('hanya_kategori');
+        $data['filter'] = '';
+        if (!$iskategori) {
+            if ($this->input->post('tanggalawal') && $this->input->post('tanggalakhir')) {
+                $tanggalawal = $this->input->post('tanggalawal');
+                $tanggalakhir = $this->input->post('tanggalakhir');
+                if ($kategori === 0) {
+                    if ($tanggalawal === $tanggalakhir) {
+                        $data['pemasukan'] = $this->M_pemasukan->list_pemasukan();
+                    } else {
+                        $data['pemasukan'] = $this->M_pemasukan->filter($tanggalawal, $tanggalakhir);
+                        $data['filter'] = $this->input->post('tanggalawal') . ' sampai ' . $this->input->post('tanggalakhir');
+                    }
+                } else {
+                    $data['pemasukan'] = $this->M_pemasukan->filter_kategori($tanggalawal, $tanggalakhir, $kategori);
+                    $data['filter'] = $this->input->post('tanggalawal') . ' sampai ' . $this->input->post('tanggalakhir');
+                }
+            } else {
+                $data['pemasukan'] = $this->M_pemasukan->list_pemasukan();
+                $data['filter'] = '';
+            }
         } else {
-            $data['kategori_pemasukan'] = $this->M_pemasukan->list_kategori_pemasukan();
-            $data['pemasukan'] = $this->M_pemasukan->list_pemasukan();
+            $data['pemasukan'] = $this->M_pemasukan->filter_kategori_only($kategori);
             $data['filter'] = '';
         }
+        $data['kategori_pemasukan'] = $this->M_pemasukan->list_kategori_pemasukan();
         $data['role'] = $this->session->userdata('role');
         $this->load->view('admin/pemasukan/list_pemasukan', $data);
     }
 
     public function proses()
     {
+        $this->auth_cek_role();
         $tanggal_pemasukan = $this->input->post('tanggal_pemasukan');
         $nominal_pemasukan = $this->input->post('nominal_pemasukan');
         $keterangan_pemasukan = $this->input->post('keterangan_pemasukan');
@@ -52,6 +77,7 @@ class Pemasukan extends CI_Controller
 
     public function edit()
     {
+        $this->auth_cek_role();
         $id_pemasukan = $this->input->post('id_pemasukan');
         $tanggal_pemasukan = $this->input->post('tanggal_pemasukan');
         $nominal_pemasukan = $this->input->post('nominal_pemasukan');
@@ -72,7 +98,7 @@ class Pemasukan extends CI_Controller
 
         $pdf = new \TCPDF();
         $pdf->AddPage('L', 'mm', 'A4');
-        $image_file = base_url('images/logomasjid.png');
+        $image_file = base_url('images/logo.png');
         $pdf->Image($image_file, 20, 20, 25, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         /* Kop Atas */
         $pdf->Ln(6);
@@ -138,6 +164,7 @@ class Pemasukan extends CI_Controller
 
     public function hapus($id = null)
     {
+        $this->auth_cek_role();
         $this->M_pemasukan->hapus_pemasukan($id);
         $this->session->set_flashdata('success', 'Item berhasil dihapus');
         redirect('admin/pemasukan');
@@ -206,13 +233,14 @@ class Pemasukan extends CI_Controller
 
     public function kategori_pemasukan()
     {
-
+        $this->auth_cek_role();
         $data['kategori_pemasukan'] = $this->M_pemasukan->list_kategori_pemasukan();
         $this->load->view('admin/pemasukan/list_kategori_pemasukan', $data);
     }
 
     public function addKategoriMasuk()
     {
+        $this->auth_cek_role();
         $nama_kategori_masuk = $this->input->post('nama_kategori_masuk');
         $this->M_pemasukan->input_kategori($nama_kategori_masuk);
         $this->session->set_flashdata('success', 'Item berhasil ditambahkan');
@@ -221,6 +249,8 @@ class Pemasukan extends CI_Controller
 
     public function editKategoriMasuk()
     {
+        $this->auth_cek_role();
+
         $id_kategori_masuk = $this->input->post('id_kategori_masuk');
         $nama_kategori_masuk = $this->input->post('nama_kategori_masuk');
         $this->M_pemasukan->edit_kategori($id_kategori_masuk, $nama_kategori_masuk);
@@ -230,6 +260,7 @@ class Pemasukan extends CI_Controller
 
     public function hapus_kategori($id = null)
     {
+        $this->auth_cek_role();
         $this->M_pemasukan->hapus_kategori($id);
         $this->session->set_flashdata('success', 'Item berhasil dihapus');
         redirect('admin/pemasukan/kategori_pemasukan');

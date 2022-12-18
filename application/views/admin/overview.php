@@ -4,6 +4,42 @@
 <head>
   <?php $this->load->view("admin/_partials/head.php"); ?>
   <link rel="stylesheet" href="<?= base_url() . 'js/mini-event-calendar.min.css'; ?>">
+  <style>
+    .careh:nth-child(even) .card_donasi {
+      background-color: #77ccff;
+      border: 1px solid #66bbee;
+    }
+
+    .careh:nth-child(odd) .card_donasi {
+      background-color: #ffcd01;
+      border: 1px solid #ffba01;
+    }
+
+    .card_donasi {
+      padding: 0px 12px;
+      border-radius: 12px;
+      color: #333;
+      margin-bottom: 24px;
+    }
+
+    .card_donasi h3 {
+      border-bottom: 2px solid #eebc00;
+      color: #555;
+      padding: 6px 4px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .careh:nth-child(even) .card_donasi h3 {
+      border-bottom: 2px solid #66bbee;
+    }
+
+    .card_donasi h4 {
+      padding: 4px;
+      font-size: 30px;
+      font-weight: 400;
+    }
+  </style>
 </head>
 
 <body class="nav-md">
@@ -20,22 +56,37 @@
         <!-- top tiles -->
         <div class="row" style="display: inline-block; width: 100%">
           <div class="tile_count">
-            <div class="col-md-2 col-sm-4 tile_stats_count" style="text-align: center;">
-              <a href="<?= base_url('admin/berita_donasi'); ?>">
-                <span class="count_top"><i class="fa fa-money"></i> Donasi Berlangsung </span>
-                <div class="count" style="text-align: center;"><?= $donasi_berlangsung; ?></div>
+            <div class="col-md-4 col-sm-5 tile_stats_count" style="text-align: center;">
+              <a href="<?= base_url('admin/pemasukan'); ?>">
+                <span class="count_top"><i class="fa fa-money"></i> Pemasukan <?= $bulan_terbilang; ?> <?= $tahun; ?> </span>
+                <?php
+                $total_pemasukan_semua = 0;
+                // Untuk menghitung semua total pemasukan
+                foreach ($kategori_pemasukan as $kat_pemasukan) {
+                  foreach ($list_bulanan_masuk as $total_pemasukan) {
+                    if ($total_pemasukan['id_kategori_masuk'] == $kat_pemasukan['id_kategori_masuk']) {
+                      $total_pemasukan_semua += (int) $total_pemasukan['nominal'];
+                    }
+                  }
+                }; ?>
+                <div class="count" style="text-align: center;">Rp. <?= rupiah($total_pemasukan_semua); ?></div>
               </a>
             </div>
-            <div class="col-md-2 col-sm-4 tile_stats_count" style="text-align: center;">
-              <a href="<?= base_url('admin/arisan_kurban'); ?>">
-                <span class="count_top"><i class="fa fa-child"></i> Donatur Arisan Kurban </span>
-                <div class="count"><?= $jumlah_donatur; ?></div>
-              </a>
-            </div>
-            <div class="col-md-4 col-sm-3 tile_stats_count" style="text-align: center;">
-              <a href="<?= base_url('admin/arisan_kurban'); ?>">
-                <span class="count_top"><i class="fa fa-user"></i> Tunggakan Arisan Kurban Bulan Ini</span>
-                <div class="count" style="text-align: center;" id="tunggakan_bulan_ini">-</div>
+
+            <div class="col-md-4 col-sm-5 tile_stats_count" style="text-align: center;">
+              <a href="<?= base_url('admin/pengeluaran'); ?>">
+                <span class="count_top"><i class="fa fa-money"></i> Pengeluaran <?= $bulan_terbilang; ?> <?= $tahun; ?> </span>
+                <?php
+                $total_pengeluaran_semua = 0;
+                // Untuk menghitung semua total pengeluaran
+                foreach ($kategori_pengeluaran as $kat_pengeluaran) {
+                  foreach ($list_bulanan_keluar as $total_pengeluaran) {
+                    if ($total_pengeluaran['id_kategori_keluar'] == $kat_pengeluaran['id_kategori_keluar']) {
+                      $total_pengeluaran_semua += (int) $total_pengeluaran['nominal'];
+                    }
+                  }
+                }; ?>
+                <div class="count" style="text-align: center;">Rp. <?= rupiah($total_pengeluaran_semua); ?></div>
               </a>
             </div>
 
@@ -58,7 +109,7 @@
               <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Pemasukkan dan Pengeluaran 6 Bulan Terakhir</h2>
+                    <h2>Pemasukkan dan Pengeluaran 12 Bulan Terakhir</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -76,6 +127,44 @@
 
         <!-- pie -->
         <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <div class="x_panel">
+              <div class="x_title">
+                <a href="">
+                  <h2>Donasi Berjalan Terkumpul</h2>
+                </a>
+                <div class="clearfix"></div>
+              </div>
+              <div class="x_content row gap-2">
+                <?php
+                $no = 1;
+                if (count($berita->result_array()) > 0) :
+                  foreach ($berita->result_array() as $berita) :
+                ?>
+                    <div class="col-12 col-md-3 careh">
+                      <div class="card_donasi">
+                        <h3><?= substr($berita['judul_berita'], 0, 30); ?><?= (strlen($berita['judul_berita']) > 30) ? '...' : ''; ?></h3>
+                        <?php
+                        $total_don = 0;
+                        foreach ($donasi->result_array() as $don) {
+                          if ($don['id_berita'] === $berita['id_berita']) {
+                            $total_don += (int) $don['nominal'];
+                          }
+                        }
+                        ?>
+                        <h4>Rp. <?= rupiah($total_don); ?></h4>
+                      </div>
+                    </div>
+                  <?php endforeach;
+                else : ?>
+                  <div class="col-12 text-center">
+                    <h3>Tidak Ada Donasi Berlangsung</h3>
+                  </div>
+                <?php endif; ?>
+
+              </div>
+            </div>
+          </div>
 
           <div class="col-md-6 col-sm-6 ">
             <div class="x_panel">
@@ -163,7 +252,7 @@
             <div class="x_panel">
               <div class="x_title">
                 <a href="">
-                  <h2>Arisan Kurban <?= $bulan_terbilang; ?> <?= $tahun; ?></h2>
+                  <h2>Arisan Kurban Perperiode</h2>
                 </a>
                 <div class="clearfix"></div>
               </div>
@@ -171,6 +260,23 @@
               <div class="x_content">
 
                 <div id="chartarisan" style="height:350px;"></div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-sm-6 ">
+            <div class="x_panel">
+              <div class="x_title">
+                <a href="">
+                  <h2>Jumlah Jamaah Pertahun</h2>
+                </a>
+                <div class="clearfix"></div>
+              </div>
+
+              <div class="x_content">
+
+                <div id="chartjamaah" style="height:350px;"></div>
 
               </div>
             </div>
@@ -242,16 +348,22 @@
         console.log('Error: ' + errorMessage);
       }
     });
-    $.ajax('<?= base_url('admin/overview/apiArisanBulanIni'); ?>', {
+    $.ajax('<?= base_url('admin/overview/apiArisanPeriode'); ?>', {
       type: 'get',
-      data: {
-        bulan: <?= $bulan; ?>,
-        tahun: <?= $tahun; ?>
-      },
       dataType: 'json', // type of response data
       success: function(data, status, xhr) {
-        $('#tunggakan_bulan_ini').html(data.data[1].value);
         pasangChart(data.data, 'chartarisan');
+      },
+      error: function(jqXhr, textStatus, errorMessage) {
+        console.log('Error: ' + errorMessage);
+      }
+    });
+
+    $.ajax('<?= base_url('admin/jamaah/apiPertahunJamaah'); ?>', {
+      type: 'get',
+      dataType: 'json', // type of response data
+      success: function(data, status, xhr) {
+        pasangChart(data.data, 'chartjamaah');
       },
       error: function(jqXhr, textStatus, errorMessage) {
         console.log('Error: ' + errorMessage);
@@ -294,7 +406,7 @@
         // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
         var chart = root.container.children.push(am5percent.PieChart.new(root, {
           layout: root.verticalLayout,
-          radius: 80
+          radius: 100
         }));
 
         // Create serie
@@ -308,7 +420,7 @@
         }));
 
         series.labels.template.setAll({
-          radius: 8,
+          radius: 16,
           maxWidth: 110,
           oversizedBehavior: "wrap",
           fontSize: 16,
@@ -327,6 +439,7 @@
           marginTop: 5,
           marginBottom: 15
         }));
+
 
         legend.valueLabels.template.set("forceHidden", false);
 
@@ -360,7 +473,8 @@
           panY: true,
           wheelX: "panX",
           wheelY: "zoomX",
-          pinchZoomX: true
+          pinchZoomX: true,
+          layout: root.verticalLayout,
         }));
 
         chart.get("colors").set("step", 2);
@@ -394,14 +508,15 @@
         // Add series
         // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
         var series = chart.series.push(am5xy.LineSeries.new(root, {
-          name: "Series 1",
+          name: "Pemasukan",
           xAxis: xAxis,
           yAxis: yAxis,
           valueYField: "value1",
           valueXField: "date",
           tooltip: am5.Tooltip.new(root, {
             labelText: "[bold]Pemasukan[/] :Rp. {valueY}\n[bold]Pengeluaran[/]:Rp. {value2}"
-          })
+          }),
+          legendLabelText: "[bold]{name}[/]",
         }));
 
         series.strokes.template.setAll({
@@ -411,12 +526,14 @@
         series.get("tooltip").get("background").set("fillOpacity", 0.5);
 
         var series2 = chart.series.push(am5xy.LineSeries.new(root, {
-          name: "Series 2",
+          name: "Pengeluaran",
           xAxis: xAxis,
           yAxis: yAxis,
           valueYField: "value2",
-          valueXField: "date"
+          valueXField: "date",
+          legendLabelText: "[bold]{name}[/]",
         }));
+
         series2.strokes.template.setAll({
           strokeWidth: 3
         });
@@ -441,6 +558,33 @@
         series.data.setAll(data);
         series2.data.setAll(data);
 
+
+
+        var legend = chart.children.push(am5.Legend.new(root, {
+          centerX: am5.percent(50),
+          x: am5.percent(50),
+          nameField: "name",
+          fillField: "color",
+          strokeField: "color",
+          marginTop: 5,
+          marginBottom: 15,
+          useDefaultMarker: true
+        }));
+
+        legend.labels.template.setAll({
+          fontSize: 18,
+          fontWeight: "300",
+          fill: am5.color(0x333333),
+        });
+
+        legend.markerRectangles.template.setAll({
+          cornerRadiusTL: 10,
+          cornerRadiusTR: 10,
+          cornerRadiusBL: 10,
+          cornerRadiusBR: 10
+        });
+
+        legend.data.setAll(chart.series.values);
 
         // Make stuff animate on load
         // https://www.amcharts.com/docs/v5/concepts/animations/

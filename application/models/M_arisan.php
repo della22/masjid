@@ -11,6 +11,13 @@ class M_arisan extends CI_Model
         return $this->db->get();
     }
 
+    function periode_terbaru()
+    {
+        $this->db->select_max('tahun_periode');
+        $query = $this->db->get('arisan_kurban');
+        return $query->result_array();
+    }
+
     function list_arisan_filter($tahun = null, $status = null)
     {
         $this->db->select('*');
@@ -176,6 +183,33 @@ class M_arisan extends CI_Model
     {
         $this->db->where('id_cicil_arisan', $id_cicil_arisan);
         $this->db->delete('cicil_arisan_kurban');
+    }
+
+    public function countPertahun($tahun = null)
+    {
+        $sampai = (int) $this->getMinTahunPeriode();
+
+        $this->db->select('*');
+        $this->db->from('arisan_kurban');
+        $this->db->where("tahun_periode BETWEEN '$sampai' AND '$tahun'");
+        return $this->db->count_all_results();
+    }
+
+    public function getMinTahunPeriode()
+    {
+        $this->db->select_min('tahun_periode');
+        $this->db->from("arisan_kurban");
+        $query = $this->db->get();
+        return $query->result_array()[0]['tahun_periode'];
+    }
+
+    public function tahunPeriode()
+    {
+        $this->db->select("tahun_periode");
+        $this->db->from("arisan_kurban");
+        $this->db->group_by("tahun_periode");
+        $query = $this->db->get();
+        return $query->result_array();
     }
 
     // public function filter($tanggalawal = null, $tanggalakhir = null)

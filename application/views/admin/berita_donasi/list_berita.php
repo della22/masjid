@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php $role = $this->session->userdata('role'); ?>
 
 <head>
   <?php $this->load->view("admin/_partials/head.php") ?>
@@ -23,8 +24,9 @@
               <div class="x_title">
                 <h2>Data Berita Donasi</h2>
                 <ul class="nav navbar-right panel_toolbox"><a href="#" data-toggle="modal" data-target="#filterModal" class="btn btn-info"><i class="fa fa-filter"></i> Filter</a></ul>
-
-                <ul class="nav navbar-right panel_toolbox"><a href="#" data-toggle="modal" data-target="#tambahModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Berita Donasi</a></ul>
+                <?php if ($role !== 'Sekretaris') : ?>
+                  <ul class="nav navbar-right panel_toolbox"><a href="#" data-toggle="modal" data-target="#tambahModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Berita Donasi</a></ul>
+                <?php endif; ?>
                 <div class="clearfix"></div>
               </div>
               <div class="x_content">
@@ -77,9 +79,97 @@
                               <td align="center"><?= $status; ?></td>
                               <td width="150" align="center">
                                 <a href="<?php echo site_url('admin/berita_donasi/detail/' . $berita['id_berita']) ?>" style="margin-right: 9px"><i class="fa fa-money"></i> Detail </a>
-                                <a href="" onclick="deleteConfirm(event,'<?= base_url(); ?>/admin/berita_donasi/hapus/<?= $berita['id_berita']; ?>')"><i class="fa fa-trash"></i> Hapus</a>
+                                <?php if ($role !== 'Sekretaris') : ?>
+                                  <a href="" onclick="deleteConfirm(event,'<?= base_url(); ?>/admin/berita_donasi/hapus/<?= $berita['id_berita']; ?>')"><i class="fa fa-trash"></i> Hapus</a>
+                                <?php endif; ?>
                               </td>
+                            </tr>
+                          <?php endforeach; ?>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /DataTables -->
+
+        </div>
+        <br />
+
+        <div class="row">
+
+          <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+              <div class="x_title">
+                <h2>Riwayat Donasi Berlangsung</h2>
+                <!-- <ul class="nav navbar-right panel_toolbox"><a href="#" data-toggle="modal" data-target="#filterDonasi" class="btn btn-info"><i class="fa fa-filter"></i> Filter</a></ul> -->
+                <?php if ($role !== 'Sekretaris') : ?>
+                  <ul class="nav navbar-right panel_toolbox"><a href="#" data-toggle="modal" data-target="#tambahModalDonasi" class="btn btn-success"><i class="fa fa-plus"></i> Upload Bukti Donasi</a></ul>
+                <?php endif; ?>
+                <div class="clearfix"></div>
+              </div>
+              <div class="x_content">
+                <div class="row">
+
+                  <div class="col-sm-12">
+                    <div class="card-box table-responsive">
+                      <?php if ($this->session->flashdata('success') == TRUE) : ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                          <?= $this->session->flashdata('success'); ?>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                      <?php endif; ?>
+                      <table id="datatable2" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                          <tr>
+                            <th>No</th>
+                            <th>Judul Berita</th>
+                            <th>Nominal</th>
+                            <th>Status</th>
+                            <th>Bukti</th>
+                            <?php if ($role !== 'Sekretaris') : ?>
+                              <th>Aksi</th>
+                            <?php endif; ?>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                          $no = 1;
+                          foreach ($donasi->result_array() as $donasi) :
+                            $status = 0;
+                            foreach ($berita_berlangsung->result_array() as $berita_l) {
+                              if ($donasi['id_berita'] == $berita_l['id_berita']) {
+                                $status = 1;
+                              }
+                            }
+                          ?>
+                            <tr>
+                              <td width="10" align="center"><?= $no++; ?></td>
+                              <td><?= $donasi['judul_berita']; ?></td>
+                              <td width="245">Rp. <?= rupiah($donasi['nominal']); ?></td>
+                              <td>
+                                <?php if ($status == 1) : ?>
+                                  <span class="badge badge-success">Berlangsung</span>
+                                <?php else : ?>
+                                  <span class="badge badge-danger">Tidak Berlangsung</span>
+                                <?php endif; ?>
                               </td>
+                              <td align="center"><a href="<?php echo base_url('images/bukti_donasi/' . $donasi['bukti']) ?>" style="margin-right: 9px" target="_blank"><i class="fa fa-image"></i> Lihat Bukti </a></td>
+                              <?php if ($role !== 'Sekretaris') : ?>
+                                <td width="150" align="center">
+                                  <a href="" onclick="deleteConfirmDonasi(event,'<?= base_url(); ?>/admin/berita_donasi/hapusdonasi/<?= $donasi['id']; ?>')"><i class="fa fa-trash"></i> Hapus</a>
+                                  <?php if ($status == 1) : ?>
+                                    <a href="" onclick="editDonasi(event,'<?= $donasi['id']; ?>','<?= $donasi['id_berita']; ?>','<?= $donasi['nominal']; ?>','<?= $donasi['tanggal']; ?>','<?= $donasi['keterangan']; ?>','<?= $donasi['bukti']; ?>','<?= $status; ?>')"><i class="fa fa-pencil"></i> Edit</a>
+                                  <?php endif; ?>
+
+                                </td>
+                              <?php endif; ?>
+
                             </tr>
                           <?php endforeach; ?>
 
@@ -101,6 +191,7 @@
 
       <!-- modal -->
       <!-- Filter Modal -->
+
       <div class="modal fade" id="filterModal" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
@@ -134,101 +225,285 @@
           </div>
         </div>
       </div>
+      <?php if ($role !== 'Sekretaris') : ?>
+        <!-- Tambah Modal -->
+        <div class="modal fade" id="tambahModal" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title"> Tambah Berita Donasi </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <div class="col-md-12 col-sm-12">
+                  <form action="<?= base_url(); ?>/admin/berita_donasi/proses" method="post" enctype="multipart/form-data">
 
-      <!-- Tambah Modal -->
-      <div class="modal fade" id="tambahModal" role="dialog">
-        <div class="modal-dialog">
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title"> Tambah Berita Donasi </h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align">Judul Berita : </label>
+                      <div class="col-md-9 col-sm-9 ">
+                        <input class="form-control" type="text" name="judul_berita" placeholder="Judul Berita" required />
+                      </div>
+                    </div>
+
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align">Jangka Waktu : </label>
+                      <div class='col-md-5 col-sm-5'>
+                        <div class="form-group">
+                          <label for="input_to">Dari</label>
+                          <div class='input-group date myDatepicker2'>
+                            <input type="text" class="form-control" placeholder="Dari " name="tanggal_mulai" required />
+                            <span class="input-group-addon" style="padding-top: 10px">
+                              <span class="fa fa-calendar-o"></span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class='col-md-5 col-sm-5'>
+                        <div class="form-group">
+                          <label for="input_to">Sampai</label>
+                          <div class='input-group date myDatepicker2'>
+                            <input type="text" class="form-control" placeholder="Sampai " name="tanggal_selesai" required />
+                            <span class="input-group-addon" style="padding-top: 10px">
+                              <span class="fa fa-calendar-o"></span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align">Deskripsi : </label>
+                      <div class="col-md-9 col-sm-9 ">
+                        <textarea class="form-control" id="deskripsi_berita" name="deskripsi_berita" placeholder="Deskripsi" required></textarea>
+                      </div>
+                    </div>
+
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align">Gambar : </label>
+                      <div class="col-md-9 col-sm-9">
+                        <input type="file" name="gambar_berita" class="form-control">
+                        <input type="hidden" name="upload_image" value="aaa">
+                      </div>
+                    </div>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Tambah</button>
+              </div>
+
+              </form>
             </div>
-            <div class="modal-body">
-              <div class="col-md-12 col-sm-12">
-                <form action="<?= base_url(); ?>/admin/berita_donasi/proses" method="post" enctype="multipart/form-data">
+          </div>
+        </div>
+      <?php endif; ?>
 
-                  <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">Judul Berita : </label>
-                    <div class="col-md-9 col-sm-9 ">
-                      <input class="form-control" type="text" name="judul_berita" placeholder="Judul Berita" required />
+      <?php if ($role !== 'Sekretaris') : ?>
+        <!-- Tambah Modal DONASI -->
+        <div class="modal fade" id="tambahModalDonasi" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title"> Tambah Donasi </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <div class="col-md-12 col-sm-12">
+                  <form action="<?= base_url(); ?>/admin/berita_donasi/proses_tambah_donasi" method="post" enctype="multipart/form-data">
+
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align">Pilih Donasi : </label>
+                      <div class="col-md-9 col-sm-9 ">
+                        <select class="select2_single form-control" name="id_berita" id="id_berita_tambah" tabindex="-1" required>
+                          <?php if (count($berita_berlangsung->result_array()) > 0) :
+                            foreach ($berita_berlangsung->result_array() as $berita) :
+                          ?>
+                              <option value="<?= $berita['id_berita']; ?>"><?= $berita['judul_berita']; ?></option>
+                            <?php
+                            endforeach;
+                          else :
+                            ?>
+                            <option value="" disabled selected>- TIDAK ADA BERITA DONASI -</option>
+                          <?php
+                          endif;
+                          ?>
+                        </select>
+                      </div>
                     </div>
-                  </div>
-
-                  <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">Jangka Waktu : </label>
-                    <div class='col-md-5 col-sm-5'>
-                      <div class="form-group">
-                        <label for="input_to">Dari</label>
-                        <div class='input-group date myDatepicker2'>
-                          <input type="text" class="form-control" placeholder="Dari " name="tanggal_mulai" required />
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align">Tanggal : </label>
+                      <div class="col-md-9 col-sm-9 ">
+                        <div class='input-group date myDatepicker4'>
+                          <input type="text" class="form-control" placeholder="Tanggal Donasi " name="tanggal" id="tanggal_donasi" required />
                           <span class="input-group-addon" style="padding-top: 10px">
                             <span class="fa fa-calendar-o"></span>
                           </span>
                         </div>
                       </div>
                     </div>
-                    <div class='col-md-5 col-sm-5'>
-                      <div class="form-group">
-                        <label for="input_to">Sampai</label>
-                        <div class='input-group date myDatepicker2'>
-                          <input type="text" class="form-control" placeholder="Sampai " name="tanggal_selesai" required />
+
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align">Nominal : </label>
+                      <div class="col-md-9 col-sm-9 ">
+                        <input class="form-control" type="tel" pattern="[0-9]*" value="" name="nominal" placeholder="Nominal" required />
+                      </div>
+                    </div>
+
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align">Keterangan : </label>
+                      <div class="col-md-9 col-sm-9 ">
+                        <textarea class="form-control" id="keterangan_tambah" name="keterangan" placeholder="Keterangan" required></textarea>
+                      </div>
+                    </div>
+
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align">Upload Bukti : </label>
+                      <div class="col-md-9 col-sm-9">
+                        <input type="file" name="bukti" class="form-control">
+                      </div>
+                    </div>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Tambah</button>
+              </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      <?php endif; ?>
+
+      <?php if ($role !== 'Sekretaris') : ?>
+        <!-- EDIT Modal DONASI -->
+        <div class="modal fade" id="editModalDonasi" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title"> Edit Donasi </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <div class="col-md-12 col-sm-12">
+                  <form action="<?= base_url(); ?>/admin/berita_donasi/proses_edit_donasi" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="" id="id_edit_donasi" />
+                    <input type="hidden" name="status" value="" id="status_edit" />
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align">Pilih Donasi : </label>
+                      <div class="col-md-9 col-sm-9 ">
+                        <select class="select2_single form-control" name="id_berita" id="id_berita_edit" tabindex="-1" required>
+                          <?php if (count($berita_berlangsung->result_array()) > 0) :
+                            foreach ($berita_berlangsung->result_array() as $berita) :
+                          ?>
+                              <option value="<?= $berita['id_berita']; ?>"><?= $berita['judul_berita']; ?></option>
+                            <?php
+                            endforeach;
+                          else :
+                            ?>
+                            <option value="" disabled selected>- TIDAK ADA BERITA DONASI -</option>
+                          <?php
+                          endif;
+                          ?>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align">Tanggal : </label>
+                      <div class="col-md-9 col-sm-9 ">
+                        <div class='input-group date myDatepicker4'>
+                          <input type="text" class="form-control" placeholder="Tanggal Donasi " name="tanggal" id="edit_tanggal_donasi" required />
                           <span class="input-group-addon" style="padding-top: 10px">
                             <span class="fa fa-calendar-o"></span>
                           </span>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">Deskripsi : </label>
-                    <div class="col-md-9 col-sm-9 ">
-                      <textarea class="form-control" id="deskripsi_berita" name="deskripsi_berita" placeholder="Deskripsi" required></textarea>
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align">Nominal : </label>
+                      <div class="col-md-9 col-sm-9 ">
+                        <input class="form-control" type="tel" pattern="[0-9]*" value="" name="nominal" id="edit_nominal" placeholder="Nominal" required />
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">Gambar : </label>
-                    <div class="col-md-9 col-sm-9">
-                      <input type="file" name="gambar_berita" class="form-control">
-                      <input type="hidden" name="upload_image" value="aaa">
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align">Keterangan : </label>
+                      <div class="col-md-9 col-sm-9 ">
+                        <textarea class="form-control" id="edit_keterangan" name="keterangan" placeholder="Keterangan" required></textarea>
+                      </div>
                     </div>
-                  </div>
+
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align">Upload Bukti : </label>
+                      <div class="col-md-9 col-sm-9">
+                        <input type="file" name="bukti" id="bukti_upload" class="form-control">
+                        <input type="hidden" name="bukti_hidden" id="edit_bukti">
+                      </div>
+                    </div>
+                    <div class="col-12 center" style="display: flex;justify-content:center;">
+                      <img src="" class="img-thumbnail mx-auto" style="max-width: 200px;margin:0 auto !important" id="bukti_tampil" alt="" />
+                    </div>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success">EDIT</button>
+              </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      <?php endif; ?>
+
+      <?php if ($role !== 'Sekretaris') : ?>
+        <!-- Delete Confirmation-->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Apakah anda yakin?
+                </h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">Data yang dihapus tidak akan bisa dikembalikan.</div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                <a id="btn-delete" class="btn btn-danger" href="#">Hapus</a>
               </div>
             </div>
-
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-success">Tambah</button>
-            </div>
-
-            </form>
           </div>
         </div>
-      </div>
-
-
-      <!-- Delete Confirmation-->
-      <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
-                Apakah anda yakin?
-              </h5>
-              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">Data yang dihapus tidak akan bisa dikembalikan.</div>
-            <div class="modal-footer">
-              <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-              <a id="btn-delete" class="btn btn-danger" href="#">Hapus</a>
+      <?php endif; ?>
+      <?php if ($role !== 'Sekretaris') : ?>
+        <!-- Delete Confirmation Donasi-->
+        <div class="modal fade" id="deleteModalDonasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Apakah anda yakin?
+                </h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">Data yang dihapus tidak akan bisa dikembalikan.</div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                <a id="btn-delete-donasi" class="btn btn-danger" href="#">Hapus</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
+      <?php endif; ?>
 
 
 
@@ -276,6 +551,11 @@
           [0, "desc"]
         ]
       });
+      $('#list_daftar_ulang2').DataTable({
+        "order": [
+          [0, "desc"]
+        ]
+      });
     });
   </script>
 
@@ -295,10 +575,30 @@
   </script>
 
   <script>
+    function editDonasi(e, id, id_berita, nominal, tanggal, keterangan, bukti, status) {
+      e.preventDefault();
+      const gambar = '<?= base_url('images/bukti_donasi/'); ?>' + bukti;
+      $("#id_edit_donasi").val(id);
+      $("#id_berita_edit").val(id_berita);
+      $("#edit_nominal").val(nominal);
+      $("#edit_tanggal").val(tanggal);
+      $("#edit_keterangan").val(keterangan);
+      $("#edit_bukti").val(bukti);
+      $("#status_edit").val(status);
+      $("#bukti_tampil").attr("src", gambar);
+      $('#editModalDonasi').modal();
+    }
+
     function deleteConfirm(e, url) {
       e.preventDefault();
       $('#btn-delete').attr('href', url);
       $('#deleteModal').modal();
+    }
+
+    function deleteConfirmDonasi(e, url) {
+      e.preventDefault();
+      $('#btn-delete-donasi').attr('href', url);
+      $('#deleteModalDonasi').modal();
     }
 
     // function bayarsppConfirm(url){
@@ -318,14 +618,35 @@
 
   <!-- Initialize datetimepicker -->
   <script type="text/javascript">
+    $("input[name='nominal']").on('input', function(e) {
+      $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    });
     $('.myDatepicker2').datetimepicker({
       format: 'YYYY/MM/DD',
+      defaultDate: new Date()
+    });
+
+    $('.myDatepicker4').datetimepicker({
+      format: 'YYYY-MM-DD',
       defaultDate: new Date()
     });
 
     $('#myDatepicker3').datetimepicker({
       format: 'YYYY',
       defaultDate: new Date()
+    });
+
+    $('#datatable2').DataTable();
+
+    $('#bukti_upload').change(function() {
+      const file = this.files[0];
+      if (file) {
+        let reader = new FileReader();
+        reader.onload = function(event) {
+          $('#bukti_tampil').attr('src', event.target.result);
+        }
+        reader.readAsDataURL(file);
+      }
     });
   </script>
 

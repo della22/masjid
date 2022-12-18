@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php $role = $this->session->userdata('role'); ?>
 
 <head>
   <?php $this->load->view("admin/_partials/head.php") ?>
@@ -23,7 +24,9 @@
               <div class="x_title">
                 <h2>Data Pembayaran Arisan Kurban</h2>
                 <ul class="nav navbar-right panel_toolbox"><a href="#" data-toggle="modal" data-target="#filterModal" class="btn btn-info"><i class="fa fa-filter"></i> Filter</a></ul>
-                <ul class="nav navbar-right panel_toolbox"><a href="#" data-toggle="modal" data-target="#tambahModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Pembayaran Arisan Kurban</a></ul>
+                <?php if ($role !== 'Sekretaris') : ?>
+                  <ul class="nav navbar-right panel_toolbox"><a href="#" data-toggle="modal" data-target="#tambahModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Pembayaran Arisan Kurban</a></ul>
+                <?php endif; ?>
                 <div class="clearfix"></div>
               </div>
               <div class="x_content">
@@ -99,8 +102,10 @@
                               </td>
                               <td align="center">
                                 <a href="<?php echo site_url('admin/arisan_kurban/cicilan/' . $data_arisan['id_arisan']) ?>" style="margin-right: 9px"><i class="fa fa-money"></i> Detail </a>
-                                <a href="" onclick="editData(event, '<?= $data_arisan['id_arisan']; ?>', '<?= $data_arisan['id_donatur']; ?>','<?= $data_arisan['nama_jamaah']; ?>','<?= $data_arisan['tahun_periode']; ?>','<?= $data_arisan['biaya']; ?>')"><i class="fa fa-edit"></i> Edit</a>
-                                <a href="" onclick="deleteConfirm(event,'<?= base_url(); ?>/admin/arisan_kurban/hapus/<?= $data_arisan['id_arisan']; ?>')"><i class="fa fa-trash"></i> Hapus</a>
+                                <?php if ($role !== 'Sekretaris') : ?>
+                                  <a href="" onclick="editData(event, '<?= $data_arisan['id_arisan']; ?>', '<?= $data_arisan['id_donatur']; ?>','<?= $data_arisan['nama_jamaah']; ?>','<?= $data_arisan['tahun_periode']; ?>','<?= $data_arisan['biaya']; ?>')"><i class="fa fa-edit"></i> Edit</a>
+                                  <a href="" onclick="deleteConfirm(event,'<?= base_url(); ?>/admin/arisan_kurban/hapus/<?= $data_arisan['id_arisan']; ?>')"><i class="fa fa-trash"></i> Hapus</a>
+                                <?php endif; ?>
                               </td>
                               </td>
                             </tr>
@@ -168,131 +173,131 @@
         </div>
       </div>
 
-      <!-- Edit Modal -->
-      <div class="modal fade" id="editModal" role="dialog">
-        <div class="modal-dialog">
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title"> Edit Arisan Kurban </h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-              <form role="form" action="<?= base_url(); ?>/admin/arisan_kurban/edit" method="post">
-                <div class="form-group col-md-12 col-sm-12">
-                  <label class="col-form-label col-md-4 col-sm-4 label-align">Tahun Periode : </label>
-                  <div class="col-md-7 col-sm-7 ">
-                    <input class="form-control" type="text" id="tahun_periode_edit" name="tahun_periode" placeholder="Tahun Periode" value="" />
-                  </div>
-                </div>
-                <div class="form-group col-md-12 col-sm-12">
-                  <label class="col-form-label col-md-4 col-sm-4 label-align">Nama Donatur : </label>
-                  <div class='col-md-7 col-sm-7'>
-                  <select class="js-example-basic-single-edit" style="width: 100%;border-radius:none" name="id_donatur">
-                      <option value=""></option>
-                        <?php foreach ($jamaah->result_array() as $data_jamaah) :
-                        ?>
-                          <option value="<?= $data_jamaah['id_jamaah']; ?>"><?= $data_jamaah['nama_jamaah']; ?></option>
-                        <?php endforeach; ?>
-                    </select>
+      <?php if ($role !== 'Sekretaris') : ?>
+        <!-- Edit Modal -->
+        <div class="modal fade" id="editModal" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title"> Edit Arisan Kurban </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <form role="form" action="<?= base_url(); ?>/admin/arisan_kurban/edit" method="post">
+                  <div class="form-group col-md-12 col-sm-12">
                     <input type="hidden" name="id_arisan" id="id_arisan" value="" />
+                    <label class="col-form-label col-md-4 col-sm-4 label-align">Tahun Periode : </label>
+                    <div class="col-md-7 col-sm-7 ">
+                      <input class="form-control" type="text" id="tahun_periode_edit" name="tahun_periode" placeholder="Tahun Periode" value="" />
+                    </div>
+                  </div>
+                  <div class="form-group col-md-12 col-sm-12">
+                    <label class="col-form-label col-md-4 col-sm-4 label-align">Nama Donatur : </label>
+                    <div class='col-md-7 col-sm-7'>
+                      <input class="form-control" type="text" id="nama_donatur_edit" name="nama_donatur" placeholder="Nama Donatur" required />
+                      <input type="hidden" name="id_donatur" id="id_donatur_edit" value="" />
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-12 col-sm-12">
+                    <label class="col-form-label col-md-4 col-sm-4 label-align">Biaya (Rp.)</label>
+                    <div class="col-md-7 col-sm-7 ">
+                      <input class="form-control" type="number" id="biaya_arisan_edit" name="biaya_arisan" placeholder="Biaya" required />
+                    </div>
+                  </div>
+
+                  <br>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Edit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php endif; ?>
+
+      <?php if ($role !== 'Sekretaris') : ?>
+        <!-- Tambah Modal -->
+        <div class="modal fade" id="tambahModal" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <form action="<?= base_url(); ?>/admin/arisan_kurban/proses" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                  <h4 class="modal-title"> Tambah Arisan Kurban </h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <div class="col-md-12 col-sm-12">
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-4 col-sm-4 label-align">Tahun Periode Kurban</label>
+                      <div class='col-md-7 col-sm-7'>
+                        <div class='input-group date' id='myDatepicker4'>
+                          <input class="form-control" type="text" placeholder="Tahun " value="<?= $tahun ?>" name="tahun_periode" required />
+                          <span class="input-group-addon" style="padding-top: 10px">
+                            <span class="fa fa-calendar-o"></span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-4 col-sm-4 label-align">Nama Donatur</label>
+                      <div class="col-md-7 col-sm-7 ">
+                        <!-- <input class="form-control" type="text" id="nama_donatur_tambah" value="" name="nama_donatur" placeholder="Nama Donatur" required />
+                      <input type="hidden" id="id_donatur" name="id_donatur" required /> -->
+                        <select class="js-example-basic-single" style="width: 100%;border-radius:none" name="id_donatur">
+                          <option value=""></option>
+                          <?php foreach ($jamaah->result_array() as $data_jamaah) :
+                          ?>
+                            <option value="<?= $data_jamaah['id_jamaah']; ?>"><?= $data_jamaah['nama_jamaah']; ?></option>
+                          <?php endforeach; ?>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-4 col-sm-4 label-align">Biaya (Rp.)</label>
+                      <div class="col-md-7 col-sm-7 ">
+                        <input class="form-control" type="number" id="biaya" name="biaya" placeholder="Biaya" required />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div class="form-group col-md-12 col-sm-12">
-                  <label class="col-form-label col-md-4 col-sm-4 label-align">Biaya (Rp.)</label>
-                  <div class="col-md-7 col-sm-7 ">
-                    <input class="form-control" type="number" id="biaya_arisan_edit" name="biaya_arisan" placeholder="Biaya" required />
-                  </div>
-                </div>
-
-                <br>
                 <div class="modal-footer">
-                  <button type="submit" class="btn btn-success">Edit</button>
+                  <button type="submit" class="btn btn-success">Tambah</button>
                 </div>
               </form>
             </div>
           </div>
         </div>
-      </div>
+      <?php endif; ?>
 
-      <!-- Tambah Modal -->
-      <div class="modal fade" id="tambahModal" role="dialog">
-        <div class="modal-dialog">
-          <!-- Modal content-->
-          <div class="modal-content">
-            <form action="<?= base_url(); ?>/admin/arisan_kurban/proses" method="post" enctype="multipart/form-data">
+      <?php if ($role !== 'Sekretaris') : ?>
+        <!-- Delete Confirmation-->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title"> Tambah Arisan Kurban </h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Apakah anda yakin?
+                </h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
               </div>
-              <div class="modal-body">
-                <div class="col-md-12 col-sm-12">
-                  <div class="item form-group">
-                    <label class="col-form-label col-md-4 col-sm-4 label-align">Tahun Periode Kurban</label>
-                    <div class='col-md-7 col-sm-7'>
-                      <div class='input-group date' id='myDatepicker4'>
-                        <input class="form-control" type="text" placeholder="Tahun " value="<?= $tahun ?>" name="tahun_periode" required />
-                        <span class="input-group-addon" style="padding-top: 10px">
-                          <span class="fa fa-calendar-o"></span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="item form-group">
-                    <label class="col-form-label col-md-4 col-sm-4 label-align">Nama Donatur</label>
-                    <div class="col-md-7 col-sm-7 ">
-                      <!-- <input class="form-control" type="text" id="nama_donatur_tambah" value="" name="nama_donatur" placeholder="Nama Donatur" required />
-                      <input type="hidden" id="id_donatur" name="id_donatur" required /> -->
-                      <select class="js-example-basic-single" style="width: 100%;border-radius:none" name="id_donatur">
-                        <option value=""></option>
-                        <?php foreach ($jamaah->result_array() as $data_jamaah) :
-                        ?>
-                          <option value="<?= $data_jamaah['id_jamaah']; ?>"><?= $data_jamaah['nama_jamaah']; ?></option>
-                        <?php endforeach; ?>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="item form-group">
-                    <label class="col-form-label col-md-4 col-sm-4 label-align">Biaya (Rp.)</label>
-                    <div class="col-md-7 col-sm-7 ">
-                      <input class="form-control" type="number" id="biaya" name="biaya" placeholder="Biaya" required />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
+              <div class="modal-body">Data yang dihapus tidak akan bisa dikembalikan.</div>
               <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Tambah</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                <a id="btn-delete" class="btn btn-danger" href="#">Hapus</a>
               </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Delete Confirmation-->
-      <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
-                Apakah anda yakin?
-              </h5>
-              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">Data yang dihapus tidak akan bisa dikembalikan.</div>
-            <div class="modal-footer">
-              <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-              <a id="btn-delete" class="btn btn-danger" href="#">Hapus</a>
             </div>
           </div>
         </div>
-      </div>
+      <?php endif; ?>
 
       <!-- footer content -->
       <?php $this->load->view("admin/_partials/footer.php") ?>
@@ -370,9 +375,6 @@
 
     function editData(e, id, id_donatur, nama_donatur, periode, biaya) {
       e.preventDefault();
-      $('.js-example-basic-single-edit').select2({
-        placeholder: nama_donatur
-      });
       $("#id_arisan").val(id);
       $("#id_donatur_edit").val(id_donatur);
       $("#nama_donatur_edit").val(nama_donatur);

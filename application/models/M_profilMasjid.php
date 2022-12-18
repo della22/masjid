@@ -34,14 +34,14 @@ class M_profilMasjid extends CI_Model
         $edit = $this->db->query("UPDATE sdm_masjid SET foto_bagan = '$foto_bagan', jumlah_pengurus = '$jumlah_pengurus', jumlah_remaja_masjid = '$jumlah_remaja_masjid', jumlah_imam_utama = '$jumlah_imam_utama', jumlah_imam_cadangan = '$jumlah_imam_cadangan', jumlah_muadzin = '$jumlah_muadzin', jumlah_khatib = '$jumlah_khatib'  WHERE id_sdm ='$id'");
         return $edit;
     }
-    
-    public function input_layanan($nama_layanan = null, $pj_layanan = null)
+
+    public function input_layanan($nama_layanan = null, $pj_layanan = null, $kontak_layanan = null)
     {
         $data = [
             'nama_layanan' => $nama_layanan,
-            'pj_layanan' => $pj_layanan
+            'pj_layanan' => $pj_layanan,
         ];
-        
+
         $this->db->insert('layanan', $data);
     }
 
@@ -50,7 +50,7 @@ class M_profilMasjid extends CI_Model
         $data = [
             'id_layanan' => $id_layanan,
             'nama_layanan' => $nama_layanan,
-            'pj_layanan' => $pj_layanan
+            'pj_layanan' => $pj_layanan,
         ];
         $this->db->where('id_layanan', $id_layanan);
         $this->db->update('layanan', $data);

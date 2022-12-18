@@ -3,13 +3,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="<?php echo base_url('images/logomasjid.png') ?>" type="image/ico" />
-    
-    <title><?php echo SITE_NAME . ": " . ucfirst($this->uri->segment(1)) . " - " . ucfirst($this->uri->segment(2)) ?></title>
-
-    <link rel="icon" href="<?php echo base_url('images/logomasjid.jpg') ?>" type="image/ico" />
+    <link rel="icon" href="<?php echo base_url('images/logomasjid.png') ?>" type="image/ico" />
 
     <title><?php echo SITE_NAME . ": " . ucfirst($this->uri->segment(1)) . " - " . ucfirst($this->uri->segment(2)) ?></title>
+
     <!-- Bootstrap -->
     <link href="<?php echo base_url('cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css') ?>">
     <link href="<?php echo base_url('assets/bootstrap/dist/css/bootstrap.min.css') ?>" rel="stylesheet">

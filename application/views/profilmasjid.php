@@ -36,7 +36,7 @@
         <!-- STRUKTUR ORGANISASI -->
         <div class="main_content container">
             <h3 class="main_title mb-5 text-center">Struktur Organisasi</h3>
-            <img src="<?= base_url('images/') . $sdm['foto_bagan']; ?>" class="image-fluid container mx-auto px-5" alt="" />
+            <img src="<?= base_url('./images/' . $sdm['foto_bagan']); ?>" class="image-fluid container mx-auto px-5" alt="" />
         </div>
         <!-- INFORMASI TAMBAHAN -->
         <div class="main_content container">

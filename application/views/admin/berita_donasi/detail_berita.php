@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php $role = $this->session->userdata('role'); ?>
 
 <head>
   <?php $this->load->view("admin/_partials/head.php") ?>
@@ -32,9 +33,12 @@
                 <div class="x_title" style="margin-bottom: 30px;">
                   <h2>Detail Berita Donasi</h2>
                   <ul class="nav navbar-right panel_toolbox">
-                    <a href="#" onclick="editData(event,'<?= $berita['id_berita']; ?>','<?= $berita['judul_berita']; ?>','<?= $berita['tanggal_mulai']; ?>','<?= $berita['tanggal_selesai']; ?>','<?= $berita['deskripsi_berita']; ?>','<?= $berita['gambar_berita']; ?>')" class="btn btn-info btn-xs">
-                      <i class="fa fa-edit"></i> Edit
-                    </a>
+                    <?php if ($role !== 'Sekretaris') : ?>
+                      <a href="#" onclick="editData(event,'<?= $berita['id_berita']; ?>','<?= $berita['judul_berita']; ?>','<?= $berita['tanggal_mulai']; ?>','<?= $berita['tanggal_selesai']; ?>','<?= $berita['deskripsi_berita']; ?>','<?= $berita['gambar_berita']; ?>')" class="btn btn-info btn-xs">
+                        <i class="fa fa-edit"></i> Edit
+                      </a>
+                    <?php endif; ?>
+
                   </ul>
                   <div class="clearfix"></div>
 
@@ -69,6 +73,13 @@
                       <label class="col-form-label" style="text-align: left;"><?= $berita['deskripsi_berita']; ?></label>
                     </div>
                   </div>
+
+                  <!-- <div class="item form-group">
+                    <label class="col-form-label col-md-5 col-sm-5 label-align">Status : </label>
+                    <div class="col-md-6 col-sm-6 ">
+                      <label class="col-form-label" style="text-align: left;">Ini status</label>
+                    </div>
+                  </div> -->
 
                 </div>
 
@@ -111,83 +122,85 @@
             </div>
 
             <!-- End Modal -->
+            <?php if ($role !== 'Sekretaris') : ?>
 
-            <!-- Edit Modal -->
-            <div class="modal fade" id="editModal" role="dialog">
-              <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h4 class="modal-title"> Edit Berita Donasi </h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="col-md-12 col-sm-12">
-                      <form action="<?= base_url(); ?>/admin/berita_donasi/proses_edit" method="post" enctype="multipart/form-data">
-
-                        <div class="item form-group">
-                          <label class="col-form-label col-md-3 col-sm-3 label-align">Judul Berita</label>
-                          <div class="col-md-9 col-sm-9 ">
-                            <input type="hidden" name="id_berita" value="<?= $berita['id_berita']; ?>" />
-                            <input class="form-control" type="text" name="judul_berita" id="judul_berita_edit" placeholder="Judul Berita" value="" required />
-                          </div>
-                        </div>
-
-                        <div class="item form-group">
-                          <label class="col-form-label col-md-3 col-sm-3 label-align">Jangka Waktu : </label>
-                          <div class='col-md-5 col-sm-5'>
-                            <div class="form-group">
-                              <label for="input_to">Dari</label>
-                              <div class='input-group date myDatepicker2'>
-                                <input type="text" class="form-control" placeholder="Dari " name="tanggal_mulai" id="tanggal_mulai_edit" value="" required />
-                                <span class="input-group-addon" style="padding-top: 10px">
-                                  <span class="fa fa-calendar-o"></span>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class='col-md-5 col-sm-5'>
-                            <div class="form-group">
-                              <label for="input_to">Sampai</label>
-                              <div class='input-group date myDatepicker2'>
-                                <input type="text" class="form-control" placeholder="Sampai " name="tanggal_selesai" id="tanggal_selesai_edit" value="" required />
-                                <span class="input-group-addon" style="padding-top: 10px">
-                                  <span class="fa fa-calendar-o"></span>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="item form-group">
-                          <label class="col-form-label col-md-3 col-sm-3 label-align">Deskripsi : </label>
-                          <div class="col-md-9 col-sm-9 ">
-                            <textarea class="form-control" name="deskripsi_berita" id="deskripsi_berita_edit" placeholder="Deskripsi" required></textarea>
-                          </div>
-                        </div>
-
-                        <div class="item form-group">
-                          <label class="col-form-label col-md-3 col-sm-3 label-align">Gambar : </label>
-                          <div class="col-md-9 col-sm-9">
-                            <input type="hidden" name="gambar_berita_default" value="<?= $berita['gambar_berita']; ?>">
-                            <input type="file" class="custom-file-input" id="berita_gambar_edit" name="gambar_berita">
-                            <label class="custom-file-label berita_gambar_edit_label" for="berita_gambar_edit">Ambil gambar</label>
-                          </div>
-                        </div>
-                        <div class="form-group mt-5 mx-auto" style="max-width: 250px;border:1px solid #ddd">
-                          <img id="image_prev_edit" src="<?= base_url('images/berita_donasi/') . $berita['gambar_berita']; ?>" class="img-fluid" alt="">
-                        </div>
+              <!-- Edit Modal -->
+              <div class="modal fade" id="editModal" role="dialog">
+                <div class="modal-dialog">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title"> Edit Berita Donasi </h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                  </div>
+                    <div class="modal-body">
+                      <div class="col-md-12 col-sm-12">
+                        <form action="<?= base_url(); ?>/admin/berita_donasi/proses_edit" method="post" enctype="multipart/form-data">
 
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Edit</button>
-                  </div>
+                          <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">Judul Berita</label>
+                            <div class="col-md-9 col-sm-9 ">
+                              <input type="hidden" name="id_berita" value="<?= $berita['id_berita']; ?>" />
+                              <input class="form-control" type="text" name="judul_berita" id="judul_berita_edit" placeholder="Judul Berita" value="" required />
+                            </div>
+                          </div>
 
-                  </form>
+                          <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">Jangka Waktu : </label>
+                            <div class='col-md-5 col-sm-5'>
+                              <div class="form-group">
+                                <label for="input_to">Dari</label>
+                                <div class='input-group date myDatepicker2'>
+                                  <input type="text" class="form-control" placeholder="Dari " name="tanggal_mulai" id="tanggal_mulai_edit" value="" required />
+                                  <span class="input-group-addon" style="padding-top: 10px">
+                                    <span class="fa fa-calendar-o"></span>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class='col-md-5 col-sm-5'>
+                              <div class="form-group">
+                                <label for="input_to">Sampai</label>
+                                <div class='input-group date myDatepicker2'>
+                                  <input type="text" class="form-control" placeholder="Sampai " name="tanggal_selesai" id="tanggal_selesai_edit" value="" required />
+                                  <span class="input-group-addon" style="padding-top: 10px">
+                                    <span class="fa fa-calendar-o"></span>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">Deskripsi : </label>
+                            <div class="col-md-9 col-sm-9 ">
+                              <textarea class="form-control" name="deskripsi_berita" id="deskripsi_berita_edit" placeholder="Deskripsi" required></textarea>
+                            </div>
+                          </div>
+
+                          <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">Gambar : </label>
+                            <div class="col-md-9 col-sm-9">
+                              <input type="hidden" name="gambar_berita_default" value="<?= $berita['gambar_berita']; ?>">
+                              <input type="file" class="custom-file-input" id="berita_gambar_edit" name="gambar_berita">
+                              <label class="custom-file-label berita_gambar_edit_label" for="berita_gambar_edit">Ambil gambar</label>
+                            </div>
+                          </div>
+                          <div class="form-group mt-5 mx-auto" style="max-width: 250px;border:1px solid #ddd">
+                            <img id="image_prev_edit" src="<?= base_url('images/berita_donasi/') . $berita['gambar_berita']; ?>" class="img-fluid" alt="">
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-success">Edit</button>
+                    </div>
+
+                    </form>
+                  </div>
                 </div>
               </div>
-            </div>
+            <?php endif; ?>
 
             <!-- Tambah Modal -->
             <div class="modal fade" id="dokumentasiModal" role="dialog">

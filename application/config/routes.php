@@ -59,5 +59,6 @@ $route['masjid'] = 'Awal/masjid';
 $route['spreadsheet'] = 'PhpspreadsheetController';
 $route['spreadsheet/import'] = 'PhpspreadsheetController/import';
 $route['spreadsheet/export'] = 'PhpspreadsheetController/export';
+$route['arisan_kurban'] = 'Arisan_Kurban';
 
 // $routes->get('admin/profile', 'Profil::index');

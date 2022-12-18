@@ -11,6 +11,14 @@ class Pengeluaran extends CI_Controller
         $this->load->model('M_rekapitulasi');
         $this->load->helper('rupiah_helper');
         $this->load->helper('dates_helper');
+        // CHECK AUTH LOGIN
+        if ($this->session->userdata('status') != "login") {
+            redirect(base_url("login"));
+        }
+    }
+
+    public function auth_cek_role()
+    {
         if ($this->session->userdata('status') == "login") {
             if ($this->session->userdata('role') != "Admin") {
                 if ($this->session->userdata('role') != "Bendahara") {
@@ -24,22 +32,40 @@ class Pengeluaran extends CI_Controller
 
     public function index()
     {
-        if ($this->input->get('tanggalawal') && $this->input->get('tanggalakhir')) {
-            $tanggalawal = $this->input->get('tanggalawal');
-            $tanggalakhir = $this->input->get('tanggalakhir');
-            $data['pengeluaran'] = $this->M_pengeluaran->filter($tanggalawal, $tanggalakhir);
-            $data['kategori_pengeluaran'] = $this->M_pengeluaran->list_kategori_pengeluaran();
-            $data['filter'] = $this->input->get('tanggalawal') . ' sampai ' . $this->input->get('tanggalakhir');
+        $kategori = (int) $this->input->get('kategori');
+        $iskategori = $this->input->get('hanya_kategori');
+        $data['filter'] = '';
+        if (!$iskategori) {
+            if ($this->input->get('tanggalawal') && $this->input->get('tanggalakhir')) {
+                $tanggalawal = $this->input->get('tanggalawal');
+                $tanggalakhir = $this->input->get('tanggalakhir');
+
+                if ($kategori === 0) {
+                    if ($tanggalawal === $tanggalakhir) {
+                        $data['pengeluaran'] = $this->M_pengeluaran->list_pengeluaran();
+                    } else {
+                        $data['pengeluaran'] = $this->M_pengeluaran->filter($tanggalawal, $tanggalakhir);
+                        $data['filter'] = $this->input->post('tanggalawal') . ' sampai ' . $this->input->post('tanggalakhir');
+                    }
+                } else {
+                    $data['pengeluaran'] = $this->M_pengeluaran->filter_kategori($tanggalawal, $tanggalakhir, $kategori);
+                    $data['filter'] = $this->input->get('tanggalawal') . ' sampai ' . $this->input->get('tanggalakhir');
+                }
+            } else {
+                $data['pengeluaran'] = $this->M_pengeluaran->list_pengeluaran();
+                $data['filter'] = '';
+            }
         } else {
-            $data['kategori_pengeluaran'] = $this->M_pengeluaran->list_kategori_pengeluaran();
-            $data['pengeluaran'] = $this->M_pengeluaran->list_pengeluaran();
+            $data['pengeluaran'] = $this->M_pengeluaran->filter_kategori_only($kategori);
             $data['filter'] = '';
         }
+        $data['kategori_pengeluaran'] = $this->M_pengeluaran->list_kategori_pengeluaran();
         $this->load->view('admin/pengeluaran/list_pengeluaran', $data);
     }
 
     public function proses()
     {
+        $this->auth_cek_role();
         $tanggal_pengeluaran = $this->input->post('tanggal_pengeluaran');
         $nominal_pengeluaran = $this->input->post('nominal_pengeluaran');
         $keterangan_pengeluaran = $this->input->post('keterangan_pengeluaran');
@@ -51,6 +77,7 @@ class Pengeluaran extends CI_Controller
 
     public function edit()
     {
+        $this->auth_cek_role();
         $id_pengeluaran = $this->input->post('id_pengeluaran');
         $tanggal_pengeluaran = $this->input->post('tanggal_pengeluaran');
         $nominal_pengeluaran = $this->input->post('nominal_pengeluaran');
@@ -71,7 +98,7 @@ class Pengeluaran extends CI_Controller
 
         $pdf = new \TCPDF();
         $pdf->AddPage('L', 'mm', 'A4');
-        $image_file = base_url('images/logomasjid.png');
+        $image_file = base_url('images/logo.png');
         $pdf->Image($image_file, 20, 20, 25, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         /* Kop Atas */
         $pdf->Ln(6);
@@ -137,6 +164,7 @@ class Pengeluaran extends CI_Controller
 
     public function hapus($id = null)
     {
+        $this->auth_cek_role();
         $this->M_pengeluaran->hapus_pengeluaran($id);
         $this->session->set_flashdata('success', 'Item berhasil dihapus');
         redirect('admin/pengeluaran');
@@ -210,6 +238,7 @@ class Pengeluaran extends CI_Controller
 
     public function addKategoriKeluar()
     {
+        $this->auth_cek_role();
         $nama_kategori_keluar = $this->input->post('nama_kategori_keluar');
         $this->M_pengeluaran->input_kategori($nama_kategori_keluar);
         $this->session->set_flashdata('success', 'Item berhasil ditambahkan');
@@ -218,6 +247,7 @@ class Pengeluaran extends CI_Controller
 
     public function editKategoriKeluar()
     {
+        $this->auth_cek_role();
         $id_kategori_keluar = $this->input->post('id_kategori_keluar');
         $nama_kategori_keluar = $this->input->post('nama_kategori_keluar');
         $this->M_pengeluaran->edit_kategori($id_kategori_keluar, $nama_kategori_keluar);
@@ -227,6 +257,7 @@ class Pengeluaran extends CI_Controller
 
     public function hapus_kategori($id = null)
     {
+        $this->auth_cek_role();
         $this->M_pengeluaran->hapus_kategori($id);
         $this->session->set_flashdata('success', 'Item berhasil dihapus');
         redirect('admin/pengeluaran/kategori_pengeluaran');

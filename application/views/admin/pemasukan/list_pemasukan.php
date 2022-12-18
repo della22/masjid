@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+
 ?>
+<?php $role = $this->session->userdata('role'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +30,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <div class="x_title">
                 <h2>Data Pemasukan <span class="text-primary"><?= $filter; ?></span></h2>
                 <ul class="nav navbar-right panel_toolbox"><a href="#" data-toggle="modal" data-target="#filterModal" class="btn btn-info"><i class="fa fa-filter"></i> Filter</a></ul>
-                <ul class="nav navbar-right panel_toolbox"><a href="#" data-toggle="modal" data-target="#tambahModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Pemasukan</a></ul>
+                <?php if ($role !== 'Sekretaris') : ?>
+                  <ul class="nav navbar-right panel_toolbox"><a href="#" data-toggle="modal" data-target="#tambahModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Pemasukan</a></ul>
+                <?php endif; ?>
                 <div class="clearfix"></div>
               </div>
 
@@ -51,7 +56,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <th>Kategori</th>
                             <th>Nominal(Rp.)</th>
                             <th>Keterangan</th>
-                            <th>Aksi</th>
+                            <?php if ($role !== 'Sekretaris') : ?>
+                              <th>Aksi</th>
+                            <?php endif; ?>
                           </tr>
                         </thead>
                         <tbody>
@@ -64,11 +71,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
                               <td width="70"><?= $data_pemasukan['nama_kategori_masuk']; ?></td>
                               <td width="70"><?= number_format($data_pemasukan['nominal'], 0, ',', '.'); ?></td>
                               <td width="300"><?= $data_pemasukan['keterangan']; ?></td>
-                              <td width="150" align="center">
-                                <a href="" onclick="editData(event, '<?= $data_pemasukan['id']; ?>', '<?= $data_pemasukan['tanggal']; ?>','<?= $data_pemasukan['nominal']; ?>','<?= $data_pemasukan['keterangan']; ?>','<?= $data_pemasukan['id_kategori_masuk']; ?>')"><i class="fa fa-edit"></i> Edit</a>
-                                <a href="<?= base_url('admin/pemasukan/print'); ?>/<?= $data_pemasukan['id']; ?>" style="margin-right: 9px" target="_blank"><i class="fa fa-print"></i> Print </a>
-                                <a href="" onclick="deleteConfirm(event,'<?= base_url(); ?>/admin/pemasukan/hapus/<?= $data_pemasukan['id']; ?>')"><i class="fa fa-trash"></i> Hapus</a>
-                              </td>
+                              <?php if ($role !== 'Sekretaris') : ?>
+                                <td width="150" align="center">
+                                  <a href="" onclick="editData(event, '<?= $data_pemasukan['id']; ?>', '<?= $data_pemasukan['tanggal']; ?>','<?= $data_pemasukan['nominal']; ?>','<?= $data_pemasukan['keterangan']; ?>','<?= $data_pemasukan['id_kategori_masuk']; ?>')"><i class="fa fa-edit"></i> Edit</a>
+                                  <a href="<?= base_url('admin/pemasukan/print'); ?>/<?= $data_pemasukan['id']; ?>" style="margin-right: 9px" target="_blank"><i class="fa fa-print"></i> Print </a>
+                                  <a href="" onclick="deleteConfirm(event,'<?= base_url(); ?>/admin/pemasukan/hapus/<?= $data_pemasukan['id']; ?>')"><i class="fa fa-trash"></i> Hapus</a>
+                                </td>
+                              <?php endif; ?>
                             </tr>
                           <?php endforeach; ?>
                         </tbody>
@@ -93,103 +102,44 @@ defined('BASEPATH') or exit('No direct script access allowed');
     </div>
   </div>
 
-  <!-- Modal -->
-  <!-- Logout Delete Confirmation-->
-  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Data yang dihapus tidak akan bisa dikembalikan.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-          <a id="btn-delete" class="btn btn-danger" href="#">Hapus</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Edit Modal -->
-  <div class="modal fade" id="editModal" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title"> Edit Pemasukan </h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <form role="form" action="<?= base_url(); ?>/admin/pemasukan/edit" method="post">
-
-            <div class="form-group col-md-12 col-sm-12">
-              <label class="col-form-label col-md-4 col-sm-4 label-align">Kategori Pemasukan : </label>
-              <div class='col-md-8 col-sm-8'>
-                <select class="select2_single form-control" name="kategori_pemasukan" tabindex="-1">
-                  <?php
-                  foreach ($kategori_pemasukan->result_array() as $kategori) :
-                  ?>
-                    <option value="<?= $kategori['id_kategori_masuk']; ?>"><?= $kategori['nama_kategori_masuk']; ?></option>
-                  <?php endforeach; ?>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group col-md-12 col-sm-12">
-              <label class="col-form-label col-md-4 col-sm-4 label-align">Tanggal Pemasukan : </label>
-              <div class='col-md-8 col-sm-8'>
-                <input type="hidden" name="id_pemasukan" id="id_pemasukan" value="" />
-                <div class='input-group date myDatepicker2'>
-                  <input type="text" class="form-control" placeholder="Tanggal " id="tanggal_pemasukan_edit" name="tanggal_pemasukan" required />
-                  <span class="input-group-addon" style="padding-top: 10px">
-                    <span class="fa fa-calendar-o"></span>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="form-group col-md-12 col-sm-12">
-              <label class="col-form-label col-md-4 col-sm-4 label-align">Nominal(Rp.) : </label>
-              <div class='col-md-8 col-sm-8'>
-                <input class="form-control" type="number" id="nominal_pemasukan_edit" name="nominal_pemasukan" placeholder="Nominal" required />
-              </div>
-
-            </div>
-            <div class="form-group col-md-12 col-sm-12">
-              <label class="col-form-label col-md-4 col-sm-4 label-align">Keterangan : </label>
-              <div class="col-md-8 col-sm-8 ">
-                <textarea class="form-control" id="keterangan_pemasukan_edit" name="keterangan_pemasukan" placeholder="Keterangan" required></textarea>
-              </div>
-            </div>
-            <br>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-success">Edit</button>
-            </div>
-          </form>
+  <?php if ($role !== 'Sekretaris') : ?>
+    <!-- Modal -->
+    <!-- Logout Delete Confirmation-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Data yang dihapus tidak akan bisa dikembalikan.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+            <a id="btn-delete" class="btn btn-danger" href="#">Hapus</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <?php endif; ?>
 
+  <?php if ($role !== 'Sekretaris') : ?>
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title"> Edit Pemasukan </h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <form role="form" action="<?= base_url(); ?>/admin/pemasukan/edit" method="post">
 
-  <!-- Tambah Manual Modal -->
-  <div class="modal fade" id="tambahModal" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title"> Tambah Pemasukan </h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <div class="col-md-12 col-sm-12">
-            <form action="<?= base_url(); ?>/admin/pemasukan/proses" method="post" enctype="multipart/form-data">
-
-              <div class="item form-group">
-                <label class="col-form-label col-md-4 col-sm-4 label-align" for="kategori_pemasukan">Kategori Pemasukan</label>
-                <div class='col-md-8 col-sm-8'>
+              <div class="form-group col-md-12 col-sm-12">
+                <label class="col-form-label col-md-4 col-sm-4 label-align">Kategori Pemasukan : </label>
+                <div class='col-md-7 col-sm-7'>
                   <select class="select2_single form-control" name="kategori_pemasukan" tabindex="-1">
                     <?php
                     foreach ($kategori_pemasukan->result_array() as $kategori) :
@@ -200,44 +150,108 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </div>
               </div>
 
-              <div class="item form-group">
-                <label class="col-form-label col-md-4 col-sm-4 label-align" for="tanggal_pemasukan">Tanggal Pemasukan</label>
-                <div class='col-md-8 col-sm-8'>
+              <div class="form-group col-md-12 col-sm-12">
+                <label class="col-form-label col-md-4 col-sm-4 label-align">Tanggal Pemasukan : </label>
+                <div class='col-md-7 col-sm-7'>
+                  <input type="hidden" name="id_pemasukan" id="id_pemasukan" value="" />
                   <div class='input-group date myDatepicker2'>
-                    <input type="text" class="form-control" placeholder="Tanggal " name="tanggal_pemasukan" required />
+                    <input type="text" class="form-control" placeholder="Tanggal " id="tanggal_pemasukan_edit" name="tanggal_pemasukan" required />
                     <span class="input-group-addon" style="padding-top: 10px">
                       <span class="fa fa-calendar-o"></span>
                     </span>
                   </div>
                 </div>
               </div>
+              <div class="form-group col-md-12 col-sm-12">
+                <label class="col-form-label col-md-4 col-sm-4 label-align">Nominal(Rp.) : </label>
+                <div class='col-md-7 col-sm-7'>
+                  <input class="form-control" type="number" id="nominal_pemasukan_edit" name="nominal_pemasukan" placeholder="Nominal" required />
+                </div>
 
-              <div class="item form-group">
-                <label class="col-form-label col-md-4 col-sm-4 label-align" for="nominal_pemasukan">Nominal(Rp.)</label>
-                <div class="col-md-8 col-sm-8 ">
-                  <input class="form-control" type="tel" pattern="[0-9]*" value="" name="nominal_pemasukan" placeholder="Nominal" required />
-               </div>
               </div>
-
-              <div class="item form-group">
-                <label class="col-form-label col-md-4 col-sm-4 label-align" for="keterangan_pemasukan">Keterangan</label>
-                <div class="col-md-8 col-sm-8 ">
-                  <textarea class="form-control" name="keterangan_pemasukan" placeholder="Keterangan" required></textarea>
+              <div class="form-group col-md-12 col-sm-12">
+                <label class="col-form-label col-md-4 col-sm-4 label-align">Keterangan : </label>
+                <div class="col-md-7 col-sm-7 ">
+                  <textarea class="form-control" id="keterangan_pemasukan_edit" name="keterangan_pemasukan" placeholder="Keterangan" required></textarea>
                 </div>
               </div>
-
               <br>
-
               <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Tambah</button>
+                <button type="submit" class="btn btn-success">Edit</button>
               </div>
-
             </form>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  <?php endif; ?>
+
+  <?php if ($role !== 'Sekretaris') : ?>
+    <!-- Tambah Manual Modal -->
+    <div class="modal fade" id="tambahModal" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title"> Tambah Pemasukan </h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="col-md-12 col-sm-12">
+              <form action="<?= base_url(); ?>/admin/pemasukan/proses" method="post" enctype="multipart/form-data">
+
+                <div class="item form-group">
+                  <label class="col-form-label col-md-4 col-sm-4 label-align" for="kategori_pemasukan">Kategori Pemasukan</label>
+                  <div class='col-md-7 col-sm-7'>
+                    <select class="select2_single form-control" name="kategori_pemasukan" tabindex="-1">
+                      <?php
+                      foreach ($kategori_pemasukan->result_array() as $kategori) :
+                      ?>
+                        <option value="<?= $kategori['id_kategori_masuk']; ?>"><?= $kategori['nama_kategori_masuk']; ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="item form-group">
+                  <label class="col-form-label col-md-4 col-sm-4 label-align" for="tanggal_pemasukan">Tanggal Pemasukan</label>
+                  <div class='col-md-7 col-sm-7'>
+                    <div class='input-group date myDatepicker2'>
+                      <input type="text" class="form-control" placeholder="Tanggal " name="tanggal_pemasukan" required />
+                      <span class="input-group-addon" style="padding-top: 10px">
+                        <span class="fa fa-calendar-o"></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="item form-group">
+                  <label class="col-form-label col-md-4 col-sm-4 label-align" for="nominal_pemasukan">Nominal(Rp.)</label>
+                  <div class="col-md-7 col-sm-7 ">
+                    <input class="form-control" type="tel" pattern="[0-9]*" value="" name="nominal_pemasukan" placeholder="Nominal" required />
+                  </div>
+                </div>
+
+                <div class="item form-group">
+                  <label class="col-form-label col-md-4 col-sm-4 label-align" for="keterangan_pemasukan">Keterangan</label>
+                  <div class="col-md-7 col-sm-7 ">
+                    <textarea class="form-control" name="keterangan_pemasukan" placeholder="Keterangan" required></textarea>
+                  </div>
+                </div>
+
+                <br>
+
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-success">Tambah</button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php endif; ?>
 
   <!-- Filter Modal -->
   <div class="modal fade" id="filterModal" role="dialog">
@@ -271,6 +285,28 @@ defined('BASEPATH') or exit('No direct script access allowed');
                       <span class="fa fa-calendar-o"></span>
                     </span>
                   </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="input_to">Kategori</label>
+                  <select class="select2_single form-control" name="kategori" id="katff" tabindex="-1" required>
+                    <option value="0">Semua Kategori</option>
+                    <?php
+                    foreach ($kategori_pemasukan->result_array() as $kategori) :
+                    ?>
+                      <option value="<?= $kategori['id_kategori_masuk']; ?>"><?= $kategori['nama_kategori_masuk']; ?></option>
+                    <?php
+                    endforeach;
+                    ?>
+
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group d-flex justify-content-start items-center mt-4 pt-2 ml-2">
+                  <input type="checkbox" name="hanya_kategori" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Apakah hanya kategori?</label>
                 </div>
               </div>
             </div>
@@ -353,7 +389,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
     $("input[name='nominal_pemasukan']").on('input', function(e) {
       $(this).val($(this).val().replace(/[^0-9]/g, ''));
     });
-
     $('.myDatepicker2').datetimepicker({
       format: 'YYYY-MM-DD',
       defaultDate: new Date()

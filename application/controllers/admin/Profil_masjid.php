@@ -9,6 +9,7 @@ class Profil_masjid extends CI_Controller
         parent::__construct();
         $this->load->model('M_profilMasjid');
         $this->load->model('M_jamaah');
+
         $this->load->library('form_validation');
         if ($this->session->userdata('status') == "login") {
             if ($this->session->userdata('role') != "Admin") {
@@ -23,10 +24,11 @@ class Profil_masjid extends CI_Controller
 
     public function index()
     {
-        $data['jamaah'] = $this->M_jamaah->list_jamaah();
         $data['layanan'] = $this->M_profilMasjid->list_layanan();
         $data['profil'] = $this->M_profilMasjid->getDataProfil()->row_array();
         $data['sdm'] = $this->M_profilMasjid->getDataSDM()->row_array();
+        $data['jamaah'] = $this->M_jamaah->list_jamaah();
+
         $this->load->view('admin/profil_masjid/profil', $data);
     }
 
@@ -53,8 +55,8 @@ class Profil_masjid extends CI_Controller
                 $data['upload_path'] = './images';
                 $data['allowed_types'] = 'jpg|png|jpeg';
                 $data['encrypt_name'] = TRUE;
+
                 $this->load->library('upload', $data);
-                
                 if (!$this->upload->do_upload('upload_img')) {
                     $upload_img = $this->input->post('upload_image');
                 } else {
@@ -89,7 +91,6 @@ class Profil_masjid extends CI_Controller
             $config['upload_path'] = './images';
             $config['allowed_types'] = 'jpg|png|jpeg';
             $config['encrypt_name'] = TRUE;
-
 
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('foto_bagan')) {

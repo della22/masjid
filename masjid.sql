@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Nov 2022 pada 15.53
+-- Waktu pembuatan: 18 Des 2022 pada 17.43
 -- Versi server: 10.4.22-MariaDB
 -- Versi PHP: 7.4.26
 
@@ -208,6 +208,29 @@ INSERT INTO `cicil_arisan_kurban` (`id_cicil_arisan`, `id_arisan`, `tanggal_cici
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `donasi`
+--
+
+CREATE TABLE `donasi` (
+  `id` int(10) NOT NULL,
+  `id_berita` int(10) NOT NULL,
+  `nominal` int(100) NOT NULL,
+  `keterangan` text NOT NULL,
+  `tanggal` date NOT NULL DEFAULT current_timestamp(),
+  `bukti` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `donasi`
+--
+
+INSERT INTO `donasi` (`id`, `id_berita`, `nominal`, `keterangan`, `tanggal`, `bukti`) VALUES
+(2, 7, 10000, 'fewafwaef', '2022-12-17', '31166f595c0badfc2ed1d6a28a978b2b.png'),
+(3, 9, 1000032, 'test', '2022-12-16', 'efbfc17de39a1e4102f4759949c5f5aa.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `jamaah`
 --
 
@@ -215,34 +238,47 @@ CREATE TABLE `jamaah` (
   `id_jamaah` int(50) NOT NULL,
   `nama_jamaah` varchar(30) NOT NULL,
   `telepon_jamaah` varchar(13) NOT NULL,
-  `alamat_jamaah` text NOT NULL
+  `alamat_jamaah` text NOT NULL,
+  `tanggal_lahir` date DEFAULT current_timestamp(),
+  `jenis_kelamin` enum('Laki-Laki','Perempuan') DEFAULT 'Laki-Laki',
+  `tanggal_ditambah` date DEFAULT current_timestamp(),
+  `tanggal_dihapus` date DEFAULT NULL,
+  `is_dihapus` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `jamaah`
 --
 
-INSERT INTO `jamaah` (`id_jamaah`, `nama_jamaah`, `telepon_jamaah`, `alamat_jamaah`) VALUES
-(8, 'Herwandi', '081377655505', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(9, 'Pamuji', '081368459191', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(10, 'H Muchsin', '081278447809', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(11, 'Zulkipli ', '085368100795', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(12, 'H. Yusuf', '08127170776', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(13, 'Edi', '085267381402', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(14, 'Zulfikar', '081373641082', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek	'),
-(15, 'H. M Nurazazi ', '081367381152', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(16, 'Syamsudin', '0', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(17, 'Febri', '081273237515', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(18, 'Iskandar', '0', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(19, 'Tarmizi ', '081364749838', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(20, 'Edison', '08127537301', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(21, 'Jarno', '0', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(22, 'Ali Akbar', '0', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(23, 'Hajar', '085369487422', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(27, 'Hamid', '085838185435', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(28, 'Fauzan', '081958065305', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(29, 'Bujang Sarmili', '081298286950', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek'),
-(30, 'Eman', '081373316546', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek');
+INSERT INTO `jamaah` (`id_jamaah`, `nama_jamaah`, `telepon_jamaah`, `alamat_jamaah`, `tanggal_lahir`, `jenis_kelamin`, `tanggal_ditambah`, `tanggal_dihapus`, `is_dihapus`) VALUES
+(8, 'Herwandi', '081377655505', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(9, 'Pamuji', '081368459191', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(10, 'H Muchsin', '081278447809', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(11, 'Zulkipli ', '085368100795', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(12, 'H. Yusuf', '08127170776', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(13, 'Edi', '085267381402', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(14, 'Zulfikar', '081373641082', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek	', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(15, 'H. M Nurazazi ', '081367381152', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(16, 'Syamsudin', '0', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(17, 'Febri', '081273237515', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(18, 'Iskandar', '0', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(19, 'Tarmizi ', '081364749838', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(20, 'Edison', '08127537301', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(21, 'Jarno', '0', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(22, 'Ali Akbar', '0', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(23, 'Hajar', '085369487422', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(27, 'Hamid', '085838185435', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(28, 'Fauzan', '081958065305', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(29, 'Bujang Sarmili', '081298286950', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(30, 'Eman', '081373316546', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(31, 'Zulkifli', '085268620818', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(32, 'Dasril', '08127345167', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(33, 'Soleh', '085369856260', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(34, 'Olim', '085369956929', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(35, 'Dian', '085268366750', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(36, 'Nurdin', '082123034363', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(37, 'Hamid', '085838185435', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0),
+(38, 'Wandi', '082373942657', 'Gg. Selangat RT 06/RW 02 Kel. Selindung Baru, Kec. Gabek', '2022-12-17', 'Laki-Laki', '2022-12-17', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -342,7 +378,9 @@ INSERT INTO `pemasukan` (`id`, `id_kategori`, `tanggal`, `nominal`, `keterangan`
 (11, 1, '2022-09-30', '7440000', 'Infaq dari Budi Herwandi', 'pemasukan'),
 (12, 1, '2022-10-07', '1000000', 'Infak dari Hamba Allah', 'pemasukan'),
 (13, 1, '2022-10-16', '7164000', 'Infaq dari Herwandi', 'pemasukan'),
-(14, 1, '2022-11-10', '1000000', 'Infaq pembayaran seng bekas', 'pemasukan');
+(14, 1, '2022-11-10', '1000000', 'Infaq pembayaran seng bekas', 'pemasukan'),
+(15, 1, '2022-11-26', '7000000', 'Uang masuk dari Herwandi', 'pemasukan'),
+(16, 1, '2022-12-03', '1000000', 'Infaq dari hamba Allah', 'pemasukan');
 
 -- --------------------------------------------------------
 
@@ -382,7 +420,10 @@ INSERT INTO `pengeluaran` (`id`, `id_kategori`, `tanggal`, `nominal`, `keteranga
 (18, 2, '2022-11-02', '5000000', 'Beli kanal ', 'pengeluaran'),
 (19, 1, '2022-11-03', '1000000', 'Bayar marbot mang Jali', 'pengeluaran'),
 (20, 3, '2022-11-09', '5241500', 'Pembelian Spandek', 'pengeluaran'),
-(21, 2, '2022-11-12', '2500000', 'Bayar upah tukang', 'pengeluaran');
+(21, 2, '2022-11-12', '2500000', 'Bayar upah tukang', 'pengeluaran'),
+(22, 2, '2022-11-12', '2500000', 'Bayar upah tukang', 'pengeluaran'),
+(23, 1, '2022-11-30', '5000000', 'Bayar pembelian Canal & Spandek (Via Pak tarmizi)', 'pengeluaran'),
+(24, 1, '2022-12-02', '500000', 'Bayar marbot Tomar', 'pengeluaran');
 
 -- --------------------------------------------------------
 
@@ -478,6 +519,12 @@ ALTER TABLE `cicil_arisan_kurban`
   ADD PRIMARY KEY (`id_cicil_arisan`);
 
 --
+-- Indeks untuk tabel `donasi`
+--
+ALTER TABLE `donasi`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `jamaah`
 --
 ALTER TABLE `jamaah`
@@ -539,7 +586,7 @@ ALTER TABLE `user_profile`
 -- AUTO_INCREMENT untuk tabel `arisan_kurban`
 --
 ALTER TABLE `arisan_kurban`
-  MODIFY `id_arisan` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_arisan` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT untuk tabel `berita_donasi`
@@ -554,10 +601,16 @@ ALTER TABLE `cicil_arisan_kurban`
   MODIFY `id_cicil_arisan` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
+-- AUTO_INCREMENT untuk tabel `donasi`
+--
+ALTER TABLE `donasi`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT untuk tabel `jamaah`
 --
 ALTER TABLE `jamaah`
-  MODIFY `id_jamaah` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_jamaah` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori_pemasukan`
@@ -581,13 +634,13 @@ ALTER TABLE `layanan`
 -- AUTO_INCREMENT untuk tabel `pemasukan`
 --
 ALTER TABLE `pemasukan`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengeluaran`
 --
 ALTER TABLE `pengeluaran`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `profil_masjid`

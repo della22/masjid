@@ -74,7 +74,7 @@
                                                 <div class="form-group col-md-12 col-sm-12">
                                                 <div class="item form-group">
                                                     <label class="col-form-label col-md-4 col-sm-4 label-align" for="nama_kategori">Nama Kategori</label>
-                                                    <div class="col-md-8 col-sm-8 ">
+                                                    <div class="col-md-7 col-sm-7 ">
                                                        <input class="form-control" id="nama_kategori_keluar_edit" type="text" name="nama_kategori_keluar" placeholder="Nama Kategori" required/>
                                                         <input type="hidden" name="id_kategori_keluar" id="id_kategori_keluar_edit">
                                                     </div>
@@ -126,7 +126,7 @@
               <div class="form-group col-md-12 col-sm-12">
                 <div class="item form-group">
                     <label class="col-form-label col-md-4 col-sm-4 label-align" for="nama_kategori_keluar">Nama Kategori</label>
-                    <div class="col-md-8 col-sm-8 ">
+                    <div class="col-md-7 col-sm-7 ">
                         <input class="form-control" type="text" name="nama_kategori_keluar" placeholder="Nama Kategori" required/>
                     </div>
                 </div>

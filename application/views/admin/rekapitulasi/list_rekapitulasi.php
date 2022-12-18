@@ -135,6 +135,9 @@
                 <div class="x_title">
                   <div class="clearfix"></div>
                 </div>
+                <div align="right">
+                  <a href="<?= $link_download; ?>" class="btn btn-success"><i class="fa fa-file-excel-o"></i> Export Excel</a>
+                </div>
               </div>
 
 

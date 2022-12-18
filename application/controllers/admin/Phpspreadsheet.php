@@ -172,21 +172,27 @@ class Phpspreadsheet extends CI_Controller
 			$extension = end($arr_file);
 			if ('csv' == $extension) {
 				$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+			} else if ('xls' == $extension) {
+				$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
 			} else {
 				$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
 			}
 			$spreadsheet = $reader->load($_FILES['upload_file']['tmp_name']);
 			$sheetData = $spreadsheet->getActiveSheet()->toArray();
 			for ($i = 1; $i < count($sheetData); $i++) {
-				$nama_jamaah = $sheetData[$i]['0'];
-				$telepon_jamaah = $sheetData[$i]['1'];
-				$alamat_jamaah = $sheetData[$i]['2'];
+				// var_dump($sheetData[$i]);
+				$nama_jamaah = $sheetData[$i][0];
+				$telepon_jamaah = $sheetData[$i][1];
+				$alamat_jamaah = $sheetData[$i][2];
+				$tanggal_lahir = $sheetData[$i][3];
+				$jenis_kelamin = $sheetData[$i][4];
 
 				$data = array(
 					'nama_jamaah' => $nama_jamaah,
 					'telepon_jamaah' => $telepon_jamaah,
 					'alamat_jamaah' => $alamat_jamaah,
-
+					'tanggal_lahir' => $tanggal_lahir,
+					'jenis_kelamin' => $jenis_kelamin,
 				);
 				// $cek_id = $this->M_jamaah->get_id($id_jamaah)->num_rows();
 				// if ($cek_id == 0) {

@@ -11,6 +11,14 @@ class Arisan_Kurban extends CI_Controller
         $this->load->model('M_jamaah');
         $this->load->helper('rupiah_helper');
         $this->load->helper('dates_helper');
+        // CHECK AUTH LOGIN
+        if ($this->session->userdata('status') != "login") {
+            redirect(base_url("login"));
+        }
+    }
+
+    public function auth_cek_role()
+    {
         if ($this->session->userdata('status') == "login") {
             if ($this->session->userdata('role') != "Admin") {
                 if ($this->session->userdata('role') != "Bendahara") {
@@ -60,24 +68,21 @@ class Arisan_Kurban extends CI_Controller
 
     public function proses()
     {
+        $this->auth_cek_role();
         $id_donatur = $this->input->post('id_donatur');
         $tahun_periode = $this->input->post('tahun_periode');
         $biaya = $this->input->post('biaya');
         $terbayar = 0;
         $status_arisan = 0;
-        $this->M_arisan->input_arisan($id_donatur, $tahun_periode, $biaya, $terbayar, $status_arisan);
-        $this->session->set_flashdata('success', 'Item berhasil ditambahkan');
+        if ($this->M_arisan->input_arisan($id_donatur, $tahun_periode, $biaya, $terbayar, $status_arisan)) {
+            $this->session->set_flashdata('success', 'Item berhasil ditambahkan');
+        }
         redirect('admin/arisan_kurban');
-        //if ($this->M_arisan->input_arisan($id_donatur, $tahun_periode, $biaya, $terbayar, $status_arisan)) {
-        //    $this->session->set_flashdata('success', 'Item berhasil ditambahkan');
-         //   redirect('admin/arisan_kurban');
-        //} else {
-        //    $this->session->set_flashdata('error', 'Item gagal ditambahkan');
-        //    redirect('admin/arisan_kurban');
     }
 
     public function edit()
     {
+        $this->auth_cek_role();
         // Variabel Edit
         $id_arisan = $this->input->post('id_arisan');
         $id_donatur = $this->input->post('id_donatur');
@@ -94,13 +99,31 @@ class Arisan_Kurban extends CI_Controller
 
     public function hapus($id_arisan = null)
     {
+        $this->auth_cek_role();
         $this->M_arisan->hapus_arisan($id_arisan);
         $this->session->set_flashdata('success', 'Item berhasil dihapus');
         redirect('admin/arisan_kurban');
     }
 
+    function get_autocomplete()
+    {
+        if (isset($_GET['term'])) {
+            $result = $this->M_arisan->search_donatur($_GET['term']);
+            if (count($result) > 0) {
+                foreach ($result as $row)
+                    $arr_result[] = array(
+                        'label' => $row->nama_jamaah,
+                        'nama' => $row->nama_jamaah,
+                        'id_donatur'   => $row->id_jamaah,
+                    );
+                echo json_encode($arr_result);
+            }
+        }
+    }
+
     public function tambahCicil()
     {
+        $this->auth_cek_role();
         // variabel untuk tambah cicilan
         $id_arisan = $this->input->post('id_arisan');
         $tanggal_cicil = $this->input->post('tanggal_cicil');
@@ -117,6 +140,7 @@ class Arisan_Kurban extends CI_Controller
 
     public function editCicil()
     {
+        $this->auth_cek_role();
         // Variabel untuk mengubah data
         $id_cicil_arisan = $this->input->post('id_cicil_arisan');
         $id_arisan = $this->input->post('id_arisan');
@@ -135,6 +159,7 @@ class Arisan_Kurban extends CI_Controller
 
     public function hapusCicil($id_cicil_arisan = null, $id_arisan = null)
     {
+        $this->auth_cek_role();
         // Variabel untuk mengubah status
         $nominal_cicil_sebelumnya = (int) $this->M_arisan->getByNoCicil($id_cicil_arisan)->nominal_cicil;
         $total_dibayar = (int) $this->M_arisan->total_dibayar($id_arisan) - (int) $nominal_cicil_sebelumnya;
@@ -230,7 +255,7 @@ class Arisan_Kurban extends CI_Controller
 
         $pdf = new \TCPDF();
         $pdf->AddPage('L', 'mm', 'A4');
-        $image_file = base_url('images/logomasjid.png');
+        $image_file = base_url('images/logo.png');
         $pdf->Image($image_file, 20, 20, 25, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         /* Kop Atas */
         $pdf->Ln(6);
@@ -297,21 +322,5 @@ class Arisan_Kurban extends CI_Controller
         $pdf->Cell(230, 90, '............................', 0, 0, 'R');
 
         $pdf->Output('Kuitansi Cicilan Kurban' . ' .pdf');
-    }
-
-    function get_autocomplete()
-    {
-        if (isset($_GET['term'])) {
-            $result = $this->M_arisan->search_donatur($_GET['term']);
-            if (count($result) > 0) {
-                foreach ($result as $row)
-                    $arr_result[] = array(
-                        'label' => $row->nama_jamaah,
-                        'nama' => $row->nama_jamaah,
-                        'id_donatur' => $row->id_jamaah,
-                    );
-                echo json_encode($arr_result);
-            }
-        }
     }
 }

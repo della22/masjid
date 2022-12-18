@@ -64,11 +64,31 @@ class M_pengeluaran extends CI_Model
 
     public function filter($tanggalawal = null, $tanggalakhir = null)
     {
-
         $this->db->select('*');
         $this->db->from('pengeluaran');
         $this->db->join('kategori_pengeluaran', 'pengeluaran.id_kategori = kategori_pengeluaran.id_kategori_keluar');
         $this->db->where("tanggal BETWEEN '$tanggalawal' AND '$tanggalakhir'");
+        $this->db->order_by('tanggal', 'ASC');
+        return $this->db->get();
+    }
+
+    public function filter_kategori($tanggalawal = null, $tanggalakhir = null, $kategori = null)
+    {
+        $this->db->select('*');
+        $this->db->from('pengeluaran');
+        $this->db->join('kategori_pengeluaran', 'pengeluaran.id_kategori = kategori_pengeluaran.id_kategori_keluar');
+        $this->db->where("tanggal BETWEEN '$tanggalawal' AND '$tanggalakhir'");
+        $this->db->where("id_kategori", $kategori);
+        $this->db->order_by('tanggal', 'ASC');
+        return $this->db->get();
+    }
+
+    public function filter_kategori_only($kategori = null)
+    {
+        $this->db->select('*');
+        $this->db->from('pengeluaran');
+        $this->db->join('kategori_pengeluaran', 'pengeluaran.id_kategori = kategori_pengeluaran.id_kategori_keluar');
+        $this->db->where("id_kategori", $kategori);
         $this->db->order_by('tanggal', 'ASC');
         return $this->db->get();
     }
@@ -103,9 +123,9 @@ class M_pengeluaran extends CI_Model
         $this->db->where('id_kategori_keluar', $id_kategori_keluar);
         $this->db->delete('kategori_pengeluaran');
     }
-    public function pengeluaran_6_bulan()
+    public function pengeluaran_12_bulan()
     {
-        $query = $this->db->query('SELECT date_format(tanggal, "%Y-%m") as tgl, sum(nominal) as jumlah FROM `pengeluaran` WHERE DATE(tanggal) >= (DATE(NOW()) - INTERVAL 6 MONTH) group by date_format(tanggal, "%M")');
+        $query = $this->db->query('SELECT date_format(tanggal, "%Y-%m") as tgl, sum(nominal) as jumlah FROM `pengeluaran` WHERE DATE(tanggal) >= (DATE(NOW()) - INTERVAL 12 MONTH) group by date_format(tanggal, "%M")');
         return $query;
     }
 }

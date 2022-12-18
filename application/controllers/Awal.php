@@ -17,6 +17,7 @@ class Awal extends CI_Controller
         $this->load->helper('rupiah_helper');
     }
 
+
     public function index()
     {
         $data['bulan'] = date('m');
@@ -29,7 +30,8 @@ class Awal extends CI_Controller
         $data['list_bulanan_keluar'] = $this->M_rekapitulasi->list_rekapitulasi_filter_keluar($data['bulan'], $data['tahun'])->result_array();
         $data['list_rekapitulasi'] = $this->M_rekapitulasi->list_rekapitulasi_union($data['bulan'], $data['tahun'])->result_array();
         $data['berita'] = $this->M_berita->list_berita_status(2);
-        $data['arisan_kurban'] = $this->M_arisan->list_arisan();
+        $data['periode_terbaru'] = $this->M_arisan->periode_terbaru()[0]['tahun_periode'];
+        $data['arisan_kurban'] = $this->M_arisan->list_arisan_by_periode($data['periode_terbaru']);
         $data['profil'] = $this->M_profilMasjid->getDataProfil()->row_array();
         $data['layanan'] = $this->M_profilMasjid->list_layanan();
 

@@ -443,7 +443,6 @@
           radius: 16,
           maxWidth: 110,
           oversizedBehavior: "wrap",
-          fontSize: 16,
           fontSize: 12,
           textAlign: "left",
           fill: am5.color(0x333333),

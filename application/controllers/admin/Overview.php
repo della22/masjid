@@ -31,7 +31,8 @@ class Overview extends CI_Controller
             $data['bulan'] = $bulan;
             $data['tahun'] = $tahun;
         }
-        $data['donasi_berlangsung'] = $this->M_berita->list_berita_status(2)->num_rows();
+        $data['berita'] = $this->M_berita->list_berita_status(2);
+        $data['donasi'] = $this->M_berita->list_donasi();
         $data['jumlah_donatur'] = $this->M_arisan->list_arisan()->num_rows();
         $data['kategori_pemasukan'] = $this->M_rekapitulasi->list_kategori_pemasukan()->result_array();
         $data['kategori_pengeluaran'] = $this->M_rekapitulasi->list_kategori_pengeluaran()->result_array();
@@ -44,10 +45,10 @@ class Overview extends CI_Controller
     public function apiPemasukanPengeluaran()
     {
         $response = array();
-        $pemasukan_result = $this->M_pemasukan->pemasukan_6_bulan();
-        $pengeluaran_result = $this->M_pengeluaran->pengeluaran_6_bulan();
+        $pemasukan_result = $this->M_pemasukan->pemasukan_12_bulan();
+        $pengeluaran_result = $this->M_pengeluaran->pengeluaran_12_bulan();
         // buat Array list 6 bulan dengan value pemasukan pengeluaran 0
-        for ($i = 0; $i <= 5; $i++) {
+        for ($i = 0; $i <= 11; $i++) {
             $response[] = array(
                 'date' => date("Y-m", strtotime(date('Y-m-01') . " - $i months")),
                 'value1' => 0,
@@ -185,6 +186,28 @@ class Overview extends CI_Controller
                 'success' => true,
                 'message' => 'Get All Data kategori with Nominal',
                 'filter'   =>   bulan($data['bulan']) . '-' . $data['tahun'],
+                'data'    => $response
+            )
+        );
+    }
+
+    public function apiArisanPeriode()
+    {
+        $response = array();
+        $list_tahun = $this->M_arisan->tahunPeriode();
+        foreach ($list_tahun as $tahun) {
+            $thn = $tahun['tahun_periode'];
+            $response[] = array(
+                'category' => $thn,
+                'value'    => $this->M_arisan->countPertahun((int) $thn)
+            );
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode(
+            array(
+                'success' => true,
+                'message' => 'Get All Data tahun',
                 'data'    => $response
             )
         );

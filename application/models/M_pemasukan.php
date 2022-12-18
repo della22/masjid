@@ -65,11 +65,31 @@ class M_pemasukan extends CI_Model
 
     public function filter($tanggalawal = null, $tanggalakhir = null)
     {
-
         $this->db->select('*');
         $this->db->from('pemasukan');
         $this->db->join('kategori_pemasukan', 'pemasukan.id_kategori = kategori_pemasukan.id_kategori_masuk');
         $this->db->where("tanggal BETWEEN '$tanggalawal' AND '$tanggalakhir'");
+        $this->db->order_by('tanggal', 'ASC');
+        return $this->db->get();
+    }
+
+    public function filter_kategori($tanggalawal = null, $tanggalakhir = null, $kategori = null)
+    {
+        $this->db->select('*');
+        $this->db->from('pemasukan');
+        $this->db->join('kategori_pemasukan', 'pemasukan.id_kategori = kategori_pemasukan.id_kategori_masuk');
+        $this->db->where("tanggal BETWEEN '$tanggalawal' AND '$tanggalakhir'");
+        $this->db->where("id_kategori", $kategori);
+        $this->db->order_by('tanggal', 'ASC');
+        return $this->db->get();
+    }
+
+    public function filter_kategori_only($kategori = null)
+    {
+        $this->db->select('*');
+        $this->db->from('pemasukan');
+        $this->db->join('kategori_pemasukan', 'pemasukan.id_kategori = kategori_pemasukan.id_kategori_masuk');
+        $this->db->where("id_kategori", $kategori);
         $this->db->order_by('tanggal', 'ASC');
         return $this->db->get();
     }
@@ -105,9 +125,9 @@ class M_pemasukan extends CI_Model
         $this->db->delete('kategori_pemasukan');
     }
 
-    public function pemasukan_6_bulan()
+    public function pemasukan_12_bulan()
     {
-        $query = $this->db->query('SELECT date_format(tanggal, "%Y-%m") as tgl, sum(nominal) as jumlah FROM `pemasukan` WHERE DATE(tanggal) >= (DATE(NOW()) - INTERVAL 6 MONTH) group by date_format(tanggal, "%M")');
+        $query = $this->db->query('SELECT date_format(tanggal, "%Y-%m") as tgl, sum(nominal) as jumlah FROM `pemasukan` WHERE DATE(tanggal) >= (DATE(NOW()) - INTERVAL 12 MONTH) group by date_format(tanggal, "%M")');
         return $query;
     }
 }

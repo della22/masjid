@@ -10,6 +10,14 @@ class Rekapitulasi extends CI_Controller
         $this->load->model('M_rekapitulasi');
         $this->load->helper('dates_helper');
         $this->load->helper('rupiah_helper');
+        // CHECK LOGIN
+        if ($this->session->userdata('status') != "login") {
+            redirect(base_url("login"));
+        }
+    }
+
+    public function auth_cek_role()
+    {
         if ($this->session->userdata('status') == "login") {
             if ($this->session->userdata('role') != "Admin") {
                 if ($this->session->userdata('role') != "Bendahara") {

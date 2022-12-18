@@ -82,7 +82,7 @@
                     <div class="item form-group">
                       <label class="col-form-label col-md-5 col-sm-5 label-align">Norek (Bank) : </label>
                       <div class="col-md-9 col-sm-9 ">
-                        <input value="<?= $profil['norek_profil']; ?>" class="form-control" name="norek_profil" placeholder="Norek (Bank)" required />
+                        <input value="<?= $profil['norek_profil']; ?>" class="form-control inputan_angka" type="tel" pattern="[0-9]*" name="norek_profil" placeholder="Norek (Bank)" required />
                       </div>
                     </div>
                     <div class="item form-group">
@@ -221,7 +221,7 @@
                           <td><?= $data_layanan['nama_jamaah']; ?></td>
                           <td><?= $data_layanan['telepon_jamaah']; ?></td>
                           <td align="center">
-                            <a href="" onclick="editLayanan(event, '<?= $data_layanan['id_layanan']; ?>', '<?= $data_layanan['nama_layanan']; ?>','<?= $data_layanan['nama_jamaah']; ?>','<?= $data_layanan['telepon_jamaah']; ?>')"><i class="fa fa-edit"></i> Edit</a>
+                            <a href="" onclick="editLayanan(event, '<?= $data_layanan['id_layanan']; ?>', '<?= $data_layanan['nama_layanan']; ?>','<?= $data_layanan['pj_layanan']; ?>','<?= $data_layanan['nama_jamaah']; ?>')"><i class="fa fa-edit"></i> Edit</a>
 
                             <a href="" onclick="deleteConfirm(event,'<?= base_url(); ?>/admin/profil_masjid/hapusLayanan/<?= $data_layanan['id_layanan']; ?>')"><i class="fa fa-trash"></i> Hapus</a>
                           </td>
@@ -265,25 +265,26 @@
           <form role="form" action="<?= base_url(); ?>/admin/profil_masjid/editLayanan" method="post">
 
             <div class="form-group col-md-12 col-sm-12">
-              <label class="col-form-label col-md-3 col-sm-3 label-align" >Nama Layanan : </label>
+              <label class="col-form-label col-md-3 col-sm-3 label-align" for="jenis_layanan">Nama Layanan : </label>
               <div class="col-md-8 col-sm-8 ">
+                <input type="hidden" name="id_layanan" id="id_layanan" value="" />
                 <input class="form-control" type="text" name="nama_layanan" id="nama_layanan" placeholder="Jenis Layanan" required />
               </div>
             </div>
 
             <div class="form-group col-md-12 col-sm-12">
-              <label class="col-form-label col-md-3 col-sm-3 label-align" >Penanggung Jawab : </label>
+              <label class="col-form-label col-md-3 col-sm-3 label-align" for="pj_layanan">Penanggung Jawab : </label>
               <div class="col-md-8 col-sm-8 ">
-              <select class="js-example-basic-single-edit" id="id_jamaah_edit" style="width: 100%;border-radius:none" name="pj_layanan">
+                <select class="js-example-basic-single-edit" style="width: 100%;border-radius:none" name="pj_layanan">
                   <option value=""></option>
                   <?php foreach ($jamaah->result_array() as $data_jamaah) :
                   ?>
                     <option value="<?= $data_jamaah['id_jamaah']; ?>"><?= $data_jamaah['nama_jamaah']; ?></option>
                   <?php endforeach; ?>
                 </select>
-                <input type="hidden" name="id_layanan" id="id_layanan" value="" />
               </div>
             </div>
+
             <br>
 
             <div class="modal-footer">
@@ -317,6 +318,7 @@
   </div>
 
   <!-- Tambah Modal -->
+
   <div class="modal fade" id="tambahModal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
@@ -329,16 +331,16 @@
           <div class="col-md-12 col-sm-12">
             <form action="<?= base_url(); ?>/admin/profil_masjid/inputLayanan" method="post" enctype="multipart/form-data">
               <div class="item form-group">
-                <label class="col-form-label col-md-3 col-sm-3 label-align">Nama Layanan : </label>
+                <label class="col-form-label col-md-3 col-sm-3 label-align" for="jenis_layanan">Nama Layanan : </label>
                 <div class="col-md-8 col-sm-8 ">
                   <input class="form-control" type="text" name="nama_layanan" id="nama_layanan" placeholder="Nama Layanan" required />
                 </div>
               </div>
 
               <div class="item form-group">
-                <label class="col-form-label col-md-3 col-sm-3 label-align" >Penanggung Jawab : </label>
+                <label class="col-form-label col-md-3 col-sm-3 label-align" for="pj_layanan">Penanggung Jawab : </label>
                 <div class="col-md-8 col-sm-8 ">
-                <select class="js-example-basic-single" style="width: 100%;border-radius:none" name="pj_layanan">
+                  <select class="js-example-basic-single" style="width: 100%;border-radius:none" name="pj_layanan">
                     <option value=""></option>
                     <?php foreach ($jamaah->result_array() as $data_jamaah) :
                     ?>
@@ -347,6 +349,8 @@
                   </select>
                 </div>
               </div>
+
+
               <br>
 
               <div class="modal-footer">
@@ -377,23 +381,6 @@
       e.preventDefault();
       $('#btn-delete').attr('href', url);
       $('#deleteModal').modal();
-    }
-
-    $(document).ready(function() {
-      $('.js-example-basic-single').select2({
-        placeholder: 'Cari PJ'
-      });
-    });
-
-    function editLayanan(e, id, nama, pj) {
-      e.preventDefault();
-      $('.js-example-basic-single-edit').select2({
-        placeholder: pj
-      });
-      $("#id_layanan").val(id);
-      $("#nama_layanan").val(nama);
-      $("#pj_layanan").val(pj);
-      $('#editModal').modal();
     }
   </script>
 
@@ -431,12 +418,26 @@
   <script src="<?php echo base_url('assets/pdfmake/build/vfs_fonts.js') ?>"></script>
   <script src="<?php echo base_url('assets/select2/js/select2.min.js') ?>"></script>
 
+
   <!-- Initialize datetimepicker -->
   <script type="text/javascript">
+    function editLayanan(e, id, nama, pj, nama_jemaah) {
+      e.preventDefault();
+      $('.js-example-basic-single-edit').select2({
+        placeholder: nama_jemaah
+      });
+      $('.js-example-basic-single-edit').val(pj);
+      $("#id_layanan").val(id);
+      $("#nama_layanan").val(nama);
+      $("#pj_layanan").val(pj);
+      $('#editModal').modal();
+    }
+    $('.js-example-basic-single').select2({
+      placeholder: 'Cari Donatur'
+    });
     $(".inputan_angka").on('input', function(e) {
       $(this).val($(this).val().replace(/[^0-9]/g, ''));
     });
-      
     $('.myDatepicker2').datetimepicker({
       format: 'DD/MM/YYYY'
     });

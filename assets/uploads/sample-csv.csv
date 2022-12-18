@@ -1,2 +1,7 @@
-"""nama"",""telepon"",""alamat"""
-"""Abdul"",""080808"",""Jl. Seribu"""
+nama;telepon;alamat;tanggal_lahir;jenis_kelamin
+Contoh 1;80808;Jl. Kudanil;12/12/2022;Laki-Laki
+Contoh 2;3213213;fgfeawf;13/12/2022;Perempuan
+Contoh 3;6345618;Jl. Kudanil;14/12/2022;Laki-Laki
+Contoh 4;9478023;fgfeawf;15/12/2022;Perempuan
+Contoh 5;12610428;Jl. Kudanil;16/12/2022;Laki-Laki
+Contoh 6;15742833;fgfeawf;17/12/2022;Perempuan

@@ -107,14 +107,14 @@
                     <div class="top_tiles">
                       <?php
                       (int) $terbayar_total = 0;
-                     // (int) $belumbayar_total = 0;
+                      // (int) $belumbayar_total = 0;
                       (int) $target_total = 0;
 
                       foreach ($arisan_periode->result_array() as $periode_list) {
-                        $kekurangan = (int) $periode_list['biaya'] - (int) $periode_list['terbayar'];
                         $terbayar_total += (int) $periode_list['terbayar'];
                         $target_total += (int) $periode_list['biaya'];
                       }
+
                       $belumbayar_total = (int) $target_total - $terbayar_total;
                       ?>
                       <div class="col-md-4 col-sm-4  tile">
@@ -282,7 +282,15 @@
 
                 </div>
               </div>
+
+
+
+
             </div>
+
+
+
+
 
           </div>
 
@@ -344,12 +352,34 @@
     });
   </script>
 
+
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      $('#nama_siswa').autocomplete({
+        source: "<?php echo site_url('admin/bayar_catering/get_autocomplete'); ?>",
+        select: function(event, ui) {
+          $('[name="nama_siswa"]').val(ui.item.label);
+          $('[name="nis"]').val(ui.item.nomor);
+          $('[name="kelas"]').val(ui.item.kelas);
+          $('[name="biaya_catering"]').val(ui.item.biaya);
+        }
+      });
+
+    });
+  </script>
+
   <script>
     function deleteConfirm(url) {
       $('#btn-delete').attr('href', url);
       $('#deleteModal').modal();
     }
 
+    // function bayarsppConfirm(url){
+    //   $('#btn-bayar').attr('href', url);
+    //   $('#bayarModal').modal();
+    // }
   </script>
 
 
